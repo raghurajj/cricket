@@ -53,4 +53,4 @@ for each ball print ‘bowler’ to ‘batsmen’ and the result of the ball.
 
 ##Class Diagram
 
-![](/Users/raghurajpratapsingh/Downloads/random docs/Cricket_flwchrt.png)
+![](src/classDiagram.png)
