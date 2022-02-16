@@ -176,4 +176,40 @@ public class Team {
         }
     }
 
+    public void printBattingStats()
+    {
+        System.out.println("\nteam "+this.getTeamName()+" : " + this.getTeamScore() +"/"+(this.getNextPlayer()-2) +" in "+(this.getTotalPlayedBalls()/6) +"."+(this.getTotalPlayedBalls()%6) +" overs");
+        System.out.println("\n Batting Stats : ----\n");
+
+        System.out.printf("%-20.20s  %-20.20s  %-20.20s  %-20.20s %-20.20s  %-20.20s%n", "PlayerName","State","Runs","Balls Played","4s","6s");
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        for(int i=0;i<11;i++)
+        {
+            Player player = this.getPlayerByIndex(i);
+            String gotOutTo=player.getPlayerState()== PlayerState.OUT?"got out to "+player.getGotOutTo().getName():"";
+            System.out.printf("%-20.20s  %-20.20s  %-20.20s  %-20.20s %-20.20s %-20.20s  %-20.20s%n",player.getName(),player.getPlayerState(),player.getRunScored(),player.getNumberOfBallPlayed(),player.getFourCount(),player.getSixCount(),gotOutTo);
+        }
+    }
+
+    public void printBowlingStats()
+    {
+        System.out.println("\n\n Bowling Stats : ----\n");
+
+        int maxNumberOfBalls =((int) Math.ceil(((this.totalAvailableBalls/6))/5))*6;
+        System.out.printf("%-20.20s  %-20.20s  %-20.20s  %-20.20s \n", "BowlerName","OversBowled","RunsGIven","WicketsTaken");
+        System.out.println("------------------------------------------------------------------");
+        for(int i=5;i<11;i++)
+        {
+            Player bowler = this.getPlayerByIndex(i);
+            if((bowler.getPlayerType()== PlayerType.BOWLER) || (bowler.getPlayerType()== PlayerType.ALLROUNDER)) {
+                if (bowler.getNumberOfBallsLeftToBowl() != maxNumberOfBalls) {
+                    int totalBallsBowled = maxNumberOfBalls - bowler.getNumberOfBallsLeftToBowl();
+                    System.out.printf( "%-20.20s  %-20.20s  %-20.20s  %-20.20s \n",bowler.getName(),(totalBallsBowled / 6) + "." + (totalBallsBowled % 6),bowler.getRunsGiven(),bowler.getNumberOfWicketsTaken());
+                }
+            }
+        }
+
+        System.out.println("------------------------------------------------------------------");
+    }
+
 }
