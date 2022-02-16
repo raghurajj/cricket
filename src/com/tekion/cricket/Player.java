@@ -1,32 +1,36 @@
 package com.tekion.cricket;
 
+import com.tekion.cricket.enums.PlayerState;
+import com.tekion.cricket.enums.PlayerType;
+
 public class Player {
 
-    enum State{
-        OUT,
-        NOT_OUT,
-        YET_TO_PLAY
-    }
     private String name;
     private int runScored;
-    private State playerState;
+    private PlayerState playerState;
     private int numberOfBallPlayed;
-    private boolean isBatsmen;
-    private boolean isBowler;
-    private boolean isAllRounder;
+    PlayerType playerType;
     private int numberOfWicketsTaken;
     private int numberOfBallsLeftToBowl;
     private int fourCount;
     private int sixCount;
+    private int runsGiven;
     private Player gotOutTo;
 
 
     public Player(String name)
     {
         this.name = name;
-        playerState = State.YET_TO_PLAY;
+        playerState = PlayerState.YET_TO_PLAY;
     }
 
+    public PlayerType getPlayerType() {
+        return playerType;
+    }
+
+    public void setPlayerType(PlayerType playerType) {
+        this.playerType = playerType;
+    }
 
     public Player getGotOutTo() {
         return gotOutTo;
@@ -52,11 +56,11 @@ public class Player {
         this.runScored = this.runScored + runs;
     }
 
-    public State getPlayerState() {
+    public PlayerState getPlayerState() {
         return playerState;
     }
 
-    public void setPlayerState(State playerState) {
+    public void setPlayerState(PlayerState playerState) {
         this.playerState = playerState;
     }
 
@@ -65,32 +69,9 @@ public class Player {
     }
 
     public void incrementNumberOfBallPlayed() {
-        this.numberOfBallPlayed = this.numberOfBallPlayed =1;
+        this.numberOfBallPlayed = this.numberOfBallPlayed +1;
     }
 
-    public boolean getBatsmen() {
-        return isBatsmen;
-    }
-
-    public void setBatsmen(boolean batsmen) {
-        isBatsmen = batsmen;
-    }
-
-    public boolean getBowler() {
-        return isBowler;
-    }
-
-    public void setBowler(boolean bowler) {
-        isBowler = bowler;
-    }
-
-    public boolean getAllRounder() {
-        return isAllRounder;
-    }
-
-    public void setAllRounder(boolean allRounder) {
-        isAllRounder = allRounder;
-    }
 
     public int getNumberOfWicketsTaken() {
         return numberOfWicketsTaken;
@@ -102,6 +83,10 @@ public class Player {
 
     public int getNumberOfBallsLeftToBowl() {
         return numberOfBallsLeftToBowl;
+    }
+
+    public void decrementNumberOfBallsLeftToBowl() {
+        this.numberOfBallsLeftToBowl = this.numberOfBallsLeftToBowl-1;
     }
 
     public void setNumberOfBallsLeftToBowl(int numberOfBallsLeftToBowl) {
@@ -123,4 +108,26 @@ public class Player {
     public void incrementSixCount() {
         this.sixCount = this.sixCount+1;
     }
+
+    public int getRunsGiven() {
+        return runsGiven;
+    }
+
+    public void incrementRunsGiven(int runs) {
+        this.runsGiven = this.runsGiven + runs;
+    }
+
+    public void reset(int numberOfBallsLeftToBowl)
+    {
+        this.playerState= PlayerState.YET_TO_PLAY;
+        this.fourCount=0;
+        this.sixCount=0;
+        this.runScored=0;
+        this.runsGiven=0;
+        this.numberOfWicketsTaken=0;
+        this.gotOutTo=null;
+        this.numberOfBallPlayed=0;
+        this.numberOfBallsLeftToBowl = numberOfBallsLeftToBowl;
+    }
+
 }

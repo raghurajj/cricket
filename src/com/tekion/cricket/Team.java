@@ -1,5 +1,8 @@
 package com.tekion.cricket;
 
+import com.tekion.cricket.enums.PlayerState;
+import com.tekion.cricket.enums.PlayerType;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -8,7 +11,7 @@ public class Team {
     private String teamName;
     private int teamScore;
     private int totalPlayedBalls;
-    private List<Player> players;
+    private final List<Player> players;
     private int strikerPlayer;
     private int nonStrikerPlayer;
     private int currentBowler;
@@ -16,16 +19,16 @@ public class Team {
     private int totalAvailableBalls;
 
 
-    public Team(String teamName, int totalAvailableBalls)
+    public Team(String teamName, int totalAvailableBalls, String[] teamPlayers)
     {
         this.teamName = teamName;
         this.totalAvailableBalls=totalAvailableBalls;
         players = new ArrayList<>();
-        setPlayers(totalAvailableBalls);
+        setPlayers(totalAvailableBalls,teamPlayers);
 
     }
 
-    void setPlayers(int totalAvailableBalls)
+    void setPlayers(int totalAvailableBalls, String[] teamPlayers)
     {
         String playerName;
         Scanner sc= new Scanner(System.in);
@@ -33,19 +36,18 @@ public class Team {
         int oversPerBowler = (int) Math.ceil(overs/5);
         for(int i=0;i<11;i++)
         {
-            System.out.println("Enter Name of Player "+(i+1));
-            playerName = sc.nextLine();
+            playerName = teamPlayers[i];
             Player player = new Player(playerName);
             if(i<5){
-                player.setBatsmen(true);
+                player.setPlayerType(PlayerType.BATSMAN);
             }
             else if(i==5)
             {
-                player.setAllRounder(true);
+                player.setPlayerType(PlayerType.ALLROUNDER);
                 player.setNumberOfBallsLeftToBowl(oversPerBowler*6);
             }
             else{
-                player.setBowler(true);
+                player.setPlayerType(PlayerType.BOWLER);
                 player.setNumberOfBallsLeftToBowl(oversPerBowler*6);
             }
             players.add(player);
@@ -94,7 +96,7 @@ public class Team {
     }
 
     public void setStrikerPlayer(int strikerPlayer) {
-        players.get(strikerPlayer).setPlayerState(Player.State.NOT_OUT);
+        players.get(strikerPlayer).setPlayerState(PlayerState.NOT_OUT);
         this.strikerPlayer = strikerPlayer;
     }
 
@@ -103,7 +105,7 @@ public class Team {
     }
 
     public void setNonStrikerPlayer(int nonStrikerPlayer) {
-        players.get(nonStrikerPlayer).setPlayerState(Player.State.NOT_OUT);
+        players.get(nonStrikerPlayer).setPlayerState(PlayerState.NOT_OUT);
         this.nonStrikerPlayer = nonStrikerPlayer;
     }
 
@@ -133,14 +135,13 @@ public class Team {
 
     public void manageBowlersBalls()
     {
-        int numberOfBallsLeftToBowl = players.get(getCurrentBowler()).getNumberOfBallsLeftToBowl();
-        players.get(getCurrentBowler()).setNumberOfBallsLeftToBowl(numberOfBallsLeftToBowl-1);
+        players.get(getCurrentBowler()).decrementNumberOfBallsLeftToBowl();
     }
 
     public void changeStrike()
     {
         int striker = this.strikerPlayer;
-        this.strikerPlayer = this.nonStrikerPlayer;;
+        this.strikerPlayer = this.nonStrikerPlayer;
         this.nonStrikerPlayer = striker;
     }
 
@@ -154,9 +155,25 @@ public class Team {
 
         this.strikerPlayer = this.nextPlayer;
         if(this.nextPlayer<11){
-            players.get(this.nextPlayer).setPlayerState(Player.State.NOT_OUT);
+            players.get(this.nextPlayer).setPlayerState(PlayerState.NOT_OUT);
         }
         this.nextPlayer = this.nextPlayer+1;
+    }
+
+    void reset()
+    {
+        this.teamScore=0;
+        this.nextPlayer=0;
+        this.strikerPlayer=0;
+        this.nonStrikerPlayer=0;
+        this.currentBowler=0;
+        this.totalPlayedBalls=0;
+        int overs = totalAvailableBalls/6;
+        int oversPerBowler = (int) Math.ceil(overs/5);
+        for(int i=0;i<11;i++)
+        {
+            this.players.get(i).reset(oversPerBowler*6);
+        }
     }
 
 }
