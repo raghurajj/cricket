@@ -18,15 +18,15 @@ public class BallHelper {
     }
 
 
-    public void handleWicket(Team firstTeam, Team secondTeam)
+    public void handleWicket()
     {
-        Player bowler = secondTeam.getPlayerByIndex(secondTeam.getCurrentBowler());
+        Player bowler = this.bowlingTeam.getPlayerByIndex(this.bowlingTeam.getCurrentBowler());
         bowler.incrementNumberOfWicketsTaken();
-        Player batsmen = firstTeam.getPlayerByIndex(firstTeam.getStrikerPlayer());
+        Player batsmen = this.battingTeam.getPlayerByIndex(this.battingTeam.getStrikerPlayer());
         batsmen.setGotOutTo(bowler);
         batsmen.setPlayerState(PlayerState.OUT);
 
-        firstTeam.handleWicket();
+        this.battingTeam.handleWicket();
 
     }
     public static int getRandom(int min, int max)
@@ -166,7 +166,7 @@ public class BallHelper {
                 break;
             case 7:
                 System.out.println(bowler.getName()+" to "+batsmen.getName()+" Out");
-                handleWicket(battingTeam,bowlingTeam);
+                handleWicket();
                 break;
 
         }
