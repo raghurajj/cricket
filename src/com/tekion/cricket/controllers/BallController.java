@@ -1,17 +1,19 @@
-package com.tekion.cricket;
+package com.tekion.cricket.controllers;
 
+import com.tekion.cricket.Player;
+import com.tekion.cricket.Team;
 import com.tekion.cricket.enums.PlayerState;
 import com.tekion.cricket.enums.PlayerType;
 
 import java.util.Random;
 
 
-public class BallHelper {
+public class BallController {
     private final Team battingTeam;
     private final Team bowlingTeam;
 
 
-    public BallHelper(Team battingTeam, Team bowlingTeam)
+    public BallController(Team battingTeam, Team bowlingTeam)
     {
         this.battingTeam = battingTeam;
         this.bowlingTeam = bowlingTeam;

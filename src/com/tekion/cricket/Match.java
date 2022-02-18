@@ -1,5 +1,7 @@
 package com.tekion.cricket;
 
+import com.tekion.cricket.controllers.BallController;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Match {
@@ -90,7 +92,7 @@ public class Match {
         System.out.println("-------------------------");
     }
 
-    public void playOver(int scoreToChase, BallHelper ballHelper, int over)
+    public void playOver(int scoreToChase, BallController ballController, int over)
     {
         for(int ball=1;ball<=6;ball++)
         {
@@ -100,7 +102,7 @@ public class Match {
             this.battingTeam.incrementTotalPlayedBalls();
             this.bowlingTeam.manageBowlersBalls();
             System.out.print(over+"."+ball+"| ");
-            ballHelper.playBall();
+            ballController.playBall();
 
         }
 
@@ -116,14 +118,14 @@ public class Match {
         this.battingTeam.setNonStrikerPlayer(1);
         this.battingTeam.setNextPlayer(2);
         int currentBowler=5;
-        BallHelper ballHelper = new BallHelper(this.battingTeam,this.bowlingTeam);
+        BallController ballController = new BallController(this.battingTeam,this.bowlingTeam);
         for(int over=0;over<overs;over++)
         {
             if(hasLastWicketFallen(this.battingTeam) || scoreToChase < this.battingTeam.getTeamScore())
                 return;
             this.bowlingTeam.setCurrentBowler(currentBowler);
             printCurrentMatchStatus(maxNumberOfBalls,over);
-            playOver(scoreToChase,ballHelper,over);
+            playOver(scoreToChase,ballController,over);
             if(currentBowler==10)currentBowler=4;
             currentBowler++;
         }

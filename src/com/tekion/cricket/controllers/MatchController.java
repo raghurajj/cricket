@@ -1,4 +1,7 @@
-package com.tekion.cricket;
+package com.tekion.cricket.controllers;
+
+import com.tekion.cricket.Match;
+import com.tekion.cricket.Team;
 
 import java.util.Scanner;
 
