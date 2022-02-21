@@ -1,36 +1,29 @@
 package com.tekion.cricket.controllers;
 
+import com.tekion.cricket.Observer;
 import com.tekion.cricket.Player;
+import com.tekion.cricket.Subject;
 import com.tekion.cricket.Team;
-import com.tekion.cricket.enums.PlayerState;
 import com.tekion.cricket.enums.PlayerType;
 
 import java.util.Random;
 
 
-public class BallController {
-    private final Team battingTeam;
-    private final Team bowlingTeam;
+public class BallController implements Subject {
+    private Observer battingTeam; //observer1
+    private Observer bowlingTeam; //observer2
+    private int runs;
 
 
-    public BallController(Team battingTeam, Team bowlingTeam)
-    {
-        this.battingTeam = battingTeam;
-        this.bowlingTeam = bowlingTeam;
+    public int getRuns() {
+        return runs;
+    }
+
+    public void setRuns(int runs) {
+        this.runs = runs;
     }
 
 
-    public void handleWicket()
-    {
-        Player bowler = this.bowlingTeam.getPlayerByIndex(this.bowlingTeam.getCurrentBowler());
-        bowler.incrementNumberOfWicketsTaken();
-        Player batsmen = this.battingTeam.getPlayerByIndex(this.battingTeam.getStrikerPlayer());
-        batsmen.setGotOutTo(bowler);
-        batsmen.setPlayerState(PlayerState.OUT);
-
-        this.battingTeam.handleWicket();
-
-    }
     public static int getRandom(int min, int max)
     {
         return new Random().nextInt(max - min + 1) + min;
@@ -119,60 +112,41 @@ public class BallController {
         else{
             runs = getBallResultForBowler(random);
         }
+        this.setRuns(runs);
         return runs;
     }
 
     public void playBall()
     {
-        Player bowler = bowlingTeam.getPlayerByIndex(bowlingTeam.getCurrentBowler());
-        Player batsmen = battingTeam.getPlayerByIndex(battingTeam.getStrikerPlayer());
-        int result = getBallResult(batsmen);
-        switch(result){
-            case 0:
-                System.out.println(bowler.getName()+" to "+batsmen.getName()+" "+result);
-                battingTeam.incrementTeamScore(0);
-                bowler.incrementRunsGiven(result);
-                break;
-            case 1:
-                System.out.println(bowler.getName()+" to "+batsmen.getName()+" "+result);
-                battingTeam.incrementTeamScore(1);
-                bowler.incrementRunsGiven(result);
-                battingTeam.changeStrike();
-                break;
-            case 2:
-                System.out.println(bowler.getName()+" to "+batsmen.getName()+" "+result);
-                battingTeam.incrementTeamScore(2);
-                bowler.incrementRunsGiven(result);
-                break;
-            case 3:
-                System.out.println(bowler.getName()+" to "+batsmen.getName()+" "+result);
-                battingTeam.incrementTeamScore(3);
-                bowler.incrementRunsGiven(result);
-                battingTeam.changeStrike();
-                break;
-            case 4:
-                System.out.println(bowler.getName()+" to "+batsmen.getName()+" "+result);
-                battingTeam.incrementTeamScore(4);
-                bowler.incrementRunsGiven(result);
-                break;
-            case 5:
-                System.out.println(bowler.getName()+" to "+batsmen.getName()+" "+result);
-                battingTeam.incrementTeamScore(5);
-                bowler.incrementRunsGiven(result);
-                battingTeam.changeStrike();
-                break;
-            case 6:
-                System.out.println(bowler.getName()+" to "+batsmen.getName()+" "+result);
-                battingTeam.incrementTeamScore(6);
-                bowler.incrementRunsGiven(result);
-                break;
-            case 7:
-                System.out.println(bowler.getName()+" to "+batsmen.getName()+" Out");
-                handleWicket();
-                break;
+        Player bowler = ((Team)bowlingTeam).getPlayerByIndex(((Team)bowlingTeam).getCurrentBowler());
+        Player batsmen = ((Team)battingTeam).getPlayerByIndex(((Team)battingTeam).getStrikerPlayer());
+        int result = this.getBallResult(batsmen);
+        System.out.println(bowler.getName()+" to "+batsmen.getName()+" "+(result==7?"Out":result));
+        this.notifyObservers();
+    }
 
+    @Override
+    public void registerObserver(Observer observer, boolean isBattingTeam) {
+        if(isBattingTeam)
+        {
+            this.battingTeam = observer;
         }
+        else{
+            this.bowlingTeam = observer;
+        }
+    }
+
+    @Override
+    public void removeObserver(Observer observer,boolean isBattingTeam) {
+        if(isBattingTeam)this.battingTeam=null;
+        else this.bowlingTeam=null;
 
     }
 
+    @Override
+    public void notifyObservers() {
+        this.battingTeam.update(this.getRuns(),true,(Team)this.bowlingTeam);
+        this.bowlingTeam.update(this.getRuns(),false,(Team)this.battingTeam);
+
+    }
 }

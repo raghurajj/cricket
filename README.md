@@ -51,6 +51,6 @@ for each ball print ‘bowler’ to ‘batsmen’ and the result of the ball.
 * change strike after each over.
 
 
-##Class Diagram
+## Class Diagram
 
 ![](src/classDiagram.png)

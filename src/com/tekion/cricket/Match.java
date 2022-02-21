@@ -11,14 +11,16 @@ public class Match {
     private  int totalAvailableBalls;
     private String tossWinner;
     private String battingFirst;
+    private Subject ballController; //subject
 
     public Match()
     {
-
+        this.ballController = new BallController();
     }
 
     public Match(Team firstTeam, Team secondTeam, int totalAvailableBalls)
     {
+        this.ballController = new BallController();
         this.battingTeam=firstTeam;
         this.bowlingTeam=secondTeam;
         this.totalAvailableBalls=totalAvailableBalls;
@@ -29,15 +31,15 @@ public class Match {
         return winner;
     }
 
+    public void setWinner(String winner) {
+        this.winner = winner;
+    }
+
     public void switchTeams()
     {
         Team temp = this.battingTeam;
         this.battingTeam = this.bowlingTeam;
         this.bowlingTeam = temp;
-    }
-
-    public void setWinner(String winner) {
-        this.winner = winner;
     }
 
     public void reset()
@@ -79,24 +81,39 @@ public class Match {
         return team.getNextPlayer() == 12;
     }
 
-    public void printCurrentMatchStatus(int maxNumberOfBalls,int over)
+    int getMaxNumberOfBalls()
+    {
+        return ((int) Math.ceil(((this.totalAvailableBalls/6))/5))*6;
+    }
+
+    public void printCurrentMatchStatus(int over)
     {
         System.out.println("Overs: "+(over) +" || "+this.battingTeam.getTeamName()+ "  Score: "+this.battingTeam.getTeamScore()+"/"+(this.battingTeam.getNextPlayer()-2));
+
         Player striker = this.battingTeam.getPlayerByIndex(this.battingTeam.getStrikerPlayer());
         Player nonStriker = this.battingTeam.getPlayerByIndex(this.battingTeam.getNonStrikerPlayer());
         Player bowler = this.bowlingTeam.getPlayerByIndex(this.bowlingTeam.getCurrentBowler());
+
         System.out.println("*"+striker.getName()+" "+striker.getRunScored()+"("+striker.getNumberOfBallPlayed()+")");
         System.out.println(nonStriker.getName()+" "+ nonStriker.getRunScored()+"("+nonStriker.getNumberOfBallPlayed()+")");
-        int totalBallsBowled = maxNumberOfBalls - bowler.getNumberOfBallsLeftToBowl();
+
+        int totalBallsBowled = getMaxNumberOfBalls() - bowler.getNumberOfBallsLeftToBowl();
+
         System.out.println(bowler.getName()+" : "+(totalBallsBowled / 6) + "." + (totalBallsBowled % 6)+" - "+bowler.getRunsGiven()+" - "+bowler.getNumberOfWicketsTaken());
         System.out.println("-------------------------");
+    }
+
+
+    boolean hasInningEnded(int scoreToChase)
+    {
+        return (hasLastWicketFallen(this.battingTeam) || scoreToChase < this.battingTeam.getTeamScore());
     }
 
     public void playOver(int scoreToChase, BallController ballController, int over)
     {
         for(int ball=1;ball<=6;ball++)
         {
-            if(hasLastWicketFallen(this.battingTeam) || scoreToChase < this.battingTeam.getTeamScore())
+            if(hasInningEnded(scoreToChase))
                 return;
 
             this.battingTeam.incrementTotalPlayedBalls();
@@ -113,22 +130,22 @@ public class Match {
     public void simulateInning(int scoreToChase)
     {
         int overs = totalAvailableBalls/6;
-        int maxNumberOfBalls =((int) Math.ceil(((this.totalAvailableBalls/6))/5))*6;
-        this.battingTeam.setStrikerPlayer(0);
-        this.battingTeam.setNonStrikerPlayer(1);
-        this.battingTeam.setNextPlayer(2);
+        this.battingTeam.getReadyToPlay();
         int currentBowler=5;
-        BallController ballController = new BallController(this.battingTeam,this.bowlingTeam);
+        ballController.registerObserver(this.battingTeam,true);
+        ballController.registerObserver(this.bowlingTeam,false);
         for(int over=0;over<overs;over++)
         {
-            if(hasLastWicketFallen(this.battingTeam) || scoreToChase < this.battingTeam.getTeamScore())
+            if(hasInningEnded(scoreToChase))
                 return;
             this.bowlingTeam.setCurrentBowler(currentBowler);
-            printCurrentMatchStatus(maxNumberOfBalls,over);
-            playOver(scoreToChase,ballController,over);
+            printCurrentMatchStatus(over);
+            playOver(scoreToChase,(BallController) ballController,over);
             if(currentBowler==10)currentBowler=4;
             currentBowler++;
         }
+        ballController.removeObserver(this.battingTeam,true);
+        ballController.removeObserver(this.bowlingTeam,false);
     }
 
     public void declareWinner()
@@ -150,7 +167,7 @@ public class Match {
         }
 
         System.out.println("\n----------------------------------------------------");
-        if(this.getWinner() == "DRAW" || this.getWinner() == "TIE")
+        if(this.getWinner().equals("DRAW") || this.getWinner().equals("TIE"))
             System.out.println(" ||    match result: "+winner+"     ||");
         else
             System.out.println("||   team "+ this.getWinner() +" won the Match      ||");
@@ -162,7 +179,7 @@ public class Match {
         this.setTossWinner(tossWinner==1?this.battingTeam.getTeamName():this.bowlingTeam.getTeamName());
         int battingFirst = tossDecision(tossWinner);
         this.setBattingFirst(battingFirst==1?this.battingTeam.getTeamName():this.bowlingTeam.getTeamName());
-        if(this.getBattingFirst()== this.bowlingTeam.getTeamName())this.switchTeams();
+        if(this.getBattingFirst().equals(this.bowlingTeam.getTeamName()))this.switchTeams();
         printTossResult();
 
         int firstInningScore;
@@ -192,7 +209,7 @@ public class Match {
 
     public void printTossResult()
     {
-        if(this.getBattingFirst() == this.getTossWinner())
+        if(this.getBattingFirst().equals(this.getTossWinner()))
         {
             System.out.println(this.getTossWinner()+" won the toss and decided to bat first");
         }

@@ -5,9 +5,8 @@ import com.tekion.cricket.enums.PlayerType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class Team {
+public class Team implements Observer{
     private String teamName;
     private int teamScore;
     private int totalPlayedBalls;
@@ -31,7 +30,6 @@ public class Team {
     void setPlayers(int totalAvailableBalls, String[] teamPlayers)
     {
         String playerName;
-        Scanner sc= new Scanner(System.in);
         int overs = totalAvailableBalls/6;
         int oversPerBowler = (int) Math.ceil(overs/5);
         for(int i=0;i<11;i++)
@@ -52,6 +50,13 @@ public class Team {
             }
             players.add(player);
         }
+    }
+
+    void getReadyToPlay()
+    {
+        this.setStrikerPlayer(0);
+        this.setNonStrikerPlayer(1);
+        this.setNextPlayer(2);
     }
 
     void printPlayers()
@@ -150,9 +155,10 @@ public class Team {
         return players.get(index);
     }
 
-    public void handleWicket()
+    public void handleWicket(Team opposition)
     {
-
+        this.getPlayerByIndex(this.getStrikerPlayer()).setPlayerState(PlayerState.OUT);
+        this.getPlayerByIndex(this.getStrikerPlayer()).setGotOutTo(opposition.getPlayerByIndex(opposition.getCurrentBowler()));
         this.strikerPlayer = this.nextPlayer;
         if(this.nextPlayer<11){
             players.get(this.nextPlayer).setPlayerState(PlayerState.NOT_OUT);
@@ -212,4 +218,31 @@ public class Team {
         System.out.println("------------------------------------------------------------------");
     }
 
+    @Override
+    public void update(int runs, boolean isBattingTeam, Team opposition) {
+        if(isBattingTeam)
+        {
+            if(runs==7)
+            {
+                this.handleWicket(opposition);
+            }
+            else{
+                this.incrementTeamScore(runs);
+                if(runs==1 || runs==3 || runs==5)
+                {
+                    this.changeStrike();
+                }
+            }
+
+        }
+        else{
+            if(runs==7)
+            {
+                this.getPlayerByIndex(this.getCurrentBowler()).incrementNumberOfWicketsTaken();
+            }
+            else{
+                this.getPlayerByIndex(this.getCurrentBowler()).incrementRunsGiven(runs);
+            }
+        }
+    }
 }
