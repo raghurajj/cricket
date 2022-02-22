@@ -1,35 +1,17 @@
-package com.tekion.cricket.controllers;
+package com.tekion.cricket.helpers;
 
-import com.tekion.cricket.Observer;
-import com.tekion.cricket.Player;
-import com.tekion.cricket.Subject;
-import com.tekion.cricket.Team;
+import com.tekion.cricket.models.Player;
 import com.tekion.cricket.enums.PlayerType;
 
 import java.util.Random;
 
-
-public class BallController implements Subject {
-    private Observer battingTeam; //observer1
-    private Observer bowlingTeam; //observer2
-    private int runs;
-
-
-    public int getRuns() {
-        return runs;
-    }
-
-    public void setRuns(int runs) {
-        this.runs = runs;
-    }
-
-
+public class BallServiceHelper {
     public static int getRandom(int min, int max)
     {
         return new Random().nextInt(max - min + 1) + min;
     }
 
-    public int getBallResultForBatsman(int random)
+    public static int getBallResultForBatsman(int random)
     {
         if(random>=1 && random <=20)
         {
@@ -66,7 +48,7 @@ public class BallController implements Subject {
 
 
     //    bowler 0-35%, 1-25, 2-17, 3-5, 4-5%, 5-1%, 6-2%, 7-10%
-    public int getBallResultForBowler(int random)
+    public static int getBallResultForBowler(int random)
     {
         if(random>=1 && random <=35)
         {
@@ -101,7 +83,7 @@ public class BallController implements Subject {
         }
     }
 
-    public int getBallResult(Player batsmen)
+    public static int getBallResult(Player batsmen)
     {
         int runs;
         int random = getRandom(1,100);
@@ -112,41 +94,6 @@ public class BallController implements Subject {
         else{
             runs = getBallResultForBowler(random);
         }
-        this.setRuns(runs);
         return runs;
-    }
-
-    public void playBall()
-    {
-        Player bowler = ((Team)bowlingTeam).getPlayerByIndex(((Team)bowlingTeam).getCurrentBowler());
-        Player batsmen = ((Team)battingTeam).getPlayerByIndex(((Team)battingTeam).getStrikerPlayer());
-        int result = this.getBallResult(batsmen);
-        System.out.println(bowler.getName()+" to "+batsmen.getName()+" "+(result==7?"Out":result));
-        this.notifyObservers();
-    }
-
-    @Override
-    public void registerObserver(Observer observer, boolean isBattingTeam) {
-        if(isBattingTeam)
-        {
-            this.battingTeam = observer;
-        }
-        else{
-            this.bowlingTeam = observer;
-        }
-    }
-
-    @Override
-    public void removeObserver(Observer observer,boolean isBattingTeam) {
-        if(isBattingTeam)this.battingTeam=null;
-        else this.bowlingTeam=null;
-
-    }
-
-    @Override
-    public void notifyObservers() {
-        this.battingTeam.update(this.getRuns(),true,(Team)this.bowlingTeam);
-        this.bowlingTeam.update(this.getRuns(),false,(Team)this.battingTeam);
-
     }
 }

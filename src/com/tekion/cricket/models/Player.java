@@ -1,4 +1,4 @@
-package com.tekion.cricket;
+package com.tekion.cricket.models;
 
 import com.tekion.cricket.enums.PlayerState;
 import com.tekion.cricket.enums.PlayerType;
