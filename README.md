@@ -54,3 +54,7 @@ for each ball print ‘bowler’ to ‘batsmen’ and the result of the ball.
 ## Class Diagram
 
 ![](src/classDiagram.png)
+
+## Database Design Diagram
+
+![](src/database_design_diagram.png)
