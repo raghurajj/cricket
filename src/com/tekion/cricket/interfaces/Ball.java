@@ -1,8 +1,6 @@
 package com.tekion.cricket.interfaces;
 
-import com.tekion.cricket.interfaces.Observer;
-
-public interface Subject {
+public interface Ball {
     void registerObserver(Observer observer);
     void removeObserver(Observer observer);
     void notifyObservers();

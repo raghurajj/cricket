@@ -2,14 +2,14 @@ package com.tekion.cricket.services;
 
 import com.tekion.cricket.interfaces.Observer;
 import com.tekion.cricket.models.Player;
-import com.tekion.cricket.interfaces.Subject;
+import com.tekion.cricket.interfaces.Ball;
 import com.tekion.cricket.models.Team;
 import com.tekion.cricket.helpers.BallServiceHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BallService implements Subject {
+public class BallService implements Ball {
     private Team battingTeam;
     private Team bowlingTeam;
     private List<Observer> observers;

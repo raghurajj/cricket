@@ -12,7 +12,7 @@ public class StringUtils {
     public static String SCORECARD = "---------------------------SCORECARD------------------------------";
     public static String MATCH_TYPE = "Press 1 to start a Match , Press 2 to start a series";
     public static String MAIN_SWITCH_DEFAULT_MESSAGE = "Please enter either 1 or 2 !!";
-    public static String NUMBER_OF_MATCHES = "Enter Number of Overs in the Match";
+    public static String NUMBER_OF_OVERS = "Enter Number of Overs in the Match";
     public static String DRAW = "DRAW";
     public static String TIE = "TIE";
     public static String SEVEN_STRING_INPUT = "%-20.20s  %-20.20s  %-20.20s  %-20.20s %-20.20s  %-20.20s %-20.20s%n";
@@ -27,6 +27,7 @@ public class StringUtils {
     public static String RUNSCORED="Runs";
     public static String FOUR_COUNT="4s";
     public static String SIX_COUNT="6s";
+    public static String GOT_OUT_TO = "gotOutTo";
     public static String BALLS_PLAYED="Balls";
     public static String BATTING_STATS = "\n Batting Stats : ----\n";
     public static String BOWLING_STATS = "\n Bowling Stats : ----\n";

@@ -1,11 +1,15 @@
 package com.tekion.cricket.helpers;
 
 import com.tekion.cricket.constants.StringUtils;
+import com.tekion.cricket.dbconnector.MySqlConnector;
 import com.tekion.cricket.models.Match;
 import com.tekion.cricket.models.Player;
-import com.tekion.cricket.interfaces.Subject;
+import com.tekion.cricket.interfaces.Ball;
 import com.tekion.cricket.models.Team;
 import com.tekion.cricket.services.BallService;
+
+import java.sql.SQLException;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MatchHelper {
 
@@ -59,9 +63,9 @@ public class MatchHelper {
         battingTeam.changeStrike();
     }
 
-    public static void simulateInning(Team battingTeam, Team bowlingTeam, Subject ballService, int totalAvailableBalls, int scoreToChase)
+    public static void simulateInning(Team battingTeam, Team bowlingTeam, int totalAvailableBalls, int scoreToChase)
     {
-        ballService = new BallService(battingTeam,bowlingTeam);
+        Ball ballService = new BallService(battingTeam, bowlingTeam);
         int overs = totalAvailableBalls/6;
         battingTeam.getReadyToPlay();
         int currentBowler=5;
@@ -106,7 +110,7 @@ public class MatchHelper {
             System.out.println("||   team "+ match.getWinner() +" won the Match      ||");
     }
 
-    public static  void printScoreCard(Team battingTeam, Team bowlingTeam)
+    public static  void printScoreCard(Team battingTeam, Team bowlingTeam, Match match)
     {
         System.out.println("\n"+ StringUtils.SCORECARD+"\n");
 
@@ -118,6 +122,69 @@ public class MatchHelper {
         battingTeam.printBattingStats();
         bowlingTeam.printBowlingStats();
 
+    }
+    public static int simulateToss()
+    {
+        int random = ThreadLocalRandom.current().nextInt(0,100);
+        return (random%2==0?1:2);
+    }
+
+    public static int tossDecision(int tossWinner)
+    {
+        int random = ThreadLocalRandom.current().nextInt(0,100);
+        return (tossWinner&random )%2==0?1:2;
+    }
+
+    public static void startMatch(Match match)
+    {
+        int tossWinner = simulateToss();
+        match.setTossWinner(tossWinner==1?match.getBattingTeam().getTeamName():match.getBowlingTeam().getTeamName());
+        int battingFirst = tossDecision(tossWinner);
+        match.setBattingFirst(battingFirst==1?match.getBattingTeam().getTeamName():match.getBowlingTeam().getTeamName());
+        if(match.getBattingFirst().equals(match.getBowlingTeam().getTeamName()))match.switchTeams();
+        match.printTossResult();
+
+        int firstInningScore;
+        System.out.println(StringUtils.DOT_LINE);
+        match.getBattingTeam().setBatting(true);
+
+        MatchHelper.simulateInning(match.getBattingTeam(),match.getBowlingTeam(), match.getTotalAvailableBalls(),Integer.MAX_VALUE);
+        match.getBattingTeam().setBatting(false);
+        firstInningScore = match.getBattingTeam().getTeamScore();
+
+        System.out.println("\n\n"+StringUtils.DOT_LINE);
+        System.out.println(match.getBowlingTeam().getTeamName()+" need "+(firstInningScore+1) +" runs to win ");
+        System.out.println("\n\n"+StringUtils.DOT_LINE);
+
+        match.switchTeams();
+        match.getBattingTeam().setBatting(true);
+        MatchHelper.simulateInning(match.getBattingTeam(),match.getBowlingTeam(), match.getTotalAvailableBalls(),firstInningScore);
+        match.getBattingTeam().setBatting(false);
+        MatchHelper.declareWinner(match,match.getBattingTeam(),match.getBowlingTeam());
+
+    }
+
+    public static void insertMatchIntoDb(Match match)
+    {
+        try {
+            MySqlConnector.insertMatch(match);
+            match.insertScorecardIntoDb();
+            TeamHelper.insertTeamMatchData(match,match.getBattingTeam());
+            TeamHelper.insertTeamMatchData(match,match.getBowlingTeam());
+            System.out.println("Match inserted into db!!");
+        } catch(SQLException sqle){
+            System.out.println(sqle);
+        } catch(Exception e){
+            System.out.println("DB Error");
+        }
+    }
+
+    public static void insertScorecardIntoDb(Match match, Team battingTeam, Team bowlingTeam)
+    {
+        battingTeam.insertIntoBattingScorecard(match);
+        battingTeam.insertIntoBowlingScorecard(match);
+        bowlingTeam.insertIntoBattingScorecard(match);
+        bowlingTeam.insertIntoBowlingScorecard(match);
     }
 
 }

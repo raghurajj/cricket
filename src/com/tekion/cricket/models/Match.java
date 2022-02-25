@@ -1,20 +1,15 @@
 package com.tekion.cricket.models;
-
-import com.tekion.cricket.constants.StringUtils;
-import com.tekion.cricket.interfaces.Subject;
-import com.tekion.cricket.services.BallService;
 import com.tekion.cricket.helpers.MatchHelper;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 public class Match {
+    int id;
     private Team battingTeam;
     private  Team bowlingTeam;
     private String winner;
     private  int totalAvailableBalls;
     private String tossWinner;
     private String battingFirst;
-    private Subject ballService; //subject
+    int seriesId;
 
 
     public Match(Team firstTeam, Team secondTeam, int totalAvailableBalls)
@@ -23,6 +18,23 @@ public class Match {
         this.bowlingTeam=secondTeam;
         this.totalAvailableBalls=totalAvailableBalls;
         this.setWinner("STARTED");
+        this.seriesId=-1;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getSeriesId() {
+        return seriesId;
+    }
+
+    public void setSeriesId(int seriesId) {
+        this.seriesId = seriesId;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getWinner() {
@@ -38,6 +50,31 @@ public class Match {
         Team temp = this.battingTeam;
         this.battingTeam = this.bowlingTeam;
         this.bowlingTeam = temp;
+    }
+
+    public Team getBattingTeam() {
+        return battingTeam;
+    }
+
+
+    public void setBattingTeam(Team battingTeam) {
+        this.battingTeam = battingTeam;
+    }
+
+    public Team getBowlingTeam() {
+        return bowlingTeam;
+    }
+
+    public void setBowlingTeam(Team bowlingTeam) {
+        this.bowlingTeam = bowlingTeam;
+    }
+
+    public int getTotalAvailableBalls() {
+        return totalAvailableBalls;
+    }
+
+    public void setTotalAvailableBalls(int totalAvailableBalls) {
+        this.totalAvailableBalls = totalAvailableBalls;
     }
 
     public void reset()
@@ -62,44 +99,9 @@ public class Match {
         this.battingFirst = battingFirst;
     }
 
-    public int simulateToss()
-    {
-        int random = ThreadLocalRandom.current().nextInt(0,100);
-        return (random%2==0?1:2);
-    }
-
-    public int tossDecision(int tossWinner)
-    {
-        int random = ThreadLocalRandom.current().nextInt(0,100);
-        return (tossWinner&random )%2==0?1:2;
-    }
-
     public void startMatch()
     {
-        int tossWinner = simulateToss();
-        setTossWinner(tossWinner==1?battingTeam.getTeamName():bowlingTeam.getTeamName());
-        int battingFirst = tossDecision(tossWinner);
-        setBattingFirst(battingFirst==1?battingTeam.getTeamName():bowlingTeam.getTeamName());
-        if(getBattingFirst().equals(bowlingTeam.getTeamName()))switchTeams();
-        printTossResult();
-
-        int firstInningScore;
-        System.out.println(StringUtils.DOT_LINE);
-        battingTeam.setBatting(true);
-
-        MatchHelper.simulateInning(battingTeam,bowlingTeam,ballService,totalAvailableBalls,Integer.MAX_VALUE);
-        battingTeam.setBatting(false);
-        firstInningScore = battingTeam.getTeamScore();
-
-        System.out.println("\n\n"+StringUtils.DOT_LINE);
-        System.out.println(bowlingTeam.getTeamName()+" need "+(firstInningScore+1) +" runs to win ");
-        System.out.println("\n\n"+StringUtils.DOT_LINE);
-
-        switchTeams();
-        battingTeam.setBatting(true);
-        MatchHelper.simulateInning(battingTeam,bowlingTeam,ballService,totalAvailableBalls,firstInningScore);
-        battingTeam.setBatting(false);
-        MatchHelper.declareWinner(this,battingTeam,bowlingTeam);
+        MatchHelper.startMatch(this);
     }
 
     public void printTossResult()
@@ -116,6 +118,11 @@ public class Match {
     public void printScoreCard()
     {
         printTossResult();
-        MatchHelper.printScoreCard(battingTeam,bowlingTeam);
+        MatchHelper.printScoreCard(battingTeam,bowlingTeam,this);
+    }
+
+    public void insertScorecardIntoDb()
+    {
+        MatchHelper.insertScorecardIntoDb(this,bowlingTeam,battingTeam);
     }
 }

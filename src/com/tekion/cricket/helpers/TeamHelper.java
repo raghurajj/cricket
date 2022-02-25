@@ -1,10 +1,14 @@
 package com.tekion.cricket.helpers;
 
 import com.tekion.cricket.constants.StringUtils;
+import com.tekion.cricket.dbconnector.MySqlConnector;
+import com.tekion.cricket.models.Match;
 import com.tekion.cricket.models.Player;
 import com.tekion.cricket.models.Team;
 import com.tekion.cricket.enums.PlayerState;
 import com.tekion.cricket.enums.PlayerType;
+
+import java.sql.SQLException;
 
 public class TeamHelper {
     public static void printBattingStats(Team team)
@@ -94,4 +98,67 @@ public class TeamHelper {
             team.addPlayer(player);
         }
     }
+
+    public static void insertIntoBattingScorecard(Match match, Team team)
+    {
+        int teamId = team.getId();
+        int matchId = match.getId();
+        for(int i=0;i<11;i++)
+        {
+            Player player = team.getPlayerByIndex(i);
+            String gotOutTo=player.getPlayerState()== PlayerState.OUT?"got out to "+player.getGotOutTo().getName():"";
+            try {
+                MySqlConnector.insertIntoBattingScorecard(matchId,teamId,player.getId(),player.getName(),player.getPlayerState().toString(),player.getRunScored(),player.getNumberOfBallPlayed(),player.getFourCount(),player.getSixCount(),gotOutTo);
+//                System.out.println("batting scorecard row inserted into db!!");
+            } catch(SQLException sqle){
+                System.out.println(sqle);
+            } catch(Exception e){
+                System.out.println("DB Error");
+            }
+
+        }
+    }
+
+    public static void insertIntoBowlingScorecard(Match match, Team team)
+    {
+        int teamId = team.getId();
+        int matchId = match.getId();
+        int maxNumberOfBalls =((int) Math.ceil(((team.getTotalAvailableBalls()/6))/5))*6;
+        for(int i=5;i<11;i++)
+        {
+            Player bowler = team.getPlayerByIndex(i);
+            if((bowler.getPlayerType()== PlayerType.BOWLER) || (bowler.getPlayerType()== PlayerType.ALLROUNDER)) {
+                if (bowler.getNumberOfBallsLeftToBowl() != maxNumberOfBalls) {
+                    int totalBallsBowled = maxNumberOfBalls - bowler.getNumberOfBallsLeftToBowl();
+                    float overs = (float) (totalBallsBowled / 6) + (float) (totalBallsBowled % 6)/10;
+
+                    try {
+                        MySqlConnector.insertIntoBowlingScorecard(matchId,teamId,bowler.getId(),bowler.getName(),overs,bowler.getRunsGiven(),bowler.getNumberOfWicketsTaken());
+//                        System.out.println("bowling scorecard row inserted into db!!");
+                    } catch(SQLException sqle){
+                        System.out.println(sqle);
+                    } catch(Exception e){
+                        System.out.println("DB Error");
+                    }
+
+
+                }
+            }
+        }
+
+    }
+
+    public static void insertTeamMatchData(Match match, Team team)
+    {
+        try {
+            MySqlConnector.insertIntoTeamMatchData(match.getId(),team.getId(),team.getTeamScore(),team.getTotalPlayedBalls(), team.getNextPlayer()-2);
+//            System.out.println("bowling scorecard row inserted into db!!");
+        } catch(SQLException sqle){
+            System.out.println(sqle);
+        } catch(Exception e){
+            System.out.println("DB Error");
+        }
+    }
+
+
 }

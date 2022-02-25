@@ -1,10 +1,9 @@
 package com.tekion.cricket.models;
-
 import com.tekion.cricket.enums.PlayerState;
 import com.tekion.cricket.enums.PlayerType;
 
 public class Player {
-
+    int id;
     private String name;
     private int runScored;
     private PlayerState playerState;
@@ -22,6 +21,14 @@ public class Player {
     {
         this.name = name;
         playerState = PlayerState.YET_TO_PLAY;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public PlayerType getPlayerType() {

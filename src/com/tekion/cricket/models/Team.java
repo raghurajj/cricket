@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Team implements Observer {
+    int id;
     private String teamName;
     private int teamScore;
     private int totalPlayedBalls;
-    private final List<Player> players;
+    private List<Player> players;
     private int strikerPlayer;
     private int nonStrikerPlayer;
     private int currentBowler;
@@ -27,6 +28,14 @@ public class Team implements Observer {
         players = new ArrayList<>();
         setPlayers(totalAvailableBalls,teamPlayers);
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setPlayers(int totalAvailableBalls, String[] teamPlayers)
@@ -52,6 +61,11 @@ public class Team implements Observer {
         this.setStrikerPlayer(0);
         this.setNonStrikerPlayer(1);
         this.setNextPlayer(2);
+    }
+
+    public void setPlayers(List<Player>players)
+    {
+        this.players = players;
     }
 
     public void setTeamScore(int teamScore) {
@@ -166,6 +180,21 @@ public class Team implements Observer {
         TeamHelper.printBowlingStats(this);
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void insertIntoBattingScorecard(Match match)
+    {
+        TeamHelper.insertIntoBattingScorecard(match,this);
+    }
+
+    public void insertIntoBowlingScorecard(Match match)
+    {
+        TeamHelper.insertIntoBowlingScorecard(match,this);
+    }
+
+
     @Override
     public void update(int runs, Team opposition) {
         if(isBatting)
@@ -193,4 +222,5 @@ public class Team implements Observer {
             }
         }
     }
+
 }
