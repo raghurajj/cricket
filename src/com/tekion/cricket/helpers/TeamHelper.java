@@ -99,16 +99,20 @@ public class TeamHelper {
         }
     }
 
-    public static void insertIntoBattingScorecard(Match match, Team team)
+    public static void insertIntoScorecard(Match match, Team team)
     {
         int teamId = team.getId();
         int matchId = match.getId();
+        int maxNumberOfBalls =((int) Math.ceil(((team.getTotalAvailableBalls()/6))/5))*6;
         for(int i=0;i<11;i++)
         {
             Player player = team.getPlayerByIndex(i);
-            String gotOutTo=player.getPlayerState()== PlayerState.OUT?"got out to "+player.getGotOutTo().getName():"";
+            int gotOutTo=player.getPlayerState()== PlayerState.OUT?player.getGotOutTo().getId():-1;
+            int totalBallsBowled = maxNumberOfBalls - player.getNumberOfBallsLeftToBowl();
+            float overs = (float) (totalBallsBowled / 6) + (float) (totalBallsBowled % 6)/10;
+            if(i<5)overs=0;
             try {
-                MySqlConnector.insertIntoBattingScorecard(matchId,teamId,player.getId(),player.getName(),player.getPlayerState().toString(),player.getRunScored(),player.getNumberOfBallPlayed(),player.getFourCount(),player.getSixCount(),gotOutTo);
+                MySqlConnector.insertIntoScorecard(matchId,teamId,player.getId(),player.getPlayerState().toString(),player.getRunScored(),player.getNumberOfBallPlayed(),player.getFourCount(),player.getSixCount(),gotOutTo,overs,player.getRunsGiven(),player.getNumberOfWicketsTaken());
 //                System.out.println("batting scorecard row inserted into db!!");
             } catch(SQLException sqle){
                 System.out.println(sqle);
@@ -119,39 +123,11 @@ public class TeamHelper {
         }
     }
 
-    public static void insertIntoBowlingScorecard(Match match, Team team)
-    {
-        int teamId = team.getId();
-        int matchId = match.getId();
-        int maxNumberOfBalls =((int) Math.ceil(((team.getTotalAvailableBalls()/6))/5))*6;
-        for(int i=5;i<11;i++)
-        {
-            Player bowler = team.getPlayerByIndex(i);
-            if((bowler.getPlayerType()== PlayerType.BOWLER) || (bowler.getPlayerType()== PlayerType.ALLROUNDER)) {
-                if (bowler.getNumberOfBallsLeftToBowl() != maxNumberOfBalls) {
-                    int totalBallsBowled = maxNumberOfBalls - bowler.getNumberOfBallsLeftToBowl();
-                    float overs = (float) (totalBallsBowled / 6) + (float) (totalBallsBowled % 6)/10;
-
-                    try {
-                        MySqlConnector.insertIntoBowlingScorecard(matchId,teamId,bowler.getId(),bowler.getName(),overs,bowler.getRunsGiven(),bowler.getNumberOfWicketsTaken());
-//                        System.out.println("bowling scorecard row inserted into db!!");
-                    } catch(SQLException sqle){
-                        System.out.println(sqle);
-                    } catch(Exception e){
-                        System.out.println("DB Error");
-                    }
-
-
-                }
-            }
-        }
-
-    }
 
     public static void insertTeamMatchData(Match match, Team team)
     {
         try {
-            MySqlConnector.insertIntoTeamMatchData(match.getId(),team.getId(),team.getTeamScore(),team.getTotalPlayedBalls(), team.getNextPlayer()-2);
+            MySqlConnector.insertIntoMatchData(match.getId(),team.getId(),team.getTeamScore(),team.getTotalPlayedBalls(), team.getNextPlayer()-2);
 //            System.out.println("bowling scorecard row inserted into db!!");
         } catch(SQLException sqle){
             System.out.println(sqle);

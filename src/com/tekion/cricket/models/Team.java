@@ -184,15 +184,11 @@ public class Team implements Observer {
         return players;
     }
 
-    public void insertIntoBattingScorecard(Match match)
+    public void insertIntoScorecard(Match match)
     {
-        TeamHelper.insertIntoBattingScorecard(match,this);
+        TeamHelper.insertIntoScorecard(match,this);
     }
 
-    public void insertIntoBowlingScorecard(Match match)
-    {
-        TeamHelper.insertIntoBowlingScorecard(match,this);
-    }
 
 
     @Override

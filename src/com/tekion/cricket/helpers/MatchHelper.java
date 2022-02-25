@@ -181,10 +181,8 @@ public class MatchHelper {
 
     public static void insertScorecardIntoDb(Match match, Team battingTeam, Team bowlingTeam)
     {
-        battingTeam.insertIntoBattingScorecard(match);
-        battingTeam.insertIntoBowlingScorecard(match);
-        bowlingTeam.insertIntoBattingScorecard(match);
-        bowlingTeam.insertIntoBowlingScorecard(match);
+        battingTeam.insertIntoScorecard(match);
+        bowlingTeam.insertIntoScorecard(match);
     }
 
 }
