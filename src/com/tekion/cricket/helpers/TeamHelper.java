@@ -110,10 +110,9 @@ public class TeamHelper {
             int gotOutTo=player.getPlayerState()== PlayerState.OUT?player.getGotOutTo().getId():-1;
             int totalBallsBowled = maxNumberOfBalls - player.getNumberOfBallsLeftToBowl();
             float overs = (float) (totalBallsBowled / 6) + (float) (totalBallsBowled % 6)/10;
-            if(i<5)overs=0;
+            if(player.getPlayerType() == PlayerType.BATSMAN)overs=0;
             try {
                 MySqlConnector.insertIntoScorecard(matchId,teamId,player.getId(),player.getPlayerState().toString(),player.getRunScored(),player.getNumberOfBallPlayed(),player.getFourCount(),player.getSixCount(),gotOutTo,overs,player.getRunsGiven(),player.getNumberOfWicketsTaken());
-//                System.out.println("batting scorecard row inserted into db!!");
             } catch(SQLException sqle){
                 System.out.println(sqle);
             } catch(Exception e){

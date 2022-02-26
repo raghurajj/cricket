@@ -58,3 +58,20 @@ for each ball print ‘bowler’ to ‘batsmen’ and the result of the ball.
 ## Database Design Diagram
 
 ![](src/database_design_diagram.png)
+
+### Storing Match into DB:
+* While Initialising the team we are storing [team_name,team_id] into teams table.
+* For each team we are storing players info [id,name,type,team_id] into the players table.
+* After every match we are storing match info [id,first_team_id,second_team_id,winner,overs,
+  toss_winner,batting_first,series_id] into the matches table.
+* For every match series_id will be -1 if the match is a standalone match i.e. it's not part of a series.
+* For series, we are storing [is,number_of_games,first_team_id,second_team_id,overs] into the series table.
+* After every match we are storing each team's data for the particular match [id,team_id,match_id,team_score,overs,number_of_wickets_fell] into match_data table.
+* For storing Scorecard, we are storing each players' stats [match_id,team_id,player_id,runs_scored,balls_played,four_count,six_count,got_out_to,overs_bowled,runs_given,wickets_taken] into the scorecard table after each match.
+
+### Fetching Match data from DB:
+* We have to enter match_id for fetching match data.
+* using that match_id we are fetching that match's info from matches table.
+* by now we have match_id and both teams' ids. using that we can get teams' info from teams table.
+* for getting each teams stats for that particular match we can use team_id and match_id to fetch data from match_data table.
+* for fetching scorecard, we can use match_id and team_id to fetch data from scorecards table.
