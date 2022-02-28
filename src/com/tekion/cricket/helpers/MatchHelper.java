@@ -6,6 +6,7 @@ import com.tekion.cricket.models.Match;
 import com.tekion.cricket.models.Player;
 import com.tekion.cricket.interfaces.Ball;
 import com.tekion.cricket.models.Team;
+import com.tekion.cricket.repository.MatchRepository;
 import com.tekion.cricket.services.BallService;
 
 import java.sql.SQLException;
@@ -13,21 +14,33 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MatchHelper {
 
+    /*
+    return true if the team is all-out else false
+     */
     public static boolean hasLastWicketFallen(Team team)
     {
         return team.getNextPlayer() == 12;
     }
 
+    /*
+    returns max number of balls a bowler can ball
+     */
     public static int getMaxNumberOfBalls(int totalAvailableBalls)
     {
         return ((int) Math.ceil(((totalAvailableBalls/6))/5))*6;
     }
 
+    /*
+    returns true if the inning has ended
+     */
     public static boolean hasInningEnded(int scoreToChase, Team battingTeam)
     {
         return (hasLastWicketFallen(battingTeam) || scoreToChase < battingTeam.getTeamScore());
     }
 
+    /*
+    prints current status of the match
+     */
     public static void printCurrentMatchStatus(Team battingTeam ,Team bowlingTeam ,int over, int totalAvailableBalls)
     {
         System.out.println("Overs: "+(over) +" || "+battingTeam.getTeamName()+ "  Score: "+battingTeam.getTeamScore()+"/"+(battingTeam.getNextPlayer()-2));
@@ -45,6 +58,9 @@ public class MatchHelper {
         System.out.println(StringUtils.SMALL_DOT_LINE);
     }
 
+    /*
+    play over by using playBall() method 6 times.
+     */
     public static void playOver(Team battingTeam, Team bowlingTeam, int scoreToChase, BallService ballService, int over)
     {
         for(int ball=1;ball<=6;ball++)
@@ -63,6 +79,11 @@ public class MatchHelper {
         battingTeam.changeStrike();
     }
 
+
+    /*
+    simulate inning of a match. scoreToChase is INT_MAX if
+    the first Inning is going on.
+     */
     public static void simulateInning(Team battingTeam, Team bowlingTeam, int totalAvailableBalls, int scoreToChase)
     {
         Ball ballService = new BallService(battingTeam, bowlingTeam);
@@ -85,6 +106,9 @@ public class MatchHelper {
         ballService.removeObserver(bowlingTeam);
     }
 
+    /*
+    declares the result of the match
+     */
     public static void declareWinner(Match match, Team battingTeam, Team bowlingTeam)
     {
         if(battingTeam.getTeamScore() > bowlingTeam.getTeamScore())
@@ -110,6 +134,9 @@ public class MatchHelper {
             System.out.println("||   team "+ match.getWinner() +" won the Match      ||");
     }
 
+    /*
+    prints the match scorecard
+     */
     public static  void printScoreCard(Team battingTeam, Team bowlingTeam, Match match)
     {
         System.out.println("\n"+ StringUtils.SCORECARD+"\n");
@@ -123,18 +150,31 @@ public class MatchHelper {
         bowlingTeam.printBowlingStats();
 
     }
+
+    /*
+    simulate toss by generating a random number
+    0- firstTeam won the toss
+    1 - second team won the toss
+     */
     public static int simulateToss()
     {
-        int random = ThreadLocalRandom.current().nextInt(0,100);
-        return (random%2==0?1:2);
+        int random = ThreadLocalRandom.current().nextInt(0,2);
+        return (random==0?1:2);
     }
 
+    /*
+    decide whether the toss winner will bat or bowl
+     */
     public static int tossDecision(int tossWinner)
     {
-        int random = ThreadLocalRandom.current().nextInt(0,100);
+        int random = ThreadLocalRandom.current().nextInt(0,2);
         return (tossWinner&random )%2==0?1:2;
     }
 
+
+    /*
+    starts the match by simulating toss and innings
+     */
     public static void startMatch(Match match)
     {
         int tossWinner = simulateToss();
@@ -164,10 +204,13 @@ public class MatchHelper {
 
     }
 
+    /*
+    inserts match into database
+     */
     public static void insertMatchIntoDb(Match match)
     {
         try {
-            MySqlConnector.insertMatch(match);
+            MatchRepository.insertMatch(match);
             match.insertScorecardIntoDb();
             TeamHelper.insertTeamMatchData(match,match.getBattingTeam());
             TeamHelper.insertTeamMatchData(match,match.getBowlingTeam());
@@ -179,6 +222,9 @@ public class MatchHelper {
         }
     }
 
+    /*
+    inserts scorecard into database
+     */
     public static void insertScorecardIntoDb(Match match, Team battingTeam, Team bowlingTeam)
     {
         battingTeam.insertIntoScorecard(match);

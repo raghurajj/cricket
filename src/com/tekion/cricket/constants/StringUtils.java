@@ -5,6 +5,8 @@ import org.omg.CORBA.PUBLIC_MEMBER;
 public class StringUtils {
     public static String[] FIRST_TEAM_PLAYERS = {"Shikhar", "Rohit", "Virat", "SKY", "Rishabh", "Hardik", "Chahal", "Shami", "Bumrah", "Siraj", "Kuldeep"};
     public static String[] SECOND_TEAM_PLAYERS = {"Warner", "Finch", "Steve", "Alex", "Wade", "Maxwell", "Marsh", "Starc", "Mitch", "Josh", "kane"};
+    public static String MYSQL_URL = "jdbc:mysql://localhost:3306/cricket?autoReconnect=true&useSSL=false";
+    public static String MYSQL_USER = "root";
     public static String MATCHES_TO_BE_PLAYED = "Enter total Number of Matches to be played: ";
     public static String DOT_LINE = "------------------------------------------------------------------";
     public static String SMALL_DOT_LINE = "-------------------------------";
@@ -15,7 +17,7 @@ public class StringUtils {
     public static String NUMBER_OF_OVERS = "Enter Number of Overs in the Match";
     public static String DRAW = "DRAW";
     public static String TIE = "TIE";
-    public static String SEVEN_STRING_INPUT = "%-20.20s  %-20.20s  %-20.20s  %-20.20s %-20.20s  %-20.20s %-20.20s%n";
+    public static String NINE_STRING_INPUT = "%-20.20s  %-20.20s  %-20.20s %-20.20s  %-20.20s  %-20.20s %-20.20s  %-20.20s %-20.20s%n";
     public static String SIX_STRING_INPUT = "%-20.20s  %-20.20s  %-20.20s  %-20.20s %-20.20s  %-20.20s%n";
     public static String FOUR_STRING_INPUT = "%-20.20s  %-20.20s  %-20.20s  %-20.20s %n";
     public static String PLAYERNAME ="PlayerName";
@@ -24,6 +26,9 @@ public class StringUtils {
     public static String RUNSGIVEN = "RunsGiven";
     public static String OVERBOWLED="Overs";
     public static String WICKETSTAKEN="Wickets";
+    public static String BOWLED_BY = "bowled by";
+    public static String WICKET_TYPE = "Wicket type";
+    public static String WICKET_HELPER = "Wicket Helper";
     public static String RUNSCORED="Runs";
     public static String FOUR_COUNT="4s";
     public static String SIX_COUNT="6s";

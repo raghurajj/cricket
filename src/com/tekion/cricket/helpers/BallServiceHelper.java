@@ -6,11 +6,22 @@ import com.tekion.cricket.enums.PlayerType;
 import java.util.Random;
 
 public class BallServiceHelper {
+
+    /*
+    Returns a random number b/w min and max
+    both inclusive.
+     */
     public static int getRandom(int min, int max)
     {
         return new Random().nextInt(max - min + 1) + min;
     }
 
+
+    /*
+    returns ball result for batsman according to
+    this probability distribution:
+    0-10,1-25,2-24,3-10,4-10,5-1,6-5,out-5
+     */
     public static int getBallResultForBatsman(int random)
     {
         if(random>=1 && random <=20)
@@ -46,8 +57,11 @@ public class BallServiceHelper {
         }
     }
 
-
-    //    bowler 0-35%, 1-25, 2-17, 3-5, 4-5%, 5-1%, 6-2%, 7-10%
+    /*
+        returns ball result for bowler according to
+        this probability distribution:
+        0-35, 1-25, 2-17, 3-5, 4-5, 5-1, 6-2, out-10
+         */
     public static int getBallResultForBowler(int random)
     {
         if(random>=1 && random <=35)
@@ -83,6 +97,10 @@ public class BallServiceHelper {
         }
     }
 
+    /*
+    returns ball result for a particular ball
+    according to the batsman type
+     */
     public static int getBallResult(Player batsmen)
     {
         int runs;

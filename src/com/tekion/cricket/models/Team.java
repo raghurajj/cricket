@@ -189,7 +189,9 @@ public class Team implements Observer {
         TeamHelper.insertIntoScorecard(match,this);
     }
 
-
+    public Player getWicketKeeper(){
+        return players.get(4);
+    }
 
     @Override
     public void update(int runs, Team opposition) {

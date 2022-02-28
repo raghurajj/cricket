@@ -6,6 +6,7 @@ import com.tekion.cricket.helpers.MatchHelper;
 import com.tekion.cricket.models.Match;
 import com.tekion.cricket.models.Team;
 import com.tekion.cricket.helpers.MatchServiceHelper;
+import com.tekion.cricket.repository.TeamRepository;
 
 import java.sql.SQLException;
 
@@ -25,8 +26,8 @@ public class MatchService {
         secondTeam = MatchServiceHelper.getTeam("second", StringUtils.SECOND_TEAM_PLAYERS,totalAvailableBalls);
 
         try {
-            MySqlConnector.insertTeam(firstTeam);
-            MySqlConnector.insertTeam(secondTeam);
+            TeamRepository.insertTeam(firstTeam);
+            TeamRepository.insertTeam(secondTeam);
             System.out.println("Teams inserted into db!!");
         } catch(SQLException sqle){
             System.out.println(sqle);

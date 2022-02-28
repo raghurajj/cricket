@@ -14,7 +14,7 @@ public class Player {
     private int fourCount;
     private int sixCount;
     private int runsGiven;
-    private Player gotOutTo;
+    private Wicket wicket;
 
 
     public Player(String name)
@@ -39,12 +39,12 @@ public class Player {
         this.playerType = playerType;
     }
 
-    public Player getGotOutTo() {
-        return gotOutTo;
+    public Wicket getWicket() {
+        return wicket;
     }
 
-    public void setGotOutTo(Player gotOutTo) {
-        this.gotOutTo = gotOutTo;
+    public void setWicket(Wicket wicket) {
+        this.wicket = wicket;
     }
 
     public String getName() {
@@ -124,6 +124,8 @@ public class Player {
         this.runsGiven = this.runsGiven + runs;
     }
 
+
+
     public void reset(int numberOfBallsLeftToBowl)
     {
         this.playerState= PlayerState.YET_TO_PLAY;
@@ -132,9 +134,11 @@ public class Player {
         this.runScored=0;
         this.runsGiven=0;
         this.numberOfWicketsTaken=0;
-        this.gotOutTo=null;
+        this.wicket =null;
         this.numberOfBallPlayed=0;
         this.numberOfBallsLeftToBowl = numberOfBallsLeftToBowl;
     }
+
+
 
 }
