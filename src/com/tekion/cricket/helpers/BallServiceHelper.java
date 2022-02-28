@@ -18,6 +18,10 @@ public class BallServiceHelper {
 
 
     /*
+    as we know the probability of getting 1s,2s...6s
+    on a ball is different. 1s and 2s have more probability
+    than 4s or 6s. hence we tried to distribute each
+    outcomes a deserving probability.this function
     returns ball result for batsman according to
     this probability distribution:
     0-10,1-25,2-24,3-10,4-10,5-1,6-5,out-5
@@ -58,6 +62,8 @@ public class BallServiceHelper {
     }
 
     /*
+        as bowler will be sscoring less runs than batsman
+        hence probability distribution will be different for bowler.
         returns ball result for bowler according to
         this probability distribution:
         0-35, 1-25, 2-17, 3-5, 4-5, 5-1, 6-2, out-10
