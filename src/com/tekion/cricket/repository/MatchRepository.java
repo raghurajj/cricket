@@ -8,6 +8,10 @@ import java.sql.*;
 
 public class MatchRepository {
 
+    /*
+    insert match info in the match table
+    seriesId will be -1 in case of a single match
+     */
     public static void insertMatch(Match match) throws SQLException, ClassNotFoundException{
         int firstTeamId = match.getBowlingTeam().getId();
         int secondTeamId = match.getBattingTeam().getId();
@@ -70,6 +74,12 @@ public class MatchRepository {
         }
     }
 
+    /*
+    store each players data into scorecard table
+    wicketType will be empty in case of notOut
+    wicketHelper will be -1 in case of lbw,bold
+    bowler will be -1 in case of notOut
+     */
     public static void insertIntoScorecard(int matchId, int teamId, int batsmanId , String playerState, int runsScored, int ballsPlayed, int fourCount, int sixCount, Wicket wicket, float overs, int runsGiven, int wicketsTaken) throws SQLException, ClassNotFoundException {
         Connection connection = MySqlConnector.getConnection();
         connection.setAutoCommit(false);
@@ -113,7 +123,7 @@ public class MatchRepository {
         }
     }
 
-    public static void printmatchResult(int winnerId) throws SQLException, ClassNotFoundException {
+    public static void printMatchResult(int winnerId) throws SQLException, ClassNotFoundException {
         if(winnerId==-1)
         {
             System.out.println("\nMatch Result: TIE");
@@ -137,6 +147,9 @@ public class MatchRepository {
     }
 
 
+    /*
+    fetch and print scorecard of a match given it's id
+     */
     public static void fetchScorecard(int matchId) throws SQLException, ClassNotFoundException {
         Connection connection = MySqlConnector.getConnection();
         Statement statement = connection.createStatement();
@@ -155,7 +168,7 @@ public class MatchRepository {
             String battingFirst = TeamRepository.fetchTeamNameById(battingFirstId);
 
             printTossResult(tossWinner,battingFirst);
-            printmatchResult(winnerId);
+            printMatchResult(winnerId);
 
             if(battingFirstId!=firstTeamId)
             {

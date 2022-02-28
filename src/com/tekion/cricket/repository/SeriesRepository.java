@@ -6,6 +6,9 @@ import com.tekion.cricket.models.Series;
 import java.sql.*;
 
 public class SeriesRepository {
+    /*
+    insert series data into series table in db
+     */
     public static void insertSeries(Series series) throws SQLException, ClassNotFoundException{
         Connection connection = MySqlConnector.getConnection();
         connection.setAutoCommit(false);

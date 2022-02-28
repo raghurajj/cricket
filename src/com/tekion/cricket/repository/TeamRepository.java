@@ -10,6 +10,10 @@ import java.util.List;
 
 public class TeamRepository {
 
+
+    /*
+    insert team's info in teams table in db
+     */
     public static void insertTeam(Team team) throws SQLException, ClassNotFoundException{
         String teamName = team.getTeamName();
         Connection connection = MySqlConnector.getConnection();
@@ -34,6 +38,9 @@ public class TeamRepository {
         }
     }
 
+    /*
+    returns name of the team given it's id
+     */
     public static String fetchTeamNameById(int teamId) throws SQLException, ClassNotFoundException {
         String teamName="";
         Connection connection = MySqlConnector.getConnection();
@@ -57,6 +64,9 @@ public class TeamRepository {
         }
     }
 
+    /*
+    print stats of a batsman of a particular match and team
+     */
     public static void printBattingScorecard(int matchId, int teamId) throws SQLException, ClassNotFoundException {
         Connection connection = MySqlConnector.getConnection();
         Statement statement = connection.createStatement();
@@ -76,6 +86,11 @@ public class TeamRepository {
         }
     }
 
+    /*
+    fetch data from scorecard table and
+    print following info:
+    bowlerName,runsGiven,oversBowled,wicketsTaken
+     */
     public static void printBowlingScorecard(int matchId, int teamId) throws SQLException, ClassNotFoundException {
         Connection connection = MySqlConnector.getConnection();
         Statement statement = connection.createStatement();

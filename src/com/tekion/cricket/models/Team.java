@@ -7,6 +7,10 @@ import com.tekion.cricket.helpers.TeamHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/*
+holds all the info regarding a team
+ */
 public class Team implements Observer {
     int id;
     private String teamName;

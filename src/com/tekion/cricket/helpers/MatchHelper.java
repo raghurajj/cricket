@@ -24,6 +24,9 @@ public class MatchHelper {
 
     /*
     returns max number of balls a bowler can ball
+    we can get it by dividing totalAvailableBalls by 6
+    as we have 5 bowlers and 1 all-rounder each will have
+    same number of balls to bowl.
      */
     public static int getMaxNumberOfBalls(int totalAvailableBalls)
     {
@@ -32,6 +35,8 @@ public class MatchHelper {
 
     /*
     returns true if the inning has ended
+    inning will end either a team got all-out or
+    it has succesfully chased down the first inning score
      */
     public static boolean hasInningEnded(int scoreToChase, Team battingTeam)
     {
@@ -40,6 +45,7 @@ public class MatchHelper {
 
     /*
     prints current status of the match
+    i.e. over number,striker,non-striker,bowler stats.
      */
     public static void printCurrentMatchStatus(Team battingTeam ,Team bowlingTeam ,int over, int totalAvailableBalls)
     {
@@ -60,6 +66,9 @@ public class MatchHelper {
 
     /*
     play over by using playBall() method 6 times.
+    before each ball check if the inning has ended or not
+    manage strike and score according to runs on a ball
+
      */
     public static void playOver(Team battingTeam, Team bowlingTeam, int scoreToChase, BallService ballService, int over)
     {
@@ -83,6 +92,8 @@ public class MatchHelper {
     /*
     simulate inning of a match. scoreToChase is INT_MAX if
     the first Inning is going on.
+    register batting and bowling team as observers to the ball
+    use playOver for each over
      */
     public static void simulateInning(Team battingTeam, Team bowlingTeam, int totalAvailableBalls, int scoreToChase)
     {
@@ -108,6 +119,8 @@ public class MatchHelper {
 
     /*
     declares the result of the match
+    team having more runs will win
+    equal runs means TIE
      */
     public static void declareWinner(Match match, Team battingTeam, Team bowlingTeam)
     {
@@ -164,6 +177,9 @@ public class MatchHelper {
 
     /*
     decide whether the toss winner will bat or bowl
+    to make it random we followed following rule:
+    if toss winner is 2 and random number is 1 then
+    team 1 will bat else team2 will bat.
      */
     public static int tossDecision(int tossWinner)
     {
@@ -173,17 +189,10 @@ public class MatchHelper {
 
 
     /*
-    starts the match by simulating toss and innings
+    simulates both the innings and decide winner accordingly
      */
-    public static void startMatch(Match match)
+    public static void startInnings(Match match)
     {
-        int tossWinner = simulateToss();
-        match.setTossWinner(tossWinner==1?match.getBattingTeam().getTeamName():match.getBowlingTeam().getTeamName());
-        int battingFirst = tossDecision(tossWinner);
-        match.setBattingFirst(battingFirst==1?match.getBattingTeam().getTeamName():match.getBowlingTeam().getTeamName());
-        if(match.getBattingFirst().equals(match.getBowlingTeam().getTeamName()))match.switchTeams();
-        match.printTossResult();
-
         int firstInningScore;
         System.out.println(StringUtils.DOT_LINE);
         match.getBattingTeam().setBatting(true);
@@ -201,7 +210,21 @@ public class MatchHelper {
         MatchHelper.simulateInning(match.getBattingTeam(),match.getBowlingTeam(), match.getTotalAvailableBalls(),firstInningScore);
         match.getBattingTeam().setBatting(false);
         MatchHelper.declareWinner(match,match.getBattingTeam(),match.getBowlingTeam());
+    }
 
+    /*
+    starts the match by simulating toss and innings
+     */
+    public static void startMatch(Match match)
+    {
+        int tossWinner = simulateToss();
+        match.setTossWinner(tossWinner==1?match.getBattingTeam().getTeamName():match.getBowlingTeam().getTeamName());
+        int battingFirst = tossDecision(tossWinner);
+        match.setBattingFirst(battingFirst==1?match.getBattingTeam().getTeamName():match.getBowlingTeam().getTeamName());
+        if(match.getBattingFirst().equals(match.getBowlingTeam().getTeamName()))match.switchTeams();
+        match.printTossResult();
+
+        startInnings(match);
     }
 
     /*

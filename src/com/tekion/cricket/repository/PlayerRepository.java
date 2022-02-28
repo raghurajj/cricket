@@ -8,7 +8,10 @@ import java.util.List;
 
 public class PlayerRepository {
 
-
+    /*
+    inserts each player in a team into players table in database
+    info stored: name,type,team_id
+     */
     public static void insertTeamPlayers(List<Player> players, int teamId) throws SQLException, ClassNotFoundException {
         PreparedStatement statement;
         for(Player player:players){
@@ -27,6 +30,9 @@ public class PlayerRepository {
         }
     }
 
+    /*
+    returns the name of a player given his id.
+     */
     public static String fetchPlayerNameById(int playerId) throws SQLException, ClassNotFoundException {
         String playerName="";
         Connection connection = MySqlConnector.getConnection();

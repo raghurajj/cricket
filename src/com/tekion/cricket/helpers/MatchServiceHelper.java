@@ -14,19 +14,16 @@ import java.util.Scanner;
 
 public class MatchServiceHelper {
     /*
-    initialise and returns a new Team
+    initialise a team with given name players and
+     total balls then returns it.
      */
-    public static Team getTeam(String teamNumber, String[] teamPlayers, int totalAvailableBalls)
+    public static Team getTeam(String teamName, String[] teamPlayers, int totalAvailableBalls)
     {
-        Scanner sc =  new Scanner(System.in);
-        String teamName;
-        System.out.println("Enter Name of the "+ teamNumber+" Team");
-        teamName = sc.nextLine();
         return new Team(teamName, totalAvailableBalls, teamPlayers);
     }
 
     /*
-    to play a single match
+    to play a single match of given overs
      */
     public static Match playSingleMatch(Team firstTeam, Team secondTeam, int totalAvailableBalls)
     {
@@ -39,6 +36,9 @@ public class MatchServiceHelper {
 
     /*
     to play a series of matches
+    get number of matches to be played as input
+    the use playSingleMatch function for each match
+    int the series.
      */
     public static Series playSeries(Team firstTeam, Team secondTeam, int totalAvailableBalls)
     {
@@ -52,7 +52,7 @@ public class MatchServiceHelper {
     }
 
     /*
-    to fetch match data from database
+    to fetch match data from database using matchId
      */
     public static void databaseOps(){
         Scanner sc = new Scanner(System.in);
@@ -96,6 +96,8 @@ public class MatchServiceHelper {
 
     /*
     initialise the game
+    1-play matches
+    2-fetch data from database
      */
     public static void initialiseGame(MatchService matchService)
     {

@@ -1,6 +1,12 @@
 package com.tekion.cricket.models;
 import com.tekion.cricket.helpers.MatchHelper;
 
+
+/*
+stores data of a match
+i.e. batting team,bowling team [switched after the inning]
+winner etc.
+ */
 public class Match {
     int id;
     private Team battingTeam;

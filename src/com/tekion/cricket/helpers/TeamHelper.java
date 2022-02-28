@@ -88,6 +88,8 @@ public class TeamHelper {
     }
 
     /*
+    as each wicket type has diff-2 probability
+    so we distributed that in the suitable manner.
     return a type of wicket according to following
     probability distribution
     caught:34,bold:20,lbw:30,runOut:8,hitWicket:2,Stumped:6
@@ -159,6 +161,9 @@ public class TeamHelper {
 
     /*
     add players into the team
+    0-4:batsman
+    5-All-rounder
+    6-10-Bowler
      */
     public static void addPlayers(Team team, String[]teamPlayers, int totalAvailableBalls)
     {

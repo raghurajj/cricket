@@ -10,6 +10,11 @@ import com.tekion.cricket.repository.TeamRepository;
 
 import java.sql.SQLException;
 
+/*
+handle whether to play a game or fetch data from db
+get data about type of match
+initialise teams,overs
+ */
 public class MatchService {
     private Team firstTeam;
     private Team secondTeam;
@@ -22,8 +27,8 @@ public class MatchService {
 
     public void setTeams()
     {
-        firstTeam = MatchServiceHelper.getTeam("first", StringUtils.FIRST_TEAM_PLAYERS, totalAvailableBalls);
-        secondTeam = MatchServiceHelper.getTeam("second", StringUtils.SECOND_TEAM_PLAYERS,totalAvailableBalls);
+        firstTeam = MatchServiceHelper.getTeam(StringUtils.FIRST_TEAM_NAME, StringUtils.FIRST_TEAM_PLAYERS, totalAvailableBalls);
+        secondTeam = MatchServiceHelper.getTeam(StringUtils.SECOND_TEAM_NAME, StringUtils.SECOND_TEAM_PLAYERS,totalAvailableBalls);
 
         try {
             TeamRepository.insertTeam(firstTeam);

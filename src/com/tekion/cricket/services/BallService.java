@@ -9,6 +9,10 @@ import com.tekion.cricket.helpers.BallServiceHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+handle result of every ball
+notify all it's observers regarding result of each ball
+ */
 public class BallService implements Ball {
     private Team battingTeam;
     private Team bowlingTeam;

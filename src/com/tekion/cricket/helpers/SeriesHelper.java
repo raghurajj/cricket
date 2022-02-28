@@ -13,7 +13,8 @@ import java.util.List;
 public class SeriesHelper {
     /*
     play a series of matches and insert each match's
-     data into db
+     data into db , decide series winner based on the number
+     of matches won by each team.
      */
     public static void playSeries(Team firstTeam, Team secondTeam, int numberOfGames, int totalAvailableBalls, List<Match> matches, Series series) {
         int matchesWonByFirstTeam = 0, matchesWonBySecondTeam = 0, countTies = 0, countDraws = 0;

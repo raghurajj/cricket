@@ -2,6 +2,10 @@ package com.tekion.cricket.models;
 
 import com.tekion.cricket.enums.WicketType;
 
+
+/*
+holds all the info regarding a wicket
+ */
 public class Wicket {
     private Player bowler;
     private WicketType wicketType;

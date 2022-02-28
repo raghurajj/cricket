@@ -2,6 +2,9 @@ package com.tekion.cricket.models;
 import com.tekion.cricket.enums.PlayerState;
 import com.tekion.cricket.enums.PlayerType;
 
+/*
+holds all the necessary info about a player
+ */
 public class Player {
     int id;
     private String name;
@@ -125,7 +128,9 @@ public class Player {
     }
 
 
-
+    /*
+    reset a players' info to the initial one.
+     */
     public void reset(int numberOfBallsLeftToBowl)
     {
         this.playerState= PlayerState.YET_TO_PLAY;
