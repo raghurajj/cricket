@@ -53,11 +53,11 @@ for each ball print ‘bowler’ to ‘batsmen’ and the result of the ball.
 
 ## Class Diagram
 
-![](src/classDiagram.png)
+![](src/main/java/classDiagram.png)
 
 ## Database Design Diagram
 
-![](src/database_design_diagram.png)
+![](src/main/java/database_design_diagram.png)
 
 ### Storing Match into DB:
 * While Initialising the team we are storing [team_name,team_id] into teams table.
