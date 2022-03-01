@@ -30,8 +30,11 @@ public class MatchServiceHelper {
      */
     public static Match playSingleMatch(Team firstTeam, Team secondTeam, int totalAvailableBalls)
     {
+        System.out.println("fff");
         Match match = new Match(firstTeam, secondTeam,totalAvailableBalls);
+        System.out.println("yeyy");
         match.startMatch();
+        System.out.println("ddd");
         match.printScoreCard();
 
         return match;
@@ -40,12 +43,9 @@ public class MatchServiceHelper {
     /*
     to play a series of matches
      */
-    public static Series playSeries(Team firstTeam, Team secondTeam, int totalAvailableBalls)
+    public static Series playSeries(Team firstTeam, Team secondTeam,int totalGames, int totalAvailableBalls)
     {
-        Scanner sc =  new Scanner(System.in);
-        int totalGames;
-        System.out.println(StringUtils.MATCHES_TO_BE_PLAYED);
-        totalGames = sc.nextInt();
+
         Series series = new Series(firstTeam,secondTeam,totalGames,totalAvailableBalls);
         series.playSeries();
         return series;
@@ -72,47 +72,43 @@ public class MatchServiceHelper {
     to decide whether to play a match or series
     and get match data like number of overs
      */
-    public static void getMatchData(MatchService matchService)
+    public static int getMatchData(MatchService matchService,String choice,int overs, int totalGames)
     {
-        Scanner sc = new Scanner(System.in);
-        System.out.println(StringUtils.NUMBER_OF_OVERS);
-        matchService.setTotalAvailableBalls(sc.nextInt() * 6);
         matchService.setTeams();
-        System.out.println(StringUtils.MATCH_TYPE);
-        int choice = sc.nextInt();
-        MatchType matchType = (choice == 1 ? MatchType.SINGLE : MatchType.SERIES);
+        MatchType matchType = (choice == "single" ? MatchType.SINGLE : MatchType.SERIES);
         switch (matchType) {
             case SINGLE:
-                matchService.playSingleMatch();
-                break;
+                return matchService.playSingleMatch(overs);
             case SERIES:
-                matchService.playSeries();
-                break;
+                return matchService.playSeries(overs,totalGames);
             default:
                 System.out.println(StringUtils.MAIN_SWITCH_DEFAULT_MESSAGE);
 
         }
+
+        return -1;
     }
 
     /*
     initialise the game
      */
-    public static void initialiseGame(MatchService matchService)
+    public static int initialiseGame(MatchService matchService,String choice, int overs, int totalGames)
     {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter 1 to play matches , Enter 2 to fetch data from database");
-        int choice = sc.nextInt();
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("Enter 1 to play matches , Enter 2 to fetch data from database");
+//        int choice = sc.nextInt();
 
-        switch (choice) {
-            case 1:
-                getMatchData(matchService);
-                break;
-            case 2:
-                databaseOps();
-                break;
-            default:
-                System.out.println(StringUtils.MAIN_SWITCH_DEFAULT_MESSAGE);
-
-        }
+            return getMatchData(matchService,choice,overs,totalGames);
+//        switch (choice) {
+//            case "single":
+//                getMatchData(matchService,overs,totalGames);
+//                break;
+//            case "series":
+//                databaseOps();
+//                break;
+//            default:
+//                System.out.println(StringUtils.MAIN_SWITCH_DEFAULT_MESSAGE);
+//
+//        }
     }
 }

@@ -1,10 +1,17 @@
 package com.tekion.cricket.repository;
 
+import com.tekion.cricket.constants.StringUtils;
 import com.tekion.cricket.dbconnector.MySqlConnector;
+import com.tekion.cricket.dbmodels.MatchData;
+import com.tekion.cricket.dbmodels.MatchDb;
+import com.tekion.cricket.dbmodels.PlayerData;
 import com.tekion.cricket.models.Match;
+import com.tekion.cricket.models.Player;
 import com.tekion.cricket.models.Wicket;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MatchRepository {
 
@@ -164,5 +171,77 @@ public class MatchRepository {
             }
             printScoreCard(matchId,firstTeamId,secondTeamId);
         }
+    }
+
+
+    public static MatchData getMatchData(MatchDb matchDb,int teamId) throws SQLException, ClassNotFoundException {
+        Connection connection = MySqlConnector.getConnection();
+        Statement statement = connection.createStatement();
+        MatchData matchData = new MatchData();
+        String query = "SELECT * FROM match_data where match_id="+matchDb.getId()+" and team_id="+teamId;
+        ResultSet rs = statement.executeQuery(query);
+        if(rs.next())
+        {
+
+            matchData.setTeamId(teamId);
+            matchData.setScore(rs.getInt("team_score"));
+            matchData.setWickets(rs.getInt("number_of_wickets_fell"));
+            matchData.setOvers(rs.getFloat("overs"));
+        }
+        return matchData;
+
+    }
+
+    public static List<PlayerData> getPlayersData(MatchDb matchDb) throws SQLException, ClassNotFoundException {
+        List<PlayerData> players = new ArrayList<PlayerData>();
+        Connection connection = MySqlConnector.getConnection();
+        Statement statement = connection.createStatement();
+        String query = "SELECT * FROM scorecards where match_id="+matchDb.getId()+" and team_id in ("+matchDb.getFirstTeamId()+","+(matchDb.getSecondTeamId())+")";
+        ResultSet rs = statement.executeQuery(query);
+        while(rs.next())
+        {
+            PlayerData player = new PlayerData();
+            player.setId(rs.getInt("player_id"));
+            player.setTeamId(rs.getInt("team_id"));
+            player.setState(rs.getString("player_state"));
+            player.setRunsScored(rs.getInt("runs_scored"));
+            player.setBallsPlayed(rs.getInt("balls_played"));
+            player.setFourCount(rs.getInt("four_count"));
+            player.setSixCount(rs.getInt("six_count"));
+            player.setBowledBy(rs.getInt("bowled_by"));
+            player.setWicketType(rs.getString("wicket_type"));
+            player.setWicketHelper(rs.getInt("wicket_helper"));
+            player.setOversBowled(rs.getFloat("overs_bowled"));
+            player.setRunsGiven(rs.getInt("runs_given"));
+            player.setWicketsTaken(rs.getInt("wickets_taken"));
+            players.add(player);
+        }
+        return players;
+    }
+
+    public static MatchDb getMatchById(int id) throws SQLException, ClassNotFoundException {
+        Connection connection = MySqlConnector.getConnection();
+        Statement statement = connection.createStatement();
+        String query = "SELECT * FROM `matches` where id="+id;
+        ResultSet rs = statement.executeQuery(query);
+
+        MatchDb matchDb = new MatchDb();
+        if(rs.next())
+        {
+            matchDb.setId(id);
+            matchDb.setFirstTeamId(rs.getInt("first_team_id"));
+            matchDb.setSecondTeamId(rs.getInt("second_team_id"));
+            matchDb.setWinner(rs.getInt("winner"));
+            matchDb.setTossWinner(rs.getInt("toss_winner"));
+            matchDb.setBattingFirst(rs.getInt("batting_first"));
+            matchDb.setOvers(rs.getFloat("overs"));
+            matchDb.setSeriesId(rs.getInt("series_id"));
+
+            matchDb.setFirstTeamMatchData(getMatchData(matchDb, matchDb.getFirstTeamId()));
+            matchDb.setSecondTeamMatchData(getMatchData(matchDb,matchDb.getSecondTeamId()));
+
+            matchDb.setPlayerData(getPlayersData(matchDb));
+        }
+        return matchDb;
     }
 }

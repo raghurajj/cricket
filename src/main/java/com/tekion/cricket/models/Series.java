@@ -1,9 +1,11 @@
 package com.tekion.cricket.models;
 import com.tekion.cricket.helpers.SeriesHelper;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Series {
     int id;
     private int numberOfGames;
@@ -68,6 +70,8 @@ public class Series {
     public void setTotalAvailableBalls(int totalAvailableBalls) {
         this.totalAvailableBalls = totalAvailableBalls;
     }
+
+    public Series(){}
 
     public Series(Team firstTeam, Team secondTeam, int numberOfGames, int totalAvailableBalls)
     {

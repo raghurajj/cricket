@@ -46,20 +46,23 @@ public class MatchService {
         this.totalAvailableBalls = totalAvailableBalls;
     }
 
-    public void initialiseGame()
+    public int initialiseGame(String matchType, int overs, int totalGames)
     {
-        MatchServiceHelper.initialiseGame(this);
+        this.totalAvailableBalls = overs*6;
+        return MatchServiceHelper.initialiseGame(this,matchType,overs,totalGames);
     }
 
-    public void playSingleMatch()
+    public int playSingleMatch(int overs)
     {
+
         Match match = MatchServiceHelper.playSingleMatch(firstTeam, secondTeam,totalAvailableBalls);
         MatchHelper.insertMatchIntoDb(match);
+        return match.getId();
     }
 
-    public void playSeries()
+    public int playSeries(int overs, int totalGames)
     {
-        MatchServiceHelper.playSeries(firstTeam,secondTeam,totalAvailableBalls);
+        return (MatchServiceHelper.playSeries(firstTeam,secondTeam,totalGames,overs*6)).getId();
     }
 
 

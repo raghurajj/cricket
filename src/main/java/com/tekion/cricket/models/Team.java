@@ -3,10 +3,19 @@ package com.tekion.cricket.models;
 import com.tekion.cricket.interfaces.Observer;
 import com.tekion.cricket.enums.PlayerState;
 import com.tekion.cricket.helpers.TeamHelper;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< Updated upstream:src/com/tekion/cricket/models/Team.java
+=======
+
+/*
+holds all the info regarding a team
+ */
+@Component
+>>>>>>> Stashed changes:src/main/java/com/tekion/cricket/models/Team.java
 public class Team implements Observer {
     int id;
     private String teamName;
@@ -20,6 +29,10 @@ public class Team implements Observer {
     private int totalAvailableBalls;
     private boolean isBatting;
 
+    public Team()
+    {
+
+    }
 
     public Team(String teamName, int totalAvailableBalls, String[] teamPlayers)
     {
