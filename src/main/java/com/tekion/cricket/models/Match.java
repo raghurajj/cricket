@@ -2,8 +2,6 @@ package com.tekion.cricket.models;
 import com.tekion.cricket.helpers.MatchHelper;
 import org.springframework.stereotype.Component;
 
-<<<<<<< Updated upstream:src/com/tekion/cricket/models/Match.java
-=======
 
 /*
 stores data of a match
@@ -11,7 +9,6 @@ i.e. batting team,bowling team [switched after the inning]
 winner etc.
  */
 @Component
->>>>>>> Stashed changes:src/main/java/com/tekion/cricket/models/Match.java
 public class Match {
     int id;
     private Team battingTeam;

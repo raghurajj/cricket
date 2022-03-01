@@ -9,15 +9,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.sql.*;
 
 public class SeriesRepository {
-<<<<<<< Updated upstream:src/com/tekion/cricket/repository/SeriesRepository.java
-=======
-
-    private JdbcTemplate jdbcTemplate;
-
     /*
     insert series data into series table in db
      */
->>>>>>> Stashed changes:src/main/java/com/tekion/cricket/repository/SeriesRepository.java
     public static void insertSeries(Series series) throws SQLException, ClassNotFoundException{
         Connection connection = MySqlConnector.getConnection();
         connection.setAutoCommit(false);

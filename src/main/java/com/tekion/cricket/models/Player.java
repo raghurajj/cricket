@@ -3,13 +3,10 @@ import com.tekion.cricket.enums.PlayerState;
 import com.tekion.cricket.enums.PlayerType;
 import org.springframework.stereotype.Component;
 
-<<<<<<< Updated upstream:src/com/tekion/cricket/models/Player.java
-=======
 /*
 holds all the necessary info about a player
  */
 @Component
->>>>>>> Stashed changes:src/main/java/com/tekion/cricket/models/Player.java
 public class Player {
     int id;
     private String name;

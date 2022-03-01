@@ -8,14 +8,10 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< Updated upstream:src/com/tekion/cricket/models/Team.java
-=======
-
 /*
 holds all the info regarding a team
  */
 @Component
->>>>>>> Stashed changes:src/main/java/com/tekion/cricket/models/Team.java
 public class Team implements Observer {
     int id;
     private String teamName;

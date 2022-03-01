@@ -1,8 +1,10 @@
 package com.tekion.cricket.controllers;
 
 import com.tekion.cricket.dbmodels.MatchDb;
+import com.tekion.cricket.dbmodels.PlayerDb;
 import com.tekion.cricket.dbmodels.SeriesDb;
 import com.tekion.cricket.repository.MatchRepository;
+import com.tekion.cricket.repository.PlayerRepository;
 import com.tekion.cricket.repository.SeriesRepository;
 import com.tekion.cricket.services.MatchService;
 import org.springframework.stereotype.Controller;
@@ -46,4 +48,13 @@ public class MatchController {
         System.out.println(id);
         return SeriesRepository.getSeriesById(id);
     }
+
+    @RequestMapping(value="player/{matchId}/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    PlayerDb getPlayer(@PathVariable int matchId, @PathVariable int id) throws SQLException, ClassNotFoundException {
+        System.out.println(id);
+        return PlayerRepository.getPlayerStats(matchId,id);
+    }
+
+
 }
