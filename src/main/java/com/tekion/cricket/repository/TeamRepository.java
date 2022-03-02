@@ -1,5 +1,6 @@
 package com.tekion.cricket.repository;
 
+import com.tekion.cricket.constants.StringUtils;
 import com.tekion.cricket.dbconnector.MySqlConnector;
 import com.tekion.cricket.dataTypes.TeamDb;
 import com.tekion.cricket.models.Team;
@@ -8,6 +9,9 @@ import java.sql.*;
 
 public class TeamRepository {
 
+    /*
+    insert a team into teams table in db
+     */
     public static void insertTeam(Team team) throws SQLException, ClassNotFoundException{
         String teamName = team.getTeamName();
         Connection connection = MySqlConnector.getConnection();
@@ -20,9 +24,7 @@ public class TeamRepository {
             int teamId = 0;
             if (rs.next())
                 teamId = rs.getInt(1);
-
             team.setId(teamId);
-
             PlayerRepository.insertTeamPlayers(team.getPlayers(), teamId);
             connection.commit();
         }
@@ -32,6 +34,10 @@ public class TeamRepository {
         }
     }
 
+
+    /*
+    get teams' info  by id.
+     */
     public static TeamDb getTeamById(int teamId) throws SQLException, ClassNotFoundException {
         TeamDb teamDb = new TeamDb();
         Connection connection = MySqlConnector.getConnection();

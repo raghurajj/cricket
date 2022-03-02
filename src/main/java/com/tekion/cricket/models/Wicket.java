@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 /*
 holds all the info regarding a wicket
  */
+@Component
 public class Wicket {
     private Player bowler;
     private WicketType wicketType;

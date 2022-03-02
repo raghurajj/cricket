@@ -7,6 +7,7 @@ import com.tekion.cricket.models.Series;
 import java.sql.*;
 
 public class SeriesRepository {
+
     /*
     insert series data into series table in db
      */
@@ -36,6 +37,9 @@ public class SeriesRepository {
     }
 
 
+    /*
+    get series info by seriesId
+     */
     public static SeriesDb getSeriesById(int id) throws SQLException, ClassNotFoundException {
         Connection connection = MySqlConnector.getConnection();
         String query="select * from series where id="+id;

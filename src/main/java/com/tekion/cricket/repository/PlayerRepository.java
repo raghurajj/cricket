@@ -14,6 +14,9 @@ import java.util.List;
 public class PlayerRepository {
 
 
+    /*
+    insert players of a team into players table in db
+     */
     public static void insertTeamPlayers(List<Player> players, int teamId) throws SQLException, ClassNotFoundException {
         PreparedStatement statement;
         for(Player player:players){
@@ -32,6 +35,10 @@ public class PlayerRepository {
         }
     }
 
+
+    /*
+    get Players basic info by playerId
+     */
     public static PlayerInfo getPlayerInfoById(int id) throws SQLException, ClassNotFoundException {
         PlayerInfo playerInfo = new PlayerInfo();
         Connection connection = MySqlConnector.getConnection();
@@ -48,6 +55,10 @@ public class PlayerRepository {
         return playerInfo;
     }
 
+
+    /*
+    get players name by playerId
+     */
     public static String fetchPlayerNameById(int playerId) throws SQLException, ClassNotFoundException {
         String playerName="";
         Connection connection = MySqlConnector.getConnection();
@@ -61,6 +72,10 @@ public class PlayerRepository {
         return  playerName;
     }
 
+
+    /*
+    get Players' Type by playerId
+     */
     public static String fetchPlayerTypeById(int playerId) throws SQLException, ClassNotFoundException {
         String type="";
         Connection connection = MySqlConnector.getConnection();
@@ -74,11 +89,15 @@ public class PlayerRepository {
         return  type;
     }
 
-    public static void addWicketHelperData(PlayerDb playerDb, int matchId) throws SQLException, ClassNotFoundException {
+
+    /*
+        get list of all the wickets a player has helped in
+     */
+    public static List<WicketHelper> getWicketHelperData(int playerId, int matchId) throws SQLException, ClassNotFoundException {
         List<WicketHelper>wicketHelperList = new ArrayList<WicketHelper>();
         Connection connection = MySqlConnector.getConnection();
         Statement statement = connection.createStatement();
-        String query = "SELECT * FROM scorecards where match_id="+matchId+" and wicket_helper="+playerDb.getPlayerData().getId();
+        String query = "SELECT * FROM scorecards where match_id="+matchId+" and wicket_helper="+playerId;
         ResultSet rs = statement.executeQuery(query);
         while (rs.next())
         {
@@ -89,10 +108,15 @@ public class PlayerRepository {
             wicketHelper.setWicketType(rs.getString("wicket_type"));
             wicketHelperList.add(wicketHelper);
         }
-        playerDb.setWicketHelperList(wicketHelperList);
+        return wicketHelperList;
     }
 
-    public static void fillPlayerData(PlayerData player, ResultSet rs) throws SQLException, ClassNotFoundException {
+
+    /*
+    extract a players data from the resultset
+     */
+    public static PlayerData getPlayerData(ResultSet rs) throws SQLException, ClassNotFoundException {
+        PlayerData player = new PlayerData();
         player.setId(rs.getInt("player_id"));
         player.setTeamId(rs.getInt("team_id"));
         player.setName(fetchPlayerNameById(player.getId()));
@@ -108,22 +132,25 @@ public class PlayerRepository {
         player.setOversBowled(rs.getFloat("overs_bowled"));
         player.setRunsGiven(rs.getInt("runs_given"));
         player.setWicketsTaken(rs.getInt("wickets_taken"));
+        return player;
     }
 
+
+    /*
+    get all the stats of a player by his id
+     */
     public static PlayerDb getPlayerStats(int matchId, int id) throws SQLException, ClassNotFoundException {
         PlayerDb playerDb = new PlayerDb();
         Connection connection = MySqlConnector.getConnection();
         Statement statement = connection.createStatement();
         String query = "SELECT * FROM scorecards where match_id="+matchId+" and player_id="+id;
         ResultSet rs = statement.executeQuery(query);
-        PlayerData player = new PlayerData();
         while(rs.next())
         {
-            fillPlayerData(player,rs);
+            playerDb.setPlayerData(getPlayerData(rs));
         }
-        playerDb.setPlayerData(player);
 
-        addWicketHelperData(playerDb,matchId);
+        playerDb.setWicketHelperList(getWicketHelperData(id,matchId));
         return playerDb;
     }
 

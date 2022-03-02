@@ -8,6 +8,7 @@ stores data of a match
 i.e. batting team,bowling team [switched after the inning]
 winner etc.
  */
+@Component
 public class Match {
     int id;
     private Team battingTeam;
@@ -114,6 +115,22 @@ public class Match {
         MatchHelper.startMatch(this);
     }
 
+    public void printTossResult()
+    {
+        if(this.getBattingFirst().equals(this.getTossWinner()))
+        {
+            System.out.println(this.getTossWinner()+" won the toss and decided to bat first");
+        }
+        else{
+            System.out.println(this.getTossWinner()+" won the toss and decided to bowl first");
+        }
+    }
+
+    public void printScoreCard()
+    {
+        printTossResult();
+        MatchHelper.printScoreCard(battingTeam,bowlingTeam,this);
+    }
 
     public void insertScorecardIntoDb()
     {

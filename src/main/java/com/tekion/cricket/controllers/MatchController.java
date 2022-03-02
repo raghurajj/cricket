@@ -24,9 +24,43 @@ public class MatchController {
         return matchService.initialiseGame("single",overs,1);
     }
 
+    @RequestMapping(value="series", method = RequestMethod.POST)
+    public @ResponseBody int series(@RequestBody Map<String, Integer> data)
+    {
+        int overs = data.get("overs");
+        int totalGames = data.get("matches");
+        MatchService matchService = new MatchService();
+        return matchService.initialiseGame("series",overs,totalGames);
+    }
 
     @GetMapping("{id}")
     public MatchDb getMatch(@PathVariable(name="id") int id) throws SQLException, ClassNotFoundException {
         return MatchRepository.getMatchById(id);
     }
+
+    @RequestMapping(value="series/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    SeriesDb getSeries(@PathVariable(name="id") int id) throws SQLException, ClassNotFoundException {
+        System.out.println(id);
+        return SeriesRepository.getSeriesById(id);
+    }
+
+    @RequestMapping(value="player/{matchId}/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    PlayerDb getPlayerData(@PathVariable int matchId, @PathVariable int id) throws SQLException, ClassNotFoundException {
+        return PlayerRepository.getPlayerStats(matchId,id);
+    }
+
+    @RequestMapping(value="player/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    PlayerInfo getPlayerInfo(@PathVariable int id) throws SQLException, ClassNotFoundException {
+        return PlayerRepository.getPlayerInfoById(id);
+    }
+
+    @RequestMapping(value="team/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    TeamDb getTeamInfo(@PathVariable int id) throws SQLException, ClassNotFoundException {
+        return TeamRepository.getTeamById(id);
+    }
+
 }

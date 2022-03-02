@@ -13,6 +13,18 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MatchServiceHelper {
+    /*
+    initialise and returns a new Team
+     */
+    public static Team getTeam(String teamNumber, String[] teamPlayers, int totalAvailableBalls)
+    {
+        Scanner sc =  new Scanner(System.in);
+        String teamName;
+        System.out.println("Enter Name of the "+ teamNumber+" Team");
+        teamName = sc.nextLine();
+        return new Team(teamName, totalAvailableBalls, teamPlayers);
+    }
+
 
     /*
     to play a single match
@@ -21,18 +33,41 @@ public class MatchServiceHelper {
     {
         Match match = new Match(firstTeam, secondTeam,totalAvailableBalls);
         match.startMatch();
+        match.printScoreCard();
+
         return match;
     }
+
 
     /*
     to play a series of matches
      */
     public static Series playSeries(Team firstTeam, Team secondTeam,int totalGames, int totalAvailableBalls)
     {
+
         Series series = new Series(firstTeam,secondTeam,totalGames,totalAvailableBalls);
         series.playSeries();
         return series;
     }
+
+
+    /*
+    to fetch match data from database
+     */
+    public static void databaseOps(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Match id to fetch scorecard");
+        int matchId = sc.nextInt();
+
+//        try {
+//            MatchRepository.fetchScorecard(matchId);
+//        } catch(SQLException sqle){
+//            System.out.println(sqle);
+//        } catch(Exception e){
+//            System.out.println("DB Error");
+//        }
+    }
+
 
 
     /*
@@ -55,5 +90,4 @@ public class MatchServiceHelper {
 
         return -1;
     }
-
 }

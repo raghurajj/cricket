@@ -11,6 +11,7 @@ import java.util.List;
 /*
 holds all the info regarding a team
  */
+@Component
 public class Team implements Observer {
     int id;
     private String teamName;
@@ -176,6 +177,16 @@ public class Team implements Observer {
     public void reset()
     {
         TeamHelper.reset(this,totalAvailableBalls);
+    }
+
+    public void printBattingStats()
+    {
+        TeamHelper.printBattingStats(this);
+    }
+
+    public void printBowlingStats()
+    {
+        TeamHelper.printBowlingStats(this);
     }
 
     public List<Player> getPlayers() {
