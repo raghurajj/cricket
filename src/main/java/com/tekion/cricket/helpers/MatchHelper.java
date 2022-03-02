@@ -39,29 +39,9 @@ public class MatchHelper {
     }
 
     /*
-    prints current status of the match
-     */
-    public static void printCurrentMatchStatus(Team battingTeam ,Team bowlingTeam ,int over, int totalAvailableBalls)
-    {
-        System.out.println("Overs: "+(over) +" || "+battingTeam.getTeamName()+ "  Score: "+battingTeam.getTeamScore()+"/"+(battingTeam.getNextPlayer()-2));
-
-        Player striker = battingTeam.getPlayerByIndex(battingTeam.getStrikerPlayer());
-        Player nonStriker = battingTeam.getPlayerByIndex(battingTeam.getNonStrikerPlayer());
-        Player bowler = bowlingTeam.getPlayerByIndex(bowlingTeam.getCurrentBowler());
-
-        System.out.println("*"+striker.getName()+" "+striker.getRunScored()+"("+striker.getNumberOfBallPlayed()+")");
-        System.out.println(nonStriker.getName()+" "+ nonStriker.getRunScored()+"("+nonStriker.getNumberOfBallPlayed()+")");
-
-        int totalBallsBowled = getMaxNumberOfBalls(totalAvailableBalls) - bowler.getNumberOfBallsLeftToBowl();
-
-        System.out.println(bowler.getName()+" : "+(totalBallsBowled / 6) + "." + (totalBallsBowled % 6)+" - "+bowler.getRunsGiven()+" - "+bowler.getNumberOfWicketsTaken());
-        System.out.println(StringUtils.SMALL_DOT_LINE);
-    }
-
-    /*
     play over by using playBall() method 6 times.
      */
-    public static void playOver(Team battingTeam, Team bowlingTeam, int scoreToChase, BallService ballService, int over)
+    public static void playOverHelper(Team battingTeam, Team bowlingTeam, int scoreToChase, BallService ballService, int over)
     {
         for(int ball=1;ball<=6;ball++)
         {
@@ -70,13 +50,18 @@ public class MatchHelper {
 
             battingTeam.incrementTotalPlayedBalls();
             bowlingTeam.manageBowlersBalls();
-            System.out.print(over+"."+ball+"| ");
             ballService.playBall();
 
         }
-
-        System.out.println(StringUtils.SMALL_DOT_LINE);
         battingTeam.changeStrike();
+    }
+
+    public static void playOver(Team battingTeam,Team bowlingTeam, int over, int scoreToChase, int totalAvailableBalls,Ball ballService,int currentBowler)
+    {
+        if(hasInningEnded(scoreToChase,battingTeam))
+            return;
+        bowlingTeam.setCurrentBowler(currentBowler);
+        playOverHelper(battingTeam,bowlingTeam,scoreToChase,(BallService) ballService,over);
     }
 
 
@@ -94,11 +79,7 @@ public class MatchHelper {
         ballService.registerObserver(bowlingTeam);
         for(int over=0;over<overs;over++)
         {
-            if(hasInningEnded(scoreToChase,battingTeam))
-                return;
-            bowlingTeam.setCurrentBowler(currentBowler);
-            printCurrentMatchStatus(battingTeam,bowlingTeam,over,totalAvailableBalls);
-            playOver(battingTeam,bowlingTeam,scoreToChase,(BallService) ballService,over);
+            playOver(battingTeam,bowlingTeam,over,scoreToChase,totalAvailableBalls,ballService,currentBowler);
             if(currentBowler==10)currentBowler=4;
             currentBowler++;
         }
@@ -126,30 +107,8 @@ public class MatchHelper {
         else{
             match.setWinner(StringUtils.DRAW);
         }
-
-        System.out.println(StringUtils.DOT_LINE);
-        if(match.getWinner().equals(StringUtils.DRAW) || match.getWinner().equals(StringUtils.TIE))
-            System.out.println(" ||    match result: "+match.getWinner()+"     ||");
-        else
-            System.out.println("||   team "+ match.getWinner() +" won the Match      ||");
     }
 
-    /*
-    prints the match scorecard
-     */
-    public static  void printScoreCard(Team battingTeam, Team bowlingTeam, Match match)
-    {
-        System.out.println("\n"+ StringUtils.SCORECARD+"\n");
-
-        System.out.println("team "+bowlingTeam.getTeamName()+" : " + bowlingTeam.getTeamScore() +"/"+(bowlingTeam.getNextPlayer()-2) +" in "+(bowlingTeam.getTotalPlayedBalls()/6) +"."+(bowlingTeam.getTotalPlayedBalls()%6) +" overs");
-        System.out.println("team "+battingTeam.getTeamName()+" : " + battingTeam.getTeamScore() +"/"+(battingTeam.getNextPlayer()-2) +" in "+(battingTeam.getTotalPlayedBalls()/6)+"."+(battingTeam.getTotalPlayedBalls()%6) +" overs");
-
-        bowlingTeam.printBattingStats();
-        battingTeam.printBowlingStats();
-        battingTeam.printBattingStats();
-        bowlingTeam.printBowlingStats();
-
-    }
 
     /*
     simulate toss by generating a random number
@@ -172,6 +131,21 @@ public class MatchHelper {
     }
 
 
+    public static void startInnings(Match match)
+    {
+        int firstInningScore;
+        match.getBattingTeam().setBatting(true);
+
+        MatchHelper.simulateInning(match.getBattingTeam(),match.getBowlingTeam(), match.getTotalAvailableBalls(),Integer.MAX_VALUE);
+        match.getBattingTeam().setBatting(false);
+        firstInningScore = match.getBattingTeam().getTeamScore();
+
+        match.switchTeams();
+        match.getBattingTeam().setBatting(true);
+        MatchHelper.simulateInning(match.getBattingTeam(),match.getBowlingTeam(), match.getTotalAvailableBalls(),firstInningScore);
+        match.getBattingTeam().setBatting(false);
+    }
+
     /*
     starts the match by simulating toss and innings
      */
@@ -182,26 +156,9 @@ public class MatchHelper {
         int battingFirst = tossDecision(tossWinner);
         match.setBattingFirst(battingFirst==1?match.getBattingTeam().getTeamName():match.getBowlingTeam().getTeamName());
         if(match.getBattingFirst().equals(match.getBowlingTeam().getTeamName()))match.switchTeams();
-        match.printTossResult();
 
-        int firstInningScore;
-        System.out.println(StringUtils.DOT_LINE);
-        match.getBattingTeam().setBatting(true);
-
-        MatchHelper.simulateInning(match.getBattingTeam(),match.getBowlingTeam(), match.getTotalAvailableBalls(),Integer.MAX_VALUE);
-        match.getBattingTeam().setBatting(false);
-        firstInningScore = match.getBattingTeam().getTeamScore();
-
-        System.out.println("\n\n"+StringUtils.DOT_LINE);
-        System.out.println(match.getBowlingTeam().getTeamName()+" need "+(firstInningScore+1) +" runs to win ");
-        System.out.println("\n\n"+StringUtils.DOT_LINE);
-
-        match.switchTeams();
-        match.getBattingTeam().setBatting(true);
-        MatchHelper.simulateInning(match.getBattingTeam(),match.getBowlingTeam(), match.getTotalAvailableBalls(),firstInningScore);
-        match.getBattingTeam().setBatting(false);
+        startInnings(match);
         MatchHelper.declareWinner(match,match.getBattingTeam(),match.getBowlingTeam());
-
     }
 
     /*

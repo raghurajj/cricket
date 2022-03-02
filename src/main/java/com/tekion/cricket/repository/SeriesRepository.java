@@ -1,10 +1,8 @@
 package com.tekion.cricket.repository;
 
 import com.tekion.cricket.dbconnector.MySqlConnector;
-import com.tekion.cricket.dbmodels.SeriesDb;
+import com.tekion.cricket.dataTypes.SeriesDb;
 import com.tekion.cricket.models.Series;
-import com.tekion.cricket.dbmodels.SeriesDb;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.*;
 
@@ -37,6 +35,7 @@ public class SeriesRepository {
         }
     }
 
+
     public static SeriesDb getSeriesById(int id) throws SQLException, ClassNotFoundException {
         Connection connection = MySqlConnector.getConnection();
         String query="select * from series where id="+id;
@@ -50,6 +49,7 @@ public class SeriesRepository {
             series.setSecondTeamId(rs.getInt("second_team_id"));
             series.setOvers(rs.getInt("overs"));
             series.setTotalMatches(rs.getInt("total_matches"));
+            series.setMatchIds(MatchRepository.getMatchIdsBySeriesId(id));
         }
         return series;
     }

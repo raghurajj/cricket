@@ -13,8 +13,5 @@ public class Main {
         ApplicationContext context = SpringApplication.run(Main.class,args);
 
         MySqlConnector.initializeConnection();
-
-//        MatchService matchService = new MatchService();
-//        matchService.initialiseGame();
     }
 }

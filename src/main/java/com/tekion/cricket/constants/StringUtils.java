@@ -5,6 +5,8 @@ import org.omg.CORBA.PUBLIC_MEMBER;
 public class StringUtils {
     public static String[] FIRST_TEAM_PLAYERS = {"Shikhar", "Rohit", "Virat", "SKY", "Rishabh", "Hardik", "Chahal", "Shami", "Bumrah", "Siraj", "Kuldeep"};
     public static String[] SECOND_TEAM_PLAYERS = {"Warner", "Finch", "Steve", "Alex", "Wade", "Maxwell", "Marsh", "Starc", "Mitch", "Josh", "kane"};
+    public static String FIRST_TEAM_NAME = "India";
+    public static String SECOND_TEAM_NAME = "Australia";
     public static String MYSQL_URL = "jdbc:mysql://localhost:3306/cricket?autoReconnect=true&useSSL=false";
     public static String MYSQL_USER = "root";
     public static String MATCHES_TO_BE_PLAYED = "Enter total Number of Matches to be played: ";

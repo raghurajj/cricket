@@ -1,12 +1,10 @@
 package com.tekion.cricket.repository;
 
-import com.tekion.cricket.constants.StringUtils;
 import com.tekion.cricket.dbconnector.MySqlConnector;
-import com.tekion.cricket.dbmodels.MatchData;
-import com.tekion.cricket.dbmodels.MatchDb;
-import com.tekion.cricket.dbmodels.PlayerData;
+import com.tekion.cricket.dataTypes.MatchData;
+import com.tekion.cricket.dataTypes.MatchDb;
+import com.tekion.cricket.dataTypes.PlayerData;
 import com.tekion.cricket.models.Match;
-import com.tekion.cricket.models.Player;
 import com.tekion.cricket.models.Wicket;
 
 import java.sql.*;
@@ -109,69 +107,6 @@ public class MatchRepository {
         }
     }
 
-    public static void printTossResult(String tossWinner, String battingFirst)
-    {
-        if(tossWinner.equals(battingFirst))
-        {
-            System.out.println(tossWinner+" won the toss and decided to bat first");
-        }
-        else{
-            System.out.println(tossWinner+ " won the toss and decided to bowl first");
-        }
-    }
-
-    public static void printmatchResult(int winnerId) throws SQLException, ClassNotFoundException {
-        if(winnerId==-1)
-        {
-            System.out.println("\nMatch Result: TIE");
-        }
-        else if(winnerId==-2)
-        {
-            System.out.println("\nMatch Result: DRAW");
-        }
-        else{
-            System.out.println("\nTeam "+TeamRepository.fetchTeamNameById(winnerId)+" won the match");
-        }
-    }
-
-    public static void printScoreCard(int matchId, int firstTeamId, int secondTeamId) throws SQLException, ClassNotFoundException {
-        TeamRepository.printTeamScore(matchId,firstTeamId);
-        TeamRepository.printBattingScorecard(matchId,firstTeamId);
-        TeamRepository.printBowlingScorecard(matchId,secondTeamId);
-        TeamRepository.printTeamScore(matchId,secondTeamId);
-        TeamRepository.printBattingScorecard(matchId,secondTeamId);
-        TeamRepository.printBowlingScorecard(matchId,firstTeamId);
-    }
-
-
-    public static void fetchScorecard(int matchId) throws SQLException, ClassNotFoundException {
-        Connection connection = MySqlConnector.getConnection();
-        Statement statement = connection.createStatement();
-        String query = "SELECT * FROM `matches` where id="+matchId;
-        ResultSet rs = statement.executeQuery(query);
-        int firstTeamId,secondTeamId,winnerId,tossWinnerId,battingFirstId,overs;
-        if(rs.next())
-        {
-            firstTeamId = rs.getInt("first_team_id");
-            secondTeamId = rs.getInt("second_team_id");
-            winnerId = rs.getInt("winner");
-            tossWinnerId = rs.getInt("toss_winner");
-            battingFirstId = rs.getInt("batting_first");
-
-            String tossWinner = TeamRepository.fetchTeamNameById(tossWinnerId);
-            String battingFirst = TeamRepository.fetchTeamNameById(battingFirstId);
-
-            printTossResult(tossWinner,battingFirst);
-            printmatchResult(winnerId);
-
-            if(battingFirstId!=firstTeamId)
-            {
-                secondTeamId=firstTeamId;
-                firstTeamId=battingFirstId;
-            }
-            printScoreCard(matchId,firstTeamId,secondTeamId);
-        }
-    }
 
 
     public static MatchData getMatchData(MatchDb matchDb,int teamId) throws SQLException, ClassNotFoundException {
@@ -192,6 +127,32 @@ public class MatchRepository {
 
     }
 
+    public static List<Integer>getMatchIdsBySeriesId(int seriesId) throws SQLException, ClassNotFoundException {
+        List<Integer>matchIds = new ArrayList<Integer>();
+        Connection connection = MySqlConnector.getConnection();
+        String query="select id from matches where series_id="+seriesId;
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(query);
+        while(rs.next())
+        {
+            matchIds.add(rs.getInt("id"));
+        }
+        return matchIds;
+    }
+
+    public static List<Integer>getMatchIdsByTeamId(int teamId) throws SQLException, ClassNotFoundException {
+        List<Integer>matchIds = new ArrayList<Integer>();
+        Connection connection = MySqlConnector.getConnection();
+        String query="select id from matches where first_team_id="+teamId+" or second_team_id = "+teamId;
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(query);
+        while(rs.next())
+        {
+            matchIds.add(rs.getInt("id"));
+        }
+        return matchIds;
+    }
+
     public static List<PlayerData> getPlayersData(MatchDb matchDb) throws SQLException, ClassNotFoundException {
         List<PlayerData> players = new ArrayList<PlayerData>();
         Connection connection = MySqlConnector.getConnection();
@@ -202,6 +163,8 @@ public class MatchRepository {
         {
             PlayerData player = new PlayerData();
             player.setId(rs.getInt("player_id"));
+            player.setName(PlayerRepository.fetchPlayerNameById(player.getId()));
+            player.setType(PlayerRepository.fetchPlayerTypeById(player.getId()));
             player.setTeamId(rs.getInt("team_id"));
             player.setState(rs.getString("player_state"));
             player.setRunsScored(rs.getInt("runs_scored"));

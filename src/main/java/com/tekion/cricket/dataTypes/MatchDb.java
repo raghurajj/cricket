@@ -1,6 +1,5 @@
-package com.tekion.cricket.dbmodels;
+package com.tekion.cricket.dataTypes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MatchDb {

@@ -1,7 +1,9 @@
-package com.tekion.cricket.dbmodels;
+package com.tekion.cricket.dataTypes;
 
 public class PlayerData {
     int id;
+    String name;
+    String type;
     int teamId;
     String state;
     int runsScored;
@@ -29,6 +31,22 @@ public class PlayerData {
 
     public void setTeamId(int teamId) {
         this.teamId = teamId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getState() {

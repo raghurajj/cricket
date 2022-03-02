@@ -16,16 +16,13 @@ public class SeriesHelper {
      data into db
      */
     public static void playSeries(Team firstTeam, Team secondTeam, int numberOfGames, int totalAvailableBalls, List<Match> matches, Series series) {
-        int matchesWonByFirstTeam = 0, matchesWonBySecondTeam = 0, countTies = 0, countDraws = 0;
+        int matchesWonByFirstTeam = 0, matchesWonBySecondTeam = 0;
         Match match;
         for (int game = 1; game <= numberOfGames; game++) {
-            System.out.println("\n\n----------- Match number: " + game + "-------------\n");
             match = MatchServiceHelper.playSingleMatch(firstTeam, secondTeam, totalAvailableBalls);
             match.setSeriesId(series.getId());
             if (match.getWinner().equals(firstTeam.getTeamName())) matchesWonByFirstTeam++;
             else if (match.getWinner().equals(secondTeam.getTeamName())) matchesWonBySecondTeam++;
-            else if (match.getWinner().equals("TIE")) countTies++;
-            else countDraws++;
             matches.add(match);
             MatchHelper.insertMatchIntoDb(match);
             firstTeam.reset();
@@ -35,7 +32,6 @@ public class SeriesHelper {
         if(matchesWonByFirstTeam>matchesWonBySecondTeam)series.setWinner(firstTeam.getTeamName());
         else if(matchesWonByFirstTeam<matchesWonBySecondTeam)series.setWinner(secondTeam.getTeamName());
         else series.setWinner("TIE");
-        System.out.println("\n\n ||   Series Result: "+firstTeam.getTeamName()+" "+matchesWonByFirstTeam+" - "+matchesWonBySecondTeam+" "+secondTeam.getTeamName()+"  || \n\n\n");
     }
 
     /*

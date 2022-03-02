@@ -1,4 +1,6 @@
-package com.tekion.cricket.dbmodels;
+package com.tekion.cricket.dataTypes;
+
+import java.util.List;
 
 public class SeriesDb {
     int id;
@@ -6,6 +8,7 @@ public class SeriesDb {
     int secondTeamId;
     int totalMatches;
     int overs;
+    List<Integer>matchIds;
 
     public int getId() {
         return id;
@@ -45,5 +48,13 @@ public class SeriesDb {
 
     public void setOvers(int overs) {
         this.overs = overs;
+    }
+
+    public List<Integer> getMatchIds() {
+        return matchIds;
+    }
+
+    public void setMatchIds(List<Integer> matchIds) {
+        this.matchIds = matchIds;
     }
 }

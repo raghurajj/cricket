@@ -22,8 +22,8 @@ public class MatchService {
 
     public void setTeams()
     {
-        firstTeam = MatchServiceHelper.getTeam("first", StringUtils.FIRST_TEAM_PLAYERS, totalAvailableBalls);
-        secondTeam = MatchServiceHelper.getTeam("second", StringUtils.SECOND_TEAM_PLAYERS,totalAvailableBalls);
+        firstTeam = new Team(StringUtils.FIRST_TEAM_NAME, totalAvailableBalls,StringUtils.FIRST_TEAM_PLAYERS);
+        secondTeam = new Team(StringUtils.SECOND_TEAM_NAME,totalAvailableBalls, StringUtils.SECOND_TEAM_PLAYERS);
 
         try {
             TeamRepository.insertTeam(firstTeam);
@@ -49,12 +49,11 @@ public class MatchService {
     public int initialiseGame(String matchType, int overs, int totalGames)
     {
         this.totalAvailableBalls = overs*6;
-        return MatchServiceHelper.initialiseGame(this,matchType,overs,totalGames);
+        return MatchServiceHelper.getMatchData(this,matchType,overs,totalGames);
     }
 
     public int playSingleMatch(int overs)
     {
-
         Match match = MatchServiceHelper.playSingleMatch(firstTeam, secondTeam,totalAvailableBalls);
         MatchHelper.insertMatchIntoDb(match);
         return match.getId();

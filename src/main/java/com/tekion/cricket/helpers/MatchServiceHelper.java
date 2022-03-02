@@ -13,30 +13,14 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MatchServiceHelper {
-    /*
-    initialise and returns a new Team
-     */
-    public static Team getTeam(String teamNumber, String[] teamPlayers, int totalAvailableBalls)
-    {
-        Scanner sc =  new Scanner(System.in);
-        String teamName;
-        System.out.println("Enter Name of the "+ teamNumber+" Team");
-        teamName = sc.nextLine();
-        return new Team(teamName, totalAvailableBalls, teamPlayers);
-    }
 
     /*
     to play a single match
      */
     public static Match playSingleMatch(Team firstTeam, Team secondTeam, int totalAvailableBalls)
     {
-        System.out.println("fff");
         Match match = new Match(firstTeam, secondTeam,totalAvailableBalls);
-        System.out.println("yeyy");
         match.startMatch();
-        System.out.println("ddd");
-        match.printScoreCard();
-
         return match;
     }
 
@@ -45,28 +29,11 @@ public class MatchServiceHelper {
      */
     public static Series playSeries(Team firstTeam, Team secondTeam,int totalGames, int totalAvailableBalls)
     {
-
         Series series = new Series(firstTeam,secondTeam,totalGames,totalAvailableBalls);
         series.playSeries();
         return series;
     }
 
-    /*
-    to fetch match data from database
-     */
-    public static void databaseOps(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Match id to fetch scorecard");
-        int matchId = sc.nextInt();
-
-        try {
-            MatchRepository.fetchScorecard(matchId);
-        } catch(SQLException sqle){
-            System.out.println(sqle);
-        } catch(Exception e){
-            System.out.println("DB Error");
-        }
-    }
 
     /*
     to decide whether to play a match or series
@@ -89,26 +56,4 @@ public class MatchServiceHelper {
         return -1;
     }
 
-    /*
-    initialise the game
-     */
-    public static int initialiseGame(MatchService matchService,String choice, int overs, int totalGames)
-    {
-//        Scanner sc = new Scanner(System.in);
-//        System.out.println("Enter 1 to play matches , Enter 2 to fetch data from database");
-//        int choice = sc.nextInt();
-
-            return getMatchData(matchService,choice,overs,totalGames);
-//        switch (choice) {
-//            case "single":
-//                getMatchData(matchService,overs,totalGames);
-//                break;
-//            case "series":
-//                databaseOps();
-//                break;
-//            default:
-//                System.out.println(StringUtils.MAIN_SWITCH_DEFAULT_MESSAGE);
-//
-//        }
-    }
 }

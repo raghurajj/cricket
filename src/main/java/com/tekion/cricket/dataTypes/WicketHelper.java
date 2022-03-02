@@ -1,4 +1,4 @@
-package com.tekion.cricket.dbmodels;
+package com.tekion.cricket.dataTypes;
 
 public class WicketHelper {
     int helperId;

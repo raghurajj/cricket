@@ -1,16 +1,14 @@
 package com.tekion.cricket.controllers;
 
-import com.tekion.cricket.dbmodels.MatchDb;
-import com.tekion.cricket.dbmodels.PlayerDb;
-import com.tekion.cricket.dbmodels.SeriesDb;
+import com.tekion.cricket.dataTypes.*;
 import com.tekion.cricket.repository.MatchRepository;
 import com.tekion.cricket.repository.PlayerRepository;
 import com.tekion.cricket.repository.SeriesRepository;
+import com.tekion.cricket.repository.TeamRepository;
 import com.tekion.cricket.services.MatchService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -30,7 +28,7 @@ public class MatchController {
     public @ResponseBody int series(@RequestBody Map<String, Integer> data)
     {
         int overs = data.get("overs");
-        int totalGames = data.get("games");
+        int totalGames = data.get("matches");
         MatchService matchService = new MatchService();
         return matchService.initialiseGame("series",overs,totalGames);
     }
@@ -51,9 +49,20 @@ public class MatchController {
 
     @RequestMapping(value="player/{matchId}/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    PlayerDb getPlayer(@PathVariable int matchId, @PathVariable int id) throws SQLException, ClassNotFoundException {
-        System.out.println(id);
+    PlayerDb getPlayerData(@PathVariable int matchId, @PathVariable int id) throws SQLException, ClassNotFoundException {
         return PlayerRepository.getPlayerStats(matchId,id);
+    }
+
+    @RequestMapping(value="player/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    PlayerInfo getPlayerInfo(@PathVariable int id) throws SQLException, ClassNotFoundException {
+        return PlayerRepository.getPlayerInfoById(id);
+    }
+
+    @RequestMapping(value="team/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    TeamDb getTeamInfo(@PathVariable int id) throws SQLException, ClassNotFoundException {
+        return TeamRepository.getTeamById(id);
     }
 
 

@@ -35,7 +35,6 @@ public class BallService implements Ball {
         Player batsmen = battingTeam.getPlayerByIndex(battingTeam.getStrikerPlayer());
         int result = BallServiceHelper.getBallResult(batsmen);
         this.setRuns(result);
-        System.out.println(bowler.getName()+" to "+batsmen.getName()+" "+(result==7?"Out":result));
         this.notifyObservers();
     }
 
