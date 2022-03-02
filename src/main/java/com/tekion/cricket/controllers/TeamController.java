@@ -13,21 +13,13 @@ import java.sql.SQLException;
 import java.util.Map;
 
 @Controller
-@RequestMapping(path="/api/match")
-public class MatchController {
-
-    @RequestMapping(value="", method = RequestMethod.POST)
-    public @ResponseBody int startMatch(@RequestBody Map<String, Integer> data)
-    {
-        int overs = (data.get("overs"));
-        MatchService matchService = new MatchService();
-        return matchService.initialiseGame("single",overs,1);
-    }
-
-
+@RequestMapping(path="/api/team")
+public class TeamController {
     @RequestMapping(value="{id}", method = RequestMethod.GET)
     public @ResponseBody
-    MatchDb getMatch(@PathVariable(name="id") int id) throws SQLException, ClassNotFoundException {
-        return MatchRepository.getMatchById(id);
+    TeamDb getTeamInfo(@PathVariable int id) throws SQLException, ClassNotFoundException {
+        return TeamRepository.getTeamById(id);
     }
+
+
 }
