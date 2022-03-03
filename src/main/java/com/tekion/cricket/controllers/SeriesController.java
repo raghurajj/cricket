@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping(path="/api/series")
 public class SeriesController {
 
-    @RequestMapping(value="", method = RequestMethod.POST)
-    public @ResponseBody int startSeries(@RequestBody Map<String, Integer> data)
+    @PostMapping("")
+    public int startSeries(@RequestBody Map<String, Integer> data)
     {
         int overs = data.get("overs");
         int totalGames = data.get("matches");
@@ -25,9 +25,8 @@ public class SeriesController {
         return matchService.initialiseGame("series",overs,totalGames);
     }
 
-    @RequestMapping(value="{id}", method = RequestMethod.GET)
-    public @ResponseBody
-    SeriesDb getSeries(@PathVariable(name="id") int id) throws SQLException, ClassNotFoundException {
+    @GetMapping("{id}")
+    public SeriesDb getSeries(@PathVariable(name="id") int id) throws SQLException, ClassNotFoundException {
         return SeriesRepository.getSeriesById(id);
     }
 }

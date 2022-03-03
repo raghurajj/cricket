@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping(path="/api/team")
 public class TeamController {
-    @RequestMapping(value="{id}", method = RequestMethod.GET)
-    public @ResponseBody
-    TeamDb getTeamInfo(@PathVariable int id) throws SQLException, ClassNotFoundException {
+    @GetMapping("{id}")
+    public TeamDb getTeamInfo(@PathVariable int id) throws SQLException, ClassNotFoundException {
         return TeamRepository.getTeamById(id);
     }
 

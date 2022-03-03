@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping(path="/api/match")
 public class MatchController {
 
-    @RequestMapping(value="", method = RequestMethod.POST)
-    public @ResponseBody int startMatch(@RequestBody Map<String, Integer> data)
+    @PostMapping("")
+    public int startMatch(@RequestBody Map<String, Integer> data)
     {
         int overs = (data.get("overs"));
         MatchService matchService = new MatchService();
@@ -25,9 +25,8 @@ public class MatchController {
     }
 
 
-    @RequestMapping(value="{id}", method = RequestMethod.GET)
-    public @ResponseBody
-    MatchDb getMatch(@PathVariable(name="id") int id) throws SQLException, ClassNotFoundException {
+    @GetMapping("{id}")
+    public MatchDb getMatch(@PathVariable(name="id") int id) throws SQLException, ClassNotFoundException {
         return MatchRepository.getMatchById(id);
     }
 }

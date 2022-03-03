@@ -12,19 +12,17 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping(path="/api/player")
 public class PlayerController {
 
-    @RequestMapping(value="{matchId}/{id}", method = RequestMethod.GET)
-    public @ResponseBody
-    PlayerDb getPlayerData(@PathVariable int matchId, @PathVariable int id) throws SQLException, ClassNotFoundException {
+    @GetMapping("{matchId}/{id}")
+    public PlayerDb getPlayerData(@PathVariable int matchId, @PathVariable int id) throws SQLException, ClassNotFoundException {
         return PlayerRepository.getPlayerStats(matchId,id);
     }
 
-    @RequestMapping(value="{id}", method = RequestMethod.GET)
-    public @ResponseBody
-    PlayerInfo getPlayerInfo(@PathVariable int id) throws SQLException, ClassNotFoundException {
+    @GetMapping("{id}")
+    public PlayerInfo getPlayerInfo(@PathVariable int id) throws SQLException, ClassNotFoundException {
         return PlayerRepository.getPlayerInfoById(id);
     }
 }
