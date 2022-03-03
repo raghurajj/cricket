@@ -1,6 +1,5 @@
 package com.tekion.cricket.repository;
 
-import com.tekion.cricket.constants.StringUtils;
 import com.tekion.cricket.dbconnector.MySqlConnector;
 import com.tekion.cricket.dataTypes.TeamDb;
 import com.tekion.cricket.models.Team;
@@ -49,7 +48,7 @@ public class TeamRepository {
         {
             teamDb.setName(rs.getString("name"));
         }
-        teamDb.setMatchIds(MatchRepository.getMatchIdsByTeamId(teamId));
+        teamDb.setMatch_ids(MatchRepository.getMatchIdsByTeamId(teamId));
         return  teamDb;
     }
 

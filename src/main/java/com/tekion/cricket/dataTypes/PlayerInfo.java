@@ -4,7 +4,7 @@ public class PlayerInfo {
     int id;
     String name;
     String type;
-    int teamId;
+    int team_id;
 
     public int getId() {
         return id;
@@ -30,11 +30,11 @@ public class PlayerInfo {
         this.type = type;
     }
 
-    public int getTeamId() {
-        return teamId;
+    public int getTeam_id() {
+        return team_id;
     }
 
-    public void setTeamId(int teamId) {
-        this.teamId = teamId;
+    public void setTeam_id(int team_id) {
+        this.team_id = team_id;
     }
 }

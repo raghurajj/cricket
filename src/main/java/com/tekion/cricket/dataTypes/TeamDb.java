@@ -5,7 +5,7 @@ import java.util.List;
 public class TeamDb {
     int id;
     String name;
-    List<Integer>matchIds;
+    List<Integer> match_ids;
 
     public int getId() {
         return id;
@@ -23,11 +23,11 @@ public class TeamDb {
         this.name = name;
     }
 
-    public List<Integer> getMatchIds() {
-        return matchIds;
+    public List<Integer> getMatch_ids() {
+        return match_ids;
     }
 
-    public void setMatchIds(List<Integer> matchIds) {
-        this.matchIds = matchIds;
+    public void setMatch_ids(List<Integer> match_ids) {
+        this.match_ids = match_ids;
     }
 }

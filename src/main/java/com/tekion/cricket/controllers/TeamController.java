@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path="/api/team")
+@RequestMapping(path="/team")
 public class TeamController {
     @GetMapping("{id}")
     public TeamDb getTeamInfo(@PathVariable int id) throws SQLException, ClassNotFoundException {

@@ -4,18 +4,18 @@ public class PlayerData {
     int id;
     String name;
     String type;
-    int teamId;
+    int team_id;
     String state;
-    int runsScored;
-    int ballsPlayed;
-    int fourCount;
-    int sixCount;
-    int bowledBy;
-    int wicketHelper;
-    String wicketType;
-    float oversBowled;
-    int runsGiven;
-    int wicketsTaken;
+    int runs_scored;
+    int balls_played;
+    int four_count;
+    int six_count;
+    int bowled_by;
+    int wicket_helper;
+    String wicket_type;
+    float overs_bowled;
+    int runs_given;
+    int wickets_taken;
 
     public int getId() {
         return id;
@@ -25,12 +25,12 @@ public class PlayerData {
         this.id = id;
     }
 
-    public int getTeamId() {
-        return teamId;
+    public int getTeam_id() {
+        return team_id;
     }
 
-    public void setTeamId(int teamId) {
-        this.teamId = teamId;
+    public void setTeam_id(int team_id) {
+        this.team_id = team_id;
     }
 
     public String getName() {
@@ -57,83 +57,83 @@ public class PlayerData {
         this.state = state;
     }
 
-    public int getRunsScored() {
-        return runsScored;
+    public int getRuns_scored() {
+        return runs_scored;
     }
 
-    public void setRunsScored(int runsScored) {
-        this.runsScored = runsScored;
+    public void setRuns_scored(int runs_scored) {
+        this.runs_scored = runs_scored;
     }
 
-    public int getBallsPlayed() {
-        return ballsPlayed;
+    public int getBalls_played() {
+        return balls_played;
     }
 
-    public void setBallsPlayed(int ballsPlayed) {
-        this.ballsPlayed = ballsPlayed;
+    public void setBalls_played(int balls_played) {
+        this.balls_played = balls_played;
     }
 
-    public int getFourCount() {
-        return fourCount;
+    public int getFour_count() {
+        return four_count;
     }
 
-    public void setFourCount(int fourCount) {
-        this.fourCount = fourCount;
+    public void setFour_count(int four_count) {
+        this.four_count = four_count;
     }
 
-    public int getSixCount() {
-        return sixCount;
+    public int getSix_count() {
+        return six_count;
     }
 
-    public void setSixCount(int sixCount) {
-        this.sixCount = sixCount;
+    public void setSix_count(int six_count) {
+        this.six_count = six_count;
     }
 
-    public int getBowledBy() {
-        return bowledBy;
+    public int getBowled_by() {
+        return bowled_by;
     }
 
-    public void setBowledBy(int bowledBy) {
-        this.bowledBy = bowledBy;
+    public void setBowled_by(int bowled_by) {
+        this.bowled_by = bowled_by;
     }
 
-    public int getWicketHelper() {
-        return wicketHelper;
+    public int getWicket_helper() {
+        return wicket_helper;
     }
 
-    public void setWicketHelper(int wicketHelper) {
-        this.wicketHelper = wicketHelper;
+    public void setWicket_helper(int wicket_helper) {
+        this.wicket_helper = wicket_helper;
     }
 
-    public String getWicketType() {
-        return wicketType;
+    public String getWicket_type() {
+        return wicket_type;
     }
 
-    public void setWicketType(String wicketType) {
-        this.wicketType = wicketType;
+    public void setWicket_type(String wicket_type) {
+        this.wicket_type = wicket_type;
     }
 
-    public float getOversBowled() {
-        return oversBowled;
+    public float getOvers_bowled() {
+        return overs_bowled;
     }
 
-    public void setOversBowled(float oversBowled) {
-        this.oversBowled = oversBowled;
+    public void setOvers_bowled(float overs_bowled) {
+        this.overs_bowled = overs_bowled;
     }
 
-    public int getRunsGiven() {
-        return runsGiven;
+    public int getRuns_given() {
+        return runs_given;
     }
 
-    public void setRunsGiven(int runsGiven) {
-        this.runsGiven = runsGiven;
+    public void setRuns_given(int runs_given) {
+        this.runs_given = runs_given;
     }
 
-    public int getWicketsTaken() {
-        return wicketsTaken;
+    public int getWickets_taken() {
+        return wickets_taken;
     }
 
-    public void setWicketsTaken(int wicketsTaken) {
-        this.wicketsTaken = wicketsTaken;
+    public void setWickets_taken(int wickets_taken) {
+        this.wickets_taken = wickets_taken;
     }
 }

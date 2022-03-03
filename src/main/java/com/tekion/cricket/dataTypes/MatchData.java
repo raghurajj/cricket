@@ -1,17 +1,17 @@
 package com.tekion.cricket.dataTypes;
 
 public class MatchData {
-    int teamId;
+    int team_id;
     int score;
     float overs;
     int wickets;
 
-    public int getTeamId() {
-        return teamId;
+    public int getTeam_id() {
+        return team_id;
     }
 
-    public void setTeamId(int teamId) {
-        this.teamId = teamId;
+    public void setTeam_id(int team_id) {
+        this.team_id = team_id;
     }
 
     public int getScore() {

@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path="/api/match")
+@RequestMapping(path="/match")
 public class MatchController {
 
     @PostMapping("")

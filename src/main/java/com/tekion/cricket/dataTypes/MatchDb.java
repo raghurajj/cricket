@@ -4,16 +4,16 @@ import java.util.List;
 
 public class MatchDb {
     int id;
-    int firstTeamId;
-    int secondTeamId;
+    int first_team_id;
+    int second_team_id;
     int winner;
-    int tossWinner;
-    int battingFirst;
+    int toss_winner;
+    int batting_first;
     float overs;
-    int seriesId;
-    MatchData firstTeamMatchData;
-    MatchData secondTeamMatchData;
-    List<PlayerData> playerData;
+    int series_id;
+    MatchData first_team_match_data;
+    MatchData second_team_match_data;
+    List<PlayerData> players_data;
 
     public MatchDb()
     {
@@ -27,20 +27,20 @@ public class MatchDb {
         this.id = id;
     }
 
-    public int getFirstTeamId() {
-        return firstTeamId;
+    public int getFirst_team_id() {
+        return first_team_id;
     }
 
-    public void setFirstTeamId(int firstTeamId) {
-        this.firstTeamId = firstTeamId;
+    public void setFirst_team_id(int first_team_id) {
+        this.first_team_id = first_team_id;
     }
 
-    public int getSecondTeamId() {
-        return secondTeamId;
+    public int getSecond_team_id() {
+        return second_team_id;
     }
 
-    public void setSecondTeamId(int secondTeamId) {
-        this.secondTeamId = secondTeamId;
+    public void setSecond_team_id(int second_team_id) {
+        this.second_team_id = second_team_id;
     }
 
     public int getWinner() {
@@ -51,20 +51,20 @@ public class MatchDb {
         this.winner = winner;
     }
 
-    public int getTossWinner() {
-        return tossWinner;
+    public int getToss_winner() {
+        return toss_winner;
     }
 
-    public void setTossWinner(int tossWinner) {
-        this.tossWinner = tossWinner;
+    public void setToss_winner(int toss_winner) {
+        this.toss_winner = toss_winner;
     }
 
-    public int getBattingFirst() {
-        return battingFirst;
+    public int getBatting_first() {
+        return batting_first;
     }
 
-    public void setBattingFirst(int battingFirst) {
-        this.battingFirst = battingFirst;
+    public void setBatting_first(int batting_first) {
+        this.batting_first = batting_first;
     }
 
     public float getOvers() {
@@ -75,35 +75,35 @@ public class MatchDb {
         this.overs = overs;
     }
 
-    public int getSeriesId() {
-        return seriesId;
+    public int getSeries_id() {
+        return series_id;
     }
 
-    public void setSeriesId(int seriesId) {
-        this.seriesId = seriesId;
+    public void setSeries_id(int series_id) {
+        this.series_id = series_id;
     }
 
-    public MatchData getFirstTeamMatchData() {
-        return firstTeamMatchData;
+    public MatchData getFirst_team_match_data() {
+        return first_team_match_data;
     }
 
-    public void setFirstTeamMatchData(MatchData firstTeamMatchData) {
-        this.firstTeamMatchData = firstTeamMatchData;
+    public void setFirst_team_match_data(MatchData first_team_match_data) {
+        this.first_team_match_data = first_team_match_data;
     }
 
-    public MatchData getSecondTeamMatchData() {
-        return secondTeamMatchData;
+    public MatchData getSecond_team_match_data() {
+        return second_team_match_data;
     }
 
-    public void setSecondTeamMatchData(MatchData secondTeamMatchData) {
-        this.secondTeamMatchData = secondTeamMatchData;
+    public void setSecond_team_match_data(MatchData second_team_match_data) {
+        this.second_team_match_data = second_team_match_data;
     }
 
-    public List<PlayerData> getPlayerData() {
-        return playerData;
+    public List<PlayerData> getPlayers_data() {
+        return players_data;
     }
 
-    public void setPlayerData(List<PlayerData> playerData) {
-        this.playerData = playerData;
+    public void setPlayers_data(List<PlayerData> players_data) {
+        this.players_data = players_data;
     }
 }

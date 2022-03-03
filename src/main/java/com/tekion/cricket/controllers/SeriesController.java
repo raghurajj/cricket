@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path="/api/series")
+@RequestMapping(path="/series")
 public class SeriesController {
 
     @PostMapping("")

@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path="/api/player")
+@RequestMapping(path="/player")
 public class PlayerController {
 
     @GetMapping("{matchId}/{id}")

@@ -4,11 +4,11 @@ import java.util.List;
 
 public class SeriesDb {
     int id;
-    int firstTeamId;
-    int secondTeamId;
-    int totalMatches;
+    int first_team_id;
+    int second_team_id;
+    int total_matches;
     int overs;
-    List<Integer>matchIds;
+    List<Integer> match_ids;
 
     public int getId() {
         return id;
@@ -18,28 +18,28 @@ public class SeriesDb {
         this.id = id;
     }
 
-    public int getFirstTeamId() {
-        return firstTeamId;
+    public int getFirst_team_id() {
+        return first_team_id;
     }
 
-    public void setFirstTeamId(int firstTeamId) {
-        this.firstTeamId = firstTeamId;
+    public void setFirst_team_id(int first_team_id) {
+        this.first_team_id = first_team_id;
     }
 
-    public int getSecondTeamId() {
-        return secondTeamId;
+    public int getSecond_team_id() {
+        return second_team_id;
     }
 
-    public void setSecondTeamId(int secondTeamId) {
-        this.secondTeamId = secondTeamId;
+    public void setSecond_team_id(int second_team_id) {
+        this.second_team_id = second_team_id;
     }
 
-    public int getTotalMatches() {
-        return totalMatches;
+    public int getTotal_matches() {
+        return total_matches;
     }
 
-    public void setTotalMatches(int totalMatches) {
-        this.totalMatches = totalMatches;
+    public void setTotal_matches(int total_matches) {
+        this.total_matches = total_matches;
     }
 
     public int getOvers() {
@@ -50,11 +50,11 @@ public class SeriesDb {
         this.overs = overs;
     }
 
-    public List<Integer> getMatchIds() {
-        return matchIds;
+    public List<Integer> getMatch_ids() {
+        return match_ids;
     }
 
-    public void setMatchIds(List<Integer> matchIds) {
-        this.matchIds = matchIds;
+    public void setMatch_ids(List<Integer> match_ids) {
+        this.match_ids = match_ids;
     }
 }
