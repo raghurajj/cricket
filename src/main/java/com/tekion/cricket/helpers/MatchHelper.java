@@ -1,13 +1,12 @@
 package com.tekion.cricket.helpers;
 
 import com.tekion.cricket.constants.StringUtils;
-import com.tekion.cricket.dbconnector.MySqlConnector;
 import com.tekion.cricket.models.Match;
 import com.tekion.cricket.models.Player;
 import com.tekion.cricket.interfaces.Ball;
 import com.tekion.cricket.models.Team;
 import com.tekion.cricket.repository.MatchRepository;
-import com.tekion.cricket.services.BallService;
+import com.tekion.cricket.utils.BallService;
 
 import java.sql.SQLException;
 import java.util.concurrent.ThreadLocalRandom;

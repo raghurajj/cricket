@@ -1,7 +1,6 @@
-package com.tekion.cricket.services;
+package com.tekion.cricket.utils;
 
 import com.tekion.cricket.constants.StringUtils;
-import com.tekion.cricket.dbconnector.MySqlConnector;
 import com.tekion.cricket.helpers.MatchHelper;
 import com.tekion.cricket.models.Match;
 import com.tekion.cricket.models.Team;

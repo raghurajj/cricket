@@ -1,4 +1,4 @@
-package com.tekion.cricket.services;
+package com.tekion.cricket.utils;
 
 import com.tekion.cricket.interfaces.Observer;
 import com.tekion.cricket.models.Player;

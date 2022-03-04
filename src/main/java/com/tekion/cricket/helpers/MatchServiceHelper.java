@@ -1,15 +1,12 @@
 package com.tekion.cricket.helpers;
 
-import com.tekion.cricket.dbconnector.MySqlConnector;
 import com.tekion.cricket.enums.MatchType;
 import com.tekion.cricket.models.Match;
 import com.tekion.cricket.models.Series;
 import com.tekion.cricket.models.Team;
 import com.tekion.cricket.constants.StringUtils;
-import com.tekion.cricket.repository.MatchRepository;
-import com.tekion.cricket.services.MatchService;
+import com.tekion.cricket.utils.MatchService;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MatchServiceHelper {
