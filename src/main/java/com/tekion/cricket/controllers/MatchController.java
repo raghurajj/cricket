@@ -6,60 +6,58 @@ import com.tekion.cricket.repository.PlayerRepository;
 import com.tekion.cricket.repository.SeriesRepository;
 import com.tekion.cricket.repository.TeamRepository;
 import com.tekion.cricket.utils.MatchService;
+import org.springframework.data.relational.core.sql.In;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path="/match")
+@RequestMapping(path="/matches")
 public class MatchController {
 
-    @PostMapping("")
-    public int startMatch(@RequestBody Map<String, Integer> data)
+    @PostMapping("single")
+    public ResponseEntity<Map<String,Object>> startMatch(@RequestBody Map<String, String> data)
     {
-        int overs = (data.get("overs"));
+        int overs = Integer.parseInt(data.get("number_of_overs"));
+        String firstTeamName = data.get("first_team_name");
+        String secondTeamName = data.get("second_team_name");
         MatchService matchService = new MatchService();
-        return matchService.initialiseGame("single",overs,1);
+        Map<String,Object>res = new LinkedHashMap<String, Object>();
+        res.put("match_id",matchService.initialiseGame("single",overs,1,firstTeamName,secondTeamName));
+        return new ResponseEntity<Map<String,Object>>(res, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="series", method = RequestMethod.POST)
-    public @ResponseBody int series(@RequestBody Map<String, Integer> data)
+    @PostMapping("series")
+    public ResponseEntity<Map<String,Object>> startSeries(@RequestBody Map<String, String> data)
     {
-        int overs = data.get("overs");
-        int totalGames = data.get("matches");
+        int overs = Integer.parseInt(data.get("number_of_overs"));
+        int totalGames = Integer.parseInt(data.get("number_of_matches"));
+        String firstTeamName = data.get("first_team_name");
+        String secondTeamName = data.get("second_team_name");
         MatchService matchService = new MatchService();
-        return matchService.initialiseGame("series",overs,totalGames);
+        Map<String,Object>res = new LinkedHashMap<String, Object>();
+        res.put("series_id",matchService.initialiseGame("series",overs,totalGames,firstTeamName,secondTeamName));
+        return new ResponseEntity<Map<String,Object>>(res, HttpStatus.CREATED);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("single/{id}")
     public MatchDb getMatch(@PathVariable(name="id") int id) throws SQLException, ClassNotFoundException {
         return MatchRepository.getMatchById(id);
     }
 
-    @RequestMapping(value="series/{id}", method = RequestMethod.GET)
-    public @ResponseBody
-    SeriesDb getSeries(@PathVariable(name="id") int id) throws SQLException, ClassNotFoundException {
-        System.out.println(id);
+
+    @GetMapping("series/{id}")
+    public SeriesDb getSeries(@PathVariable(name="id") int id) throws SQLException, ClassNotFoundException {
         return SeriesRepository.getSeriesById(id);
     }
 
-    @RequestMapping(value="player/{matchId}/{id}", method = RequestMethod.GET)
-    public @ResponseBody
-    PlayerDb getPlayerData(@PathVariable int matchId, @PathVariable int id) throws SQLException, ClassNotFoundException {
+    @GetMapping("{matchId}/players/{id}")
+    public PlayerDb getPlayerData(@PathVariable int matchId, @PathVariable int id) throws SQLException, ClassNotFoundException {
         return PlayerRepository.getPlayerStats(matchId,id);
-    }
-
-    @RequestMapping(value="player/{id}", method = RequestMethod.GET)
-    public @ResponseBody
-    PlayerInfo getPlayerInfo(@PathVariable int id) throws SQLException, ClassNotFoundException {
-        return PlayerRepository.getPlayerInfoById(id);
-    }
-
-    @RequestMapping(value="team/{id}", method = RequestMethod.GET)
-    public @ResponseBody
-    TeamDb getTeamInfo(@PathVariable int id) throws SQLException, ClassNotFoundException {
-        return TeamRepository.getTeamById(id);
     }
 
 }

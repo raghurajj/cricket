@@ -52,4 +52,17 @@ public class TeamRepository {
         return  teamDb;
     }
 
+    public static String getTeamNameById(int teamId) throws SQLException, ClassNotFoundException {
+        String name="";
+        Connection connection = MySqlConnector.getConnection();
+        Statement statement = connection.createStatement();
+        String query = "SELECT name FROM teams where id="+teamId;
+        ResultSet rs = statement.executeQuery(query);
+        if(rs.next())
+        {
+            name = rs.getString("name");
+        }
+        return  name;
+    }
+
 }

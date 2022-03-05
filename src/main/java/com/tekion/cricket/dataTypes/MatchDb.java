@@ -4,11 +4,11 @@ import java.util.List;
 
 public class MatchDb {
     int id;
-    int first_team_id;
-    int second_team_id;
-    int winner;
-    int toss_winner;
-    int batting_first;
+    String first_team_name;
+    String second_team_name;
+    String winner;
+    String toss_winner;
+    String batting_first;
     float overs;
     int series_id;
     MatchData first_team_match_data;
@@ -27,43 +27,43 @@ public class MatchDb {
         this.id = id;
     }
 
-    public int getFirst_team_id() {
-        return first_team_id;
+    public String getFirst_team_name() {
+        return first_team_name;
     }
 
-    public void setFirst_team_id(int first_team_id) {
-        this.first_team_id = first_team_id;
+    public void setFirst_team_name(String first_team_name) {
+        this.first_team_name = first_team_name;
     }
 
-    public int getSecond_team_id() {
-        return second_team_id;
+    public String getSecond_team_name() {
+        return second_team_name;
     }
 
-    public void setSecond_team_id(int second_team_id) {
-        this.second_team_id = second_team_id;
+    public void setSecond_team_name(String second_team_name) {
+        this.second_team_name = second_team_name;
     }
 
-    public int getWinner() {
+    public String getWinner() {
         return winner;
     }
 
-    public void setWinner(int winner) {
+    public void setWinner(String winner) {
         this.winner = winner;
     }
 
-    public int getToss_winner() {
+    public String getToss_winner() {
         return toss_winner;
     }
 
-    public void setToss_winner(int toss_winner) {
+    public void setToss_winner(String toss_winner) {
         this.toss_winner = toss_winner;
     }
 
-    public int getBatting_first() {
+    public String getBatting_first() {
         return batting_first;
     }
 
-    public void setBatting_first(int batting_first) {
+    public void setBatting_first(String batting_first) {
         this.batting_first = batting_first;
     }
 

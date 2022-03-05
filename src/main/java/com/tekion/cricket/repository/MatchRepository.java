@@ -187,7 +187,7 @@ public class MatchRepository {
         List<PlayerData> players = new ArrayList<PlayerData>();
         Connection connection = MySqlConnector.getConnection();
         Statement statement = connection.createStatement();
-        String query = "SELECT * FROM scorecards where match_id="+matchDb.getId()+" and team_id in ("+matchDb.getFirst_team_id()+","+(matchDb.getSecond_team_id())+")";
+        String query = "SELECT * FROM scorecards where match_id="+matchDb.getId()+" and team_id in ("+matchDb.getFirst_team_match_data().getTeam_id()+","+(matchDb.getSecond_team_match_data().getTeam_id())+")";
         ResultSet rs = statement.executeQuery(query);
         while(rs.next())
         {
@@ -210,16 +210,16 @@ public class MatchRepository {
         if(rs.next())
         {
             matchDb.setId(id);
-            matchDb.setFirst_team_id(rs.getInt("first_team_id"));
-            matchDb.setSecond_team_id(rs.getInt("second_team_id"));
-            matchDb.setWinner(rs.getInt("winner"));
-            matchDb.setToss_winner(rs.getInt("toss_winner"));
-            matchDb.setBatting_first(rs.getInt("batting_first"));
+            matchDb.setFirst_team_name(TeamRepository.getTeamNameById(rs.getInt("first_team_id")));
+            matchDb.setSecond_team_name(TeamRepository.getTeamNameById(rs.getInt("second_team_id")));
+            matchDb.setWinner(rs.getInt("winner")==-1?"TIE":TeamRepository.getTeamNameById(rs.getInt("winner")));
+            matchDb.setToss_winner(TeamRepository.getTeamNameById(rs.getInt("toss_winner")));
+            matchDb.setBatting_first(TeamRepository.getTeamNameById(rs.getInt("batting_first")));
             matchDb.setOvers(rs.getFloat("overs"));
             matchDb.setSeries_id(rs.getInt("series_id"));
 
-            matchDb.setFirst_team_match_data(getMatchData(matchDb, matchDb.getFirst_team_id()));
-            matchDb.setSecond_team_match_data(getMatchData(matchDb,matchDb.getSecond_team_id()));
+            matchDb.setFirst_team_match_data(getMatchData(matchDb, rs.getInt("first_team_id")));
+            matchDb.setSecond_team_match_data(getMatchData(matchDb,rs.getInt("second_team_id")));
 
             matchDb.setPlayers_data(getPlayersData(matchDb));
         }

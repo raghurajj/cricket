@@ -4,8 +4,8 @@ import java.util.List;
 
 public class SeriesDb {
     int id;
-    int first_team_id;
-    int second_team_id;
+    String first_team_name;
+    String second_team_name;
     int total_matches;
     int overs;
     List<Integer> match_ids;
@@ -18,20 +18,20 @@ public class SeriesDb {
         this.id = id;
     }
 
-    public int getFirst_team_id() {
-        return first_team_id;
+    public String getFirst_team_name() {
+        return first_team_name;
     }
 
-    public void setFirst_team_id(int first_team_id) {
-        this.first_team_id = first_team_id;
+    public void setFirst_team_name(String first_team_name) {
+        this.first_team_name = first_team_name;
     }
 
-    public int getSecond_team_id() {
-        return second_team_id;
+    public String getSecond_team_name() {
+        return second_team_name;
     }
 
-    public void setSecond_team_id(int second_team_id) {
-        this.second_team_id = second_team_id;
+    public void setSecond_team_name(String second_team_name) {
+        this.second_team_name = second_team_name;
     }
 
     public int getTotal_matches() {

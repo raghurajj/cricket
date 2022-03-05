@@ -73,7 +73,6 @@ public class MatchServiceHelper {
      */
     public static int getMatchData(MatchService matchService,String choice,int overs, int totalGames)
     {
-        matchService.setTeams();
         MatchType matchType = (choice == "single" ? MatchType.SINGLE : MatchType.SERIES);
         switch (matchType) {
             case SINGLE:
