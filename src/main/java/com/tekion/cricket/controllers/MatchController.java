@@ -20,11 +20,11 @@ import java.util.Map;
 public class MatchController {
 
     @PostMapping("single")
-    public ResponseEntity<Map<String,Object>> startMatch(@RequestBody Map<String, String> data)
+    public ResponseEntity<Map<String,Object>> startMatch(@RequestBody MatchRequest data)
     {
-        int overs = Integer.parseInt(data.get("number_of_overs"));
-        String firstTeamName = data.get("first_team_name");
-        String secondTeamName = data.get("second_team_name");
+        int overs = data.getNumber_of_overs();
+        String firstTeamName = data.getFirst_team_name();
+        String secondTeamName = data.getSecond_team_name();
         MatchService matchService = new MatchService();
         Map<String,Object>res = new LinkedHashMap<String, Object>();
         res.put("match_id",matchService.initialiseGame("single",overs,1,firstTeamName,secondTeamName));
@@ -32,32 +32,32 @@ public class MatchController {
     }
 
     @PostMapping("series")
-    public ResponseEntity<Map<String,Object>> startSeries(@RequestBody Map<String, String> data)
+    public ResponseEntity<Map<String,Object>> startSeries(@RequestBody SeriesRequest data)
     {
-        int overs = Integer.parseInt(data.get("number_of_overs"));
-        int totalGames = Integer.parseInt(data.get("number_of_matches"));
-        String firstTeamName = data.get("first_team_name");
-        String secondTeamName = data.get("second_team_name");
+        int overs = data.getNumber_of_overs();
+        int totalGames = data.getNumber_of_matches();
+        String firstTeamName = data.getFirst_team_name();
+        String secondTeamName = data.getSecond_team_name();
         MatchService matchService = new MatchService();
         Map<String,Object>res = new LinkedHashMap<String, Object>();
         res.put("series_id",matchService.initialiseGame("series",overs,totalGames,firstTeamName,secondTeamName));
         return new ResponseEntity<Map<String,Object>>(res, HttpStatus.CREATED);
     }
 
-    @GetMapping("single/{id}")
-    public MatchDb getMatch(@PathVariable(name="id") int id) throws SQLException, ClassNotFoundException {
-        return MatchRepository.getMatchById(id);
+    @GetMapping("single/{matchId}")
+    public MatchDb getMatch(@PathVariable(name="matchId") int matchId) throws SQLException, ClassNotFoundException {
+        return MatchRepository.getMatchById(matchId);
     }
 
 
-    @GetMapping("series/{id}")
-    public SeriesDb getSeries(@PathVariable(name="id") int id) throws SQLException, ClassNotFoundException {
-        return SeriesRepository.getSeriesById(id);
+    @GetMapping("series/{seriesId}")
+    public SeriesDb getSeries(@PathVariable(name="seriesId") int seriesId) throws SQLException, ClassNotFoundException {
+        return SeriesRepository.getSeriesById(seriesId);
     }
 
-    @GetMapping("{matchId}/players/{id}")
-    public PlayerDb getPlayerData(@PathVariable int matchId, @PathVariable int id) throws SQLException, ClassNotFoundException {
-        return PlayerRepository.getPlayerStats(matchId,id);
+    @GetMapping("{matchId}/players/{playerId}")
+    public PlayerDb getPlayerData(@PathVariable int matchId, @PathVariable int playerId) throws SQLException, ClassNotFoundException {
+        return PlayerRepository.getPlayerStats(matchId,playerId);
     }
 
 }
