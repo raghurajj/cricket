@@ -1,14 +1,20 @@
 package com.tekion.cricket.dataTypes;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class SeriesDb {
     int id;
-    String first_team_name;
-    String second_team_name;
-    int total_matches;
+    @JsonProperty("first_team_name")
+    String firstTeamName;
+    @JsonProperty("second_team_name")
+    String secondTeamName;
+    @JsonProperty("total_matches")
+    int totalMatches;
     int overs;
-    List<Integer> match_ids;
+    @JsonProperty("match_ids")
+    List<Integer> matchIds;
 
     public int getId() {
         return id;
@@ -18,28 +24,28 @@ public class SeriesDb {
         this.id = id;
     }
 
-    public String getFirst_team_name() {
-        return first_team_name;
+    public String getFirstTeamName() {
+        return firstTeamName;
     }
 
-    public void setFirst_team_name(String first_team_name) {
-        this.first_team_name = first_team_name;
+    public void setFirstTeamName(String firstTeamName) {
+        this.firstTeamName = firstTeamName;
     }
 
-    public String getSecond_team_name() {
-        return second_team_name;
+    public String getSecondTeamName() {
+        return secondTeamName;
     }
 
-    public void setSecond_team_name(String second_team_name) {
-        this.second_team_name = second_team_name;
+    public void setSecondTeamName(String secondTeamName) {
+        this.secondTeamName = secondTeamName;
     }
 
-    public int getTotal_matches() {
-        return total_matches;
+    public int getTotalMatches() {
+        return totalMatches;
     }
 
-    public void setTotal_matches(int total_matches) {
-        this.total_matches = total_matches;
+    public void setTotalMatches(int totalMatches) {
+        this.totalMatches = totalMatches;
     }
 
     public int getOvers() {
@@ -50,11 +56,11 @@ public class SeriesDb {
         this.overs = overs;
     }
 
-    public List<Integer> getMatch_ids() {
-        return match_ids;
+    public List<Integer> getMatchIds() {
+        return matchIds;
     }
 
-    public void setMatch_ids(List<Integer> match_ids) {
-        this.match_ids = match_ids;
+    public void setMatchIds(List<Integer> matchIds) {
+        this.matchIds = matchIds;
     }
 }

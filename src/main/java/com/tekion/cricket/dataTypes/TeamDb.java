@@ -1,11 +1,14 @@
 package com.tekion.cricket.dataTypes;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class TeamDb {
     int id;
     String name;
-    List<Integer> match_ids;
+    @JsonProperty("match_ids")
+    List<Integer> matchIds;
 
     public int getId() {
         return id;
@@ -23,11 +26,11 @@ public class TeamDb {
         this.name = name;
     }
 
-    public List<Integer> getMatch_ids() {
-        return match_ids;
+    public List<Integer> getMatchIds() {
+        return matchIds;
     }
 
-    public void setMatch_ids(List<Integer> match_ids) {
-        this.match_ids = match_ids;
+    public void setMatchIds(List<Integer> matchIds) {
+        this.matchIds = matchIds;
     }
 }

@@ -48,7 +48,7 @@ public class TeamRepository {
         {
             teamDb.setName(rs.getString("name"));
         }
-        teamDb.setMatch_ids(MatchRepository.getMatchIdsByTeamId(teamId));
+        teamDb.setMatchIds(MatchRepository.getMatchIdsByTeamId(teamId));
         return  teamDb;
     }
 

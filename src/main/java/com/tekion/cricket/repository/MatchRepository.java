@@ -136,7 +136,7 @@ public class MatchRepository {
         if(rs.next())
         {
 
-            matchData.setTeam_id(teamId);
+            matchData.setTeamId(teamId);
             matchData.setScore(rs.getInt("team_score"));
             matchData.setWickets(rs.getInt("number_of_wickets_fell"));
             matchData.setOvers(rs.getFloat("overs"));
@@ -187,7 +187,7 @@ public class MatchRepository {
         List<PlayerData> players = new ArrayList<PlayerData>();
         Connection connection = MySqlConnector.getConnection();
         Statement statement = connection.createStatement();
-        String query = "SELECT * FROM scorecards where match_id="+matchDb.getId()+" and team_id in ("+matchDb.getFirst_team_match_data().getTeam_id()+","+(matchDb.getSecond_team_match_data().getTeam_id())+")";
+        String query = "SELECT * FROM scorecards where match_id="+matchDb.getId()+" and team_id in ("+matchDb.getFirstTeamMatchData().getTeamId()+","+(matchDb.getSecondTeamMatchData().getTeamId())+")";
         ResultSet rs = statement.executeQuery(query);
         while(rs.next())
         {
@@ -210,18 +210,18 @@ public class MatchRepository {
         if(rs.next())
         {
             matchDb.setId(id);
-            matchDb.setFirst_team_name(TeamRepository.getTeamNameById(rs.getInt("first_team_id")));
-            matchDb.setSecond_team_name(TeamRepository.getTeamNameById(rs.getInt("second_team_id")));
+            matchDb.setFirstTeamName(TeamRepository.getTeamNameById(rs.getInt("first_team_id")));
+            matchDb.setSecondTeamName(TeamRepository.getTeamNameById(rs.getInt("second_team_id")));
             matchDb.setWinner(rs.getInt("winner")==-1?"TIE":TeamRepository.getTeamNameById(rs.getInt("winner")));
-            matchDb.setToss_winner(TeamRepository.getTeamNameById(rs.getInt("toss_winner")));
-            matchDb.setBatting_first(TeamRepository.getTeamNameById(rs.getInt("batting_first")));
+            matchDb.setTossWinner(TeamRepository.getTeamNameById(rs.getInt("toss_winner")));
+            matchDb.setBattingFirst(TeamRepository.getTeamNameById(rs.getInt("batting_first")));
             matchDb.setOvers(rs.getFloat("overs"));
-            matchDb.setSeries_id(rs.getInt("series_id"));
+            matchDb.setSeriesId(rs.getInt("series_id"));
 
-            matchDb.setFirst_team_match_data(getMatchData(matchDb, rs.getInt("first_team_id")));
-            matchDb.setSecond_team_match_data(getMatchData(matchDb,rs.getInt("second_team_id")));
+            matchDb.setFirstTeamMatchData(getMatchData(matchDb, rs.getInt("first_team_id")));
+            matchDb.setSecondTeamMatchData(getMatchData(matchDb,rs.getInt("second_team_id")));
 
-            matchDb.setPlayers_data(getPlayersData(matchDb));
+            matchDb.setPlayersData(getPlayersData(matchDb));
         }
         return matchDb;
     }

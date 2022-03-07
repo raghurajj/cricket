@@ -50,7 +50,7 @@ public class PlayerRepository {
             playerInfo.setId(id);
             playerInfo.setName(rs.getString("name"));
             playerInfo.setType(rs.getString("type"));
-            playerInfo.setTeam_id(rs.getInt("team_id"));
+            playerInfo.setTeamId(rs.getInt("team_id"));
         }
         return playerInfo;
     }
@@ -102,10 +102,10 @@ public class PlayerRepository {
         while (rs.next())
         {
             WicketData wicketHelper = new WicketData();
-            wicketHelper.setHelper_id(rs.getInt("wicket_helper"));
-            wicketHelper.setBatsman_id(rs.getInt("player_id"));
-            wicketHelper.setBowler_id(rs.getInt("bowled_by"));
-            wicketHelper.setWicket_type(rs.getString("wicket_type"));
+            wicketHelper.setHelperId(rs.getInt("wicket_helper"));
+            wicketHelper.setBatsmanId(rs.getInt("player_id"));
+            wicketHelper.setBowlerId(rs.getInt("bowled_by"));
+            wicketHelper.setWicketType(rs.getString("wicket_type"));
             wicketHelperList.add(wicketHelper);
         }
         return wicketHelperList;
@@ -118,20 +118,20 @@ public class PlayerRepository {
     public static PlayerData getPlayerData(ResultSet rs) throws SQLException, ClassNotFoundException {
         PlayerData player = new PlayerData();
         player.setId(rs.getInt("player_id"));
-        player.setTeam_id(rs.getInt("team_id"));
+        player.setTeamId(rs.getInt("team_id"));
         player.setName(fetchPlayerNameById(player.getId()));
         player.setType(fetchPlayerTypeById(player.getId()));
         player.setState(rs.getString("player_state"));
-        player.setRuns_scored(rs.getInt("runs_scored"));
-        player.setBalls_played(rs.getInt("balls_played"));
-        player.setFour_count(rs.getInt("four_count"));
-        player.setSix_count(rs.getInt("six_count"));
-        player.setBowled_by(rs.getInt("bowled_by"));
-        player.setWicket_type(rs.getString("wicket_type"));
-        player.setWicket_helper(rs.getInt("wicket_helper"));
-        player.setOvers_bowled(rs.getFloat("overs_bowled"));
-        player.setRuns_given(rs.getInt("runs_given"));
-        player.setWickets_taken(rs.getInt("wickets_taken"));
+        player.setRunsScored(rs.getInt("runs_scored"));
+        player.setBallsPlayed(rs.getInt("balls_played"));
+        player.setFourCount(rs.getInt("four_count"));
+        player.setSixCount(rs.getInt("six_count"));
+        player.setBowledBy(rs.getInt("bowled_by"));
+        player.setWicketType(rs.getString("wicket_type"));
+        player.setWicketHelper(rs.getInt("wicket_helper"));
+        player.setOversBowled(rs.getFloat("overs_bowled"));
+        player.setRunsGiven(rs.getInt("runs_given"));
+        player.setWicketsTaken(rs.getInt("wickets_taken"));
         return player;
     }
 
@@ -147,10 +147,10 @@ public class PlayerRepository {
         ResultSet rs = statement.executeQuery(query);
         while(rs.next())
         {
-            playerDb.setPlayer_data(getPlayerData(rs));
+            playerDb.setPlayerData(getPlayerData(rs));
         }
 
-        playerDb.setWickets_list(getWicketsData(id,matchId));
+        playerDb.setWicketsList(getWicketsData(id,matchId));
         return playerDb;
     }
 

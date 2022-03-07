@@ -1,10 +1,14 @@
 package com.tekion.cricket.dataTypes;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class PlayerInfo {
     int id;
     String name;
     String type;
-    int team_id;
+
+    @JsonProperty("team_id")
+    int teamId;
 
     public int getId() {
         return id;
@@ -30,11 +34,11 @@ public class PlayerInfo {
         this.type = type;
     }
 
-    public int getTeam_id() {
-        return team_id;
+    public int getTeamId() {
+        return teamId;
     }
 
-    public void setTeam_id(int team_id) {
-        this.team_id = team_id;
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
     }
 }

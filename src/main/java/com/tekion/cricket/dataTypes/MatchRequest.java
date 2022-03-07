@@ -1,19 +1,26 @@
 package com.tekion.cricket.dataTypes;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class MatchRequest {
-    int number_of_overs;
-    String first_team_name;
-    String second_team_name;
+    @JsonProperty("number_of_overs")
+    int numberOfOvers;
 
-    public int getNumber_of_overs() {
-        return number_of_overs;
+    @JsonProperty("first_team_name")
+    String firstTeamName;
+
+    @JsonProperty("second_team_name")
+    String secondTeamName;
+
+    public int getNumberOfOvers() {
+        return numberOfOvers;
     }
 
-    public String getFirst_team_name() {
-        return first_team_name;
+    public String getFirstTeamName() {
+        return firstTeamName;
     }
 
-    public String getSecond_team_name() {
-        return second_team_name;
+    public String getSecondTeamName() {
+        return secondTeamName;
     }
 }

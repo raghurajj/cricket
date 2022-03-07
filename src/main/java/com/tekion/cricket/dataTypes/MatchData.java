@@ -1,17 +1,21 @@
 package com.tekion.cricket.dataTypes;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class MatchData {
-    int team_id;
+
+    @JsonProperty("team_id")
+    int teamId;
     int score;
     float overs;
     int wickets;
 
-    public int getTeam_id() {
-        return team_id;
+    public int getTeamId() {
+        return teamId;
     }
 
-    public void setTeam_id(int team_id) {
-        this.team_id = team_id;
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
     }
 
     public int getScore() {

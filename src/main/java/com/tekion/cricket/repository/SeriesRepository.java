@@ -3,7 +3,6 @@ package com.tekion.cricket.repository;
 import com.tekion.cricket.dbconnector.MySqlConnector;
 import com.tekion.cricket.dataTypes.SeriesDb;
 import com.tekion.cricket.models.Series;
-import com.tekion.cricket.models.Team;
 
 import java.sql.*;
 
@@ -50,11 +49,11 @@ public class SeriesRepository {
         if(rs.next())
         {
             series.setId(rs.getInt("id"));
-            series.setFirst_team_name(TeamRepository.getTeamNameById(rs.getInt("first_team_id")));
-            series.setSecond_team_name(TeamRepository.getTeamNameById(rs.getInt("second_team_id")));
+            series.setFirstTeamName(TeamRepository.getTeamNameById(rs.getInt("first_team_id")));
+            series.setSecondTeamName(TeamRepository.getTeamNameById(rs.getInt("second_team_id")));
             series.setOvers(rs.getInt("overs"));
-            series.setTotal_matches(rs.getInt("total_matches"));
-            series.setMatch_ids(MatchRepository.getMatchIdsBySeriesId(id));
+            series.setTotalMatches(rs.getInt("total_matches"));
+            series.setMatchIds(MatchRepository.getMatchIdsBySeriesId(id));
         }
         return series;
     }

@@ -1,40 +1,46 @@
 package com.tekion.cricket.dataTypes;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class WicketData {
-    int helper_id;
-    int bowler_id;
-    int batsman_id;
-    String wicket_type;
+    @JsonProperty("helper_id")
+    int helperId;
+    @JsonProperty("bowler_id")
+    int bowlerId;
+    @JsonProperty("batsman_id")
+    int batsmanId;
+    @JsonProperty("wicket_type")
+    String wicketType;
 
-    public int getHelper_id() {
-        return helper_id;
+    public int getHelperId() {
+        return helperId;
     }
 
-    public void setHelper_id(int helper_id) {
-        this.helper_id = helper_id;
+    public void setHelperId(int helperId) {
+        this.helperId = helperId;
     }
 
-    public int getBowler_id() {
-        return bowler_id;
+    public int getBowlerId() {
+        return bowlerId;
     }
 
-    public void setBowler_id(int bowler_id) {
-        this.bowler_id = bowler_id;
+    public void setBowlerId(int bowlerId) {
+        this.bowlerId = bowlerId;
     }
 
-    public int getBatsman_id() {
-        return batsman_id;
+    public int getBatsmanId() {
+        return batsmanId;
     }
 
-    public void setBatsman_id(int batsman_id) {
-        this.batsman_id = batsman_id;
+    public void setBatsmanId(int batsmanId) {
+        this.batsmanId = batsmanId;
     }
 
-    public String getWicket_type() {
-        return wicket_type;
+    public String getWicketType() {
+        return wicketType;
     }
 
-    public void setWicket_type(String wicket_type) {
-        this.wicket_type = wicket_type;
+    public void setWicketType(String wicketType) {
+        this.wicketType = wicketType;
     }
 }

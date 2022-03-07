@@ -1,24 +1,28 @@
 package com.tekion.cricket.dataTypes;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class PlayerDb {
-    PlayerData player_data;
-    List<WicketData> wickets_list;
+    @JsonProperty("player_data")
+    PlayerData playerData;
+    @JsonProperty("wickets_list")
+    List<WicketData> wicketsList;
 
-    public PlayerData getPlayer_data() {
-        return player_data;
+    public PlayerData getPlayerData() {
+        return playerData;
     }
 
-    public void setPlayer_data(PlayerData player_data) {
-        this.player_data = player_data;
+    public void setPlayerData(PlayerData playerData) {
+        this.playerData = playerData;
     }
 
-    public List<WicketData> getWickets_list() {
-        return wickets_list;
+    public List<WicketData> getWicketsList() {
+        return wicketsList;
     }
 
-    public void setWickets_list(List<WicketData> wickets_list) {
-        this.wickets_list = wickets_list;
+    public void setWicketsList(List<WicketData> wicketsList) {
+        this.wicketsList = wicketsList;
     }
 }
