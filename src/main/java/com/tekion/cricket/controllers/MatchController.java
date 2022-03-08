@@ -18,8 +18,8 @@ import java.util.Map;
 @RequestMapping(path="/matches")
 public class MatchController {
 
-    @PostMapping("{matchType}")
-    public ResponseEntity<Map<String,Object>> startMatch(@PathVariable("matchType") MatchType matchType, @RequestBody MatchRequest data, @RequestParam(name="number_of_matches",required = false, defaultValue = "1") String totalGames)
+    @PostMapping("{match_type}")
+    public ResponseEntity<Map<String,Object>> startMatch(@PathVariable("match_type") MatchType matchType, @RequestBody MatchRequest data, @RequestParam(name="number_of_matches",required = false, defaultValue = "1") String totalGames)
     {
         int overs = data.getNumberOfOvers();
         String firstTeamName = data.getFirstTeamName();
@@ -33,19 +33,19 @@ public class MatchController {
     }
 
 
-    @GetMapping("single/{matchId}")
-    public MatchDb getMatch(@PathVariable(name="matchId") int matchId) throws SQLException, ClassNotFoundException {
+    @GetMapping("single/{match_id}")
+    public MatchDb getMatch(@PathVariable(name="match_id") int matchId) throws SQLException, ClassNotFoundException {
         return MatchRepository.getMatchById(matchId);
     }
 
 
-    @GetMapping("series/{seriesId}")
-    public SeriesDb getSeries(@PathVariable(name="seriesId") int seriesId) throws SQLException, ClassNotFoundException {
+    @GetMapping("series/{series_id}")
+    public SeriesDb getSeries(@PathVariable(name="series_id") int seriesId) throws SQLException, ClassNotFoundException {
         return SeriesRepository.getSeriesById(seriesId);
     }
 
-    @GetMapping("{matchId}/players/{playerId}")
-    public PlayerDb getPlayerData(@PathVariable int matchId, @PathVariable int playerId) throws SQLException, ClassNotFoundException {
+    @GetMapping("{match_id}/players/{player_id}")
+    public PlayerDb getPlayerData(@PathVariable(name="match_id")  int matchId, @PathVariable(name="player_id") int playerId) throws SQLException, ClassNotFoundException {
         return PlayerRepository.getPlayerStats(matchId,playerId);
     }
 

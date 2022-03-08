@@ -83,3 +83,22 @@ for each ball print ‘bowler’ to ‘batsmen’ and the result of the ball.
 
 ### swagger api:
 ![](src/main/java/swagger_apis.png)
+
+### Load Testing Simulations Result
+* below are the results of a load testing simulations on the
+  given apis.
+* Load testing is still in progress. will keep on updating results.
+
+
+#### for url ('/matches/{match_type}')
+![](src//main/resources/simulations/playMatchSimulation.png)
+
+
+#### for url ('/matches/single/{match_id}')
+![](src//main/resources/simulations/getMatchSimulation.png)
+
+
+#### for url ('/matches/{match_id}/players/{player_id}'')
+![](src//main/resources/simulations/getPlayerSimulation.png)
+
+
