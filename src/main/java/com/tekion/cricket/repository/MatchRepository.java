@@ -9,7 +9,9 @@ import com.tekion.cricket.models.Wicket;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MatchRepository {
 
@@ -127,11 +129,11 @@ public class MatchRepository {
     /*
     get a teams data of a particular match
      */
-    public static MatchData getMatchData(MatchDb matchDb,int teamId) throws SQLException, ClassNotFoundException {
+    public static MatchData getMatchData(int matchId,int teamId) throws SQLException, ClassNotFoundException {
         Connection connection = MySqlConnector.getConnection();
         Statement statement = connection.createStatement();
         MatchData matchData = new MatchData();
-        String query = "SELECT * FROM match_data where match_id="+matchDb.getId()+" and team_id="+teamId;
+        String query = "SELECT * FROM match_data where match_id="+matchId+" and team_id="+teamId;
         ResultSet rs = statement.executeQuery(query);
         if(rs.next())
         {
@@ -145,21 +147,31 @@ public class MatchRepository {
 
     }
 
-
     /*
     return a list of ids of all the matches played in a series
      */
-    public static List<Integer>getMatchIdsBySeriesId(int seriesId) throws SQLException, ClassNotFoundException {
-        List<Integer>matchIds = new ArrayList<Integer>();
+    public static List<Map<String,Object>>getMatchInfoBySeriesId(int seriesId) throws SQLException, ClassNotFoundException {
+        List<Map<String,Object>>matches = new ArrayList<>();
         Connection connection = MySqlConnector.getConnection();
-        String query="select id from matches where series_id="+seriesId;
+        String query="select * from matches where series_id="+seriesId;
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(query);
+        Map<String,Object>match = new LinkedHashMap<>();
+        int matchId;
         while(rs.next())
         {
-            matchIds.add(rs.getInt("id"));
+            matchId = rs.getInt("id");
+            int firstTeamId = rs.getInt("first_team_id");
+            int secondTeamId = rs.getInt("second_team_id");
+            MatchData firstTeamMatchData = getMatchData(matchId,firstTeamId);
+            MatchData secondTeamMatchData = getMatchData(matchId,secondTeamId);
+            match.put("match_id",matchId);
+            match.put("first_team_stats",firstTeamMatchData);
+            match.put("second_team_stats",secondTeamMatchData);
+            matches.add(match);
+
         }
-        return matchIds;
+        return matches;
     }
 
 
@@ -218,8 +230,8 @@ public class MatchRepository {
             matchDb.setOvers(rs.getFloat("overs"));
             matchDb.setSeriesId(rs.getInt("series_id"));
 
-            matchDb.setFirstTeamMatchData(getMatchData(matchDb, rs.getInt("first_team_id")));
-            matchDb.setSecondTeamMatchData(getMatchData(matchDb,rs.getInt("second_team_id")));
+            matchDb.setFirstTeamMatchData(getMatchData(matchDb.getId(), rs.getInt("first_team_id")));
+            matchDb.setSecondTeamMatchData(getMatchData(matchDb.getId(),rs.getInt("second_team_id")));
 
             matchDb.setPlayersData(getPlayersData(matchDb));
         }

@@ -1,6 +1,7 @@
 package com.tekion.cricket.controllers;
 
 import com.tekion.cricket.dataTypes.*;
+import com.tekion.cricket.enums.MatchType;
 import com.tekion.cricket.repository.MatchRepository;
 import com.tekion.cricket.repository.PlayerRepository;
 import com.tekion.cricket.repository.SeriesRepository;
@@ -17,30 +18,20 @@ import java.util.Map;
 @RequestMapping(path="/matches")
 public class MatchController {
 
-    @PostMapping("single")
-    public ResponseEntity<Map<String,Object>> startMatch(@RequestBody MatchRequest data)
+    @PostMapping("{matchType}")
+    public ResponseEntity<Map<String,Object>> startMatch(@PathVariable("matchType") MatchType matchType, @RequestBody MatchRequest data, @RequestParam(name="number_of_matches",required = false, defaultValue = "1") String totalGames)
     {
         int overs = data.getNumberOfOvers();
         String firstTeamName = data.getFirstTeamName();
         String secondTeamName = data.getSecondTeamName();
         MatchService matchService = new MatchService();
         Map<String,Object>res = new LinkedHashMap<String, Object>();
+        if(matchType==MatchType.SINGLE)
         res.put("match_id",matchService.initialiseGame("single",overs,1,firstTeamName,secondTeamName));
+        else if(matchType==MatchType.SERIES) res.put("series_id",matchService.initialiseGame("series",overs,Integer.parseInt(totalGames),firstTeamName,secondTeamName));
         return new ResponseEntity<Map<String,Object>>(res, HttpStatus.CREATED);
     }
 
-    @PostMapping("series")
-    public ResponseEntity<Map<String,Object>> startSeries(@RequestBody SeriesRequest data)
-    {
-        int overs = data.getNumberOfOvers();
-        int totalGames = data.getNumberOfMatches();
-        String firstTeamName = data.getFirstTeamName();
-        String secondTeamName = data.getSecondTeamName();
-        MatchService matchService = new MatchService();
-        Map<String,Object>res = new LinkedHashMap<String, Object>();
-        res.put("series_id",matchService.initialiseGame("series",overs,totalGames,firstTeamName,secondTeamName));
-        return new ResponseEntity<Map<String,Object>>(res, HttpStatus.CREATED);
-    }
 
     @GetMapping("single/{matchId}")
     public MatchDb getMatch(@PathVariable(name="matchId") int matchId) throws SQLException, ClassNotFoundException {

@@ -3,6 +3,7 @@ package com.tekion.cricket.dataTypes;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
+import java.util.Map;
 
 public class SeriesDb {
     int id;
@@ -13,8 +14,7 @@ public class SeriesDb {
     @JsonProperty("total_matches")
     int totalMatches;
     int overs;
-    @JsonProperty("match_ids")
-    List<Integer> matchIds;
+    List<Map<String,Object>> matches;
 
     public int getId() {
         return id;
@@ -56,11 +56,11 @@ public class SeriesDb {
         this.overs = overs;
     }
 
-    public List<Integer> getMatchIds() {
-        return matchIds;
+    public List<Map<String,Object>> getMatches() {
+        return matches;
     }
 
-    public void setMatchIds(List<Integer> matchIds) {
-        this.matchIds = matchIds;
+    public void setMatches(List<Map<String,Object>> matches) {
+        this.matches = matches;
     }
 }

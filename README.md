@@ -75,3 +75,11 @@ for each ball print ‘bowler’ to ‘batsmen’ and the result of the ball.
 * by now we have match_id and both teams' ids. using that we can get teams' info from teams table.
 * for getting each teams stats for that particular match we can use team_id and match_id to fetch data from match_data table.
 * for fetching scorecard, we can use match_id and team_id to fetch data from scorecards table.
+
+
+### Sequence Diagram:
+![](src/main/java/cricket_sequence_diagram.png)
+
+
+### swagger api:
+![](src/main/java/swagger_apis.png)

@@ -53,7 +53,7 @@ public class SeriesRepository {
             series.setSecondTeamName(TeamRepository.getTeamNameById(rs.getInt("second_team_id")));
             series.setOvers(rs.getInt("overs"));
             series.setTotalMatches(rs.getInt("total_matches"));
-            series.setMatchIds(MatchRepository.getMatchIdsBySeriesId(id));
+            series.setMatches(MatchRepository.getMatchInfoBySeriesId(id));
         }
         return series;
     }
