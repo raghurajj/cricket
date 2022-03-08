@@ -82,7 +82,7 @@ for each ball print ‘bowler’ to ‘batsmen’ and the result of the ball.
 
 
 ### swagger api:
-![](src/main/java/swagger_apis.png) 
+![](src/main/java/swagger_docs.png) 
 
 ### Load Testing Simulations Result
 * below are the results of a load testing simulations on the
