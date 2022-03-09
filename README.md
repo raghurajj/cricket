@@ -1,3 +1,41 @@
+## Sequence Diagram:
+![](src/main/java/cricket_sequence_diagram.png)
+
+
+## Class Diagram
+
+![](src/main/java/classDiagram.png)
+
+
+## Database Design Diagram
+
+![](src/main/java/database_design_diagram.png)
+
+
+### swagger api:
+* Available at: ('baseUrl/swagger-ui.html')
+* Full api doc (pdf) is available in base directory.
+
+![](src/main/java/swagger_docs.png)
+
+### Load Testing Simulation Results
+* below are the results of load testing simulations on the
+  given apis.
+* Load testing is still in progress. will keep on updating results.
+
+
+#### for url ('/matches/{match_type}')
+![](src//main/resources/simulations/playMatchSimulation.png)
+
+
+#### for url ('/matches/single/{match_id}')
+![](src//main/resources/simulations/getMatchSimulation.png)
+
+
+#### for url ('/matches/{match_id}/players/{player_id}'')
+![](src//main/resources/simulations/getPlayerSimulation.png)
+
+
 # Game Flow
 
 * get input whether its a Single game or series.
@@ -51,13 +89,6 @@ for each ball print ‘bowler’ to ‘batsmen’ and the result of the ball.
 * change strike after each over.
 
 
-## Class Diagram
-
-![](src/main/java/classDiagram.png)
-
-## Database Design Diagram
-
-![](src/main/java/database_design_diagram.png)
 
 ### Storing Match into DB:
 * While Initialising the team we are storing [team_name,team_id] into teams table.
@@ -77,28 +108,6 @@ for each ball print ‘bowler’ to ‘batsmen’ and the result of the ball.
 * for fetching scorecard, we can use match_id and team_id to fetch data from scorecards table.
 
 
-### Sequence Diagram:
-![](src/main/java/cricket_sequence_diagram.png)
 
-
-### swagger api:
-![](src/main/java/swagger_docs.png) 
-
-### Load Testing Simulations Result
-* below are the results of a load testing simulations on the
-  given apis.
-* Load testing is still in progress. will keep on updating results.
-
-
-#### for url ('/matches/{match_type}')
-![](src//main/resources/simulations/playMatchSimulation.png)
-
-
-#### for url ('/matches/single/{match_id}')
-![](src//main/resources/simulations/getMatchSimulation.png)
-
-
-#### for url ('/matches/{match_id}/players/{player_id}'')
-![](src//main/resources/simulations/getPlayerSimulation.png)
 
 
