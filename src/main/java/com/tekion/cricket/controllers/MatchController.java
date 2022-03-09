@@ -6,6 +6,8 @@ import com.tekion.cricket.repository.MatchRepository;
 import com.tekion.cricket.repository.PlayerRepository;
 import com.tekion.cricket.repository.SeriesRepository;
 import com.tekion.cricket.utils.MatchService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(path="/matches")
+@CacheConfig(cacheNames = {"cricket"})
 public class MatchController {
 
     @PostMapping("{match_type}")
@@ -34,17 +37,21 @@ public class MatchController {
 
 
     @GetMapping("single/{match_id}")
+    @Cacheable()
     public MatchDb getMatch(@PathVariable(name="match_id") int matchId) throws SQLException, ClassNotFoundException {
+        System.out.println("miss");
         return MatchRepository.getMatchById(matchId);
     }
 
 
     @GetMapping("series/{series_id}")
+    @Cacheable()
     public SeriesDb getSeries(@PathVariable(name="series_id") int seriesId) throws SQLException, ClassNotFoundException {
         return SeriesRepository.getSeriesById(seriesId);
     }
 
     @GetMapping("{match_id}/players/{player_id}")
+    @Cacheable()
     public PlayerDb getPlayerData(@PathVariable(name="match_id")  int matchId, @PathVariable(name="player_id") int playerId) throws SQLException, ClassNotFoundException {
         return PlayerRepository.getPlayerStats(matchId,playerId);
     }
