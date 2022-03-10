@@ -39,6 +39,7 @@ public class MatchController {
     @GetMapping("single/{match_id}")
     @Cacheable()
     public MatchDb getMatch(@PathVariable(name="match_id") int matchId) throws SQLException, ClassNotFoundException {
+//        System.out.println("miss");
         return MatchRepository.getMatchById(matchId);
     }
 
