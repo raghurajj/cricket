@@ -6,10 +6,14 @@ import com.tekion.cricket.models.Team;
 
 import java.sql.*;
 
+/*
+handles db related operations on teams table
+ */
 public class TeamRepository {
 
     /*
     insert a team into teams table in db
+    and store the teams' id in team object
      */
     public static void insertTeam(Team team) throws SQLException, ClassNotFoundException{
         String teamName = team.getTeamName();
@@ -35,7 +39,7 @@ public class TeamRepository {
 
 
     /*
-    get teams' info  by id.
+    get teams' info  by teamId.
      */
     public static TeamDb getTeamById(int teamId) throws SQLException, ClassNotFoundException {
         TeamDb teamDb = new TeamDb();
@@ -50,7 +54,9 @@ public class TeamRepository {
         }
         return  teamDb;
     }
-
+    /*
+    get teams' name  by teamId.
+     */
     public static String getTeamNameById(int teamId) throws SQLException, ClassNotFoundException {
         String name="";
         Connection connection = MySqlConnector.getConnection();

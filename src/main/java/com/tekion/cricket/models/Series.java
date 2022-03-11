@@ -5,7 +5,10 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+/*
+holds all info about a series i.e.
+teams,oversCount,matchCount,winner etc.
+ */
 public class Series {
     int id;
     private int numberOfGames;

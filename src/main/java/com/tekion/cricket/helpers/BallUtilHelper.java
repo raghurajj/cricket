@@ -5,7 +5,11 @@ import com.tekion.cricket.enums.PlayerType;
 
 import java.util.Random;
 
-public class BallServiceHelper {
+
+/*
+Provides helper methods to BallUtil class.
+ */
+public class BallUtilHelper {
 
     /*
     Returns a random number b/w min and max

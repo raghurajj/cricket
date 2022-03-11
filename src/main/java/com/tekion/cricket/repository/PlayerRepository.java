@@ -11,11 +11,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/*
+handles db related operations on players table
+ */
 public class PlayerRepository {
 
 
     /*
-    insert players of a team into players table in db
+    insert all the players of a team into
+    the players table in db. and store players'
+    id of all the player after inserting them
+    into db.
      */
     public static void insertTeamPlayers(List<Player> players, int teamId) throws SQLException, ClassNotFoundException {
         PreparedStatement statement;
@@ -91,7 +98,8 @@ public class PlayerRepository {
 
 
     /*
-        get list of all the wickets a player has helped in
+        get list of all the wickets a player has
+        participated in
      */
     public static List<WicketData> getWicketsData(int playerId, int matchId) throws SQLException, ClassNotFoundException {
         List<WicketData>wicketHelperList = new ArrayList<WicketData>();

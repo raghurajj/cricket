@@ -6,10 +6,15 @@ import com.tekion.cricket.models.Series;
 
 import java.sql.*;
 
+
+/*
+handles db related operations on series table
+ */
 public class SeriesRepository {
 
     /*
     insert series data into series table in db
+    and store the seriesId in series Object
      */
     public static void insertSeries(Series series) throws SQLException, ClassNotFoundException{
         Connection connection = MySqlConnector.getConnection();

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 /*
 stores data of a match
-i.e. batting team,bowling team [switched after the inning]
+i.e. batting team,bowling team [switched after an inning]
 winner etc.
  */
 @Component

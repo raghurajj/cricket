@@ -1,7 +1,5 @@
 package com.tekion.cricket.helpers;
 
-import com.tekion.cricket.constants.StringUtils;
-import com.tekion.cricket.dbconnector.MySqlConnector;
 import com.tekion.cricket.models.Match;
 import com.tekion.cricket.models.Series;
 import com.tekion.cricket.models.Team;
@@ -10,6 +8,10 @@ import com.tekion.cricket.repository.SeriesRepository;
 import java.sql.SQLException;
 import java.util.List;
 
+
+/*
+Provides helper methods to Series class.
+ */
 public class SeriesHelper {
 
 
@@ -22,7 +24,7 @@ public class SeriesHelper {
         Match match;
         for (int game = 1; game <= numberOfGames; game++) {
             System.out.println("\n\n----------- Match number: " + game + "-------------\n");
-            match = MatchServiceHelper.playSingleMatch(firstTeam, secondTeam, totalAvailableBalls);
+            match = MatchUtilHelper.playSingleMatch(firstTeam, secondTeam, totalAvailableBalls);
             match.setSeriesId(series.getId());
             if (match.getWinner().equals(firstTeam.getTeamName())) matchesWonByFirstTeam++;
             else if (match.getWinner().equals(secondTeam.getTeamName())) matchesWonBySecondTeam++;

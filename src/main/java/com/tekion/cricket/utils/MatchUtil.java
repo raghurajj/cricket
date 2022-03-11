@@ -4,17 +4,17 @@ import com.tekion.cricket.constants.StringUtils;
 import com.tekion.cricket.helpers.MatchHelper;
 import com.tekion.cricket.models.Match;
 import com.tekion.cricket.models.Team;
-import com.tekion.cricket.helpers.MatchServiceHelper;
+import com.tekion.cricket.helpers.MatchUtilHelper;
 import com.tekion.cricket.repository.TeamRepository;
 
 import java.sql.SQLException;
 
-public class MatchService {
+public class MatchUtil {
     private Team firstTeam;
     private Team secondTeam;
     private  int totalAvailableBalls;
 
-    public MatchService()
+    public MatchUtil()
     {
 
     }
@@ -49,19 +49,19 @@ public class MatchService {
     {
         this.setTeams(firstTeamName,secondTeamName);
         this.totalAvailableBalls = overs*6;
-        return MatchServiceHelper.getMatchData(this,matchType,overs,totalGames);
+        return MatchUtilHelper.getMatchData(this,matchType,overs,totalGames);
     }
 
     public int playSingleMatch(int overs)
     {
-        Match match = MatchServiceHelper.playSingleMatch(firstTeam, secondTeam,totalAvailableBalls);
+        Match match = MatchUtilHelper.playSingleMatch(firstTeam, secondTeam,totalAvailableBalls);
         MatchHelper.insertMatchIntoDb(match);
         return match.getId();
     }
 
     public int playSeries(int overs, int totalGames)
     {
-        return (MatchServiceHelper.playSeries(firstTeam,secondTeam,totalGames,overs*6)).getId();
+        return (MatchUtilHelper.playSeries(firstTeam,secondTeam,totalGames,overs*6)).getId();
     }
 
 

@@ -14,8 +14,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/*
+handles db related operations on matches and scorecards table
+ */
 public class MatchRepository {
 
+    /*
+    inserts a match into the matches table
+    and store the matchId in match Object.
+     */
     public static void insertMatchHelper(Match match,int firstTeamId,int secondTeamId,int winner,int tossWinner,int battingFirst,float overs,int seriesId) throws SQLException, ClassNotFoundException {
         Connection connection = MySqlConnector.getConnection();
         connection.setAutoCommit(false);
@@ -46,7 +53,8 @@ public class MatchRepository {
 
 
     /*
-    insert a match into matches table in db
+    get all the data of a match and use
+    insertMatchHelper to insert it in db.
      */
     public static void insertMatch(Match match) throws SQLException, ClassNotFoundException{
         int firstTeamId = match.getBowlingTeam().getId();
@@ -68,7 +76,8 @@ public class MatchRepository {
 
 
     /*
-    insert both teams data in the match_data table
+    insert teams' data of a match into
+    the match_data table
      */
     public static void insertIntoMatchData(int matchId, int teamId, int teamScore,  int totalBallsPlayed,int numberOfWicketsFell) throws SQLException, ClassNotFoundException {
         float overs = (float)(totalBallsPlayed/6) + (float)(totalBallsPlayed%6)/10;
@@ -128,7 +137,8 @@ public class MatchRepository {
     }
 
     /*
-    get a teams data of a particular match
+    get a teams' data of a particular match
+    from match_data table using team and match id
      */
     public static MatchData getMatchData(int matchId,int teamId) throws SQLException, ClassNotFoundException {
         Connection connection = MySqlConnector.getConnection();
@@ -149,7 +159,7 @@ public class MatchRepository {
     }
 
     /*
-    return a list of ids of all the matches played in a series
+    return a list of all the matches played in a series
      */
     public static List<Map<String,Object>>getMatchInfoBySeriesId(int seriesId) throws SQLException, ClassNotFoundException {
         List<Map<String,Object>>matches = new ArrayList<>();

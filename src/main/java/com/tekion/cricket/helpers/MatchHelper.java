@@ -6,15 +6,22 @@ import com.tekion.cricket.models.Player;
 import com.tekion.cricket.interfaces.Ball;
 import com.tekion.cricket.models.Team;
 import com.tekion.cricket.repository.MatchRepository;
-import com.tekion.cricket.utils.BallService;
+import com.tekion.cricket.utils.BallUtil;
 
 import java.sql.SQLException;
 import java.util.concurrent.ThreadLocalRandom;
 
+
+/*
+Provides helper methods to Match class.
+ */
 public class MatchHelper {
+
 
     /*
     return true if the team is all-out else false
+    team is all-out if nextPlayer==12. means no
+    other player is left to bat
      */
     public static boolean hasLastWicketFallen(Team team)
     {
@@ -33,6 +40,9 @@ public class MatchHelper {
 
     /*
     returns true if the inning has ended
+    Inning will end if either all the wickets
+    has fallen or the target has been successfully
+    chased.
      */
     public static boolean hasInningEnded(int scoreToChase, Team battingTeam)
     {
@@ -41,7 +51,9 @@ public class MatchHelper {
 
 
     /*
-    prints current status of the match
+    prints current status of the match i.e.
+    current batsmen/bowler and their stats,
+    both teams stats.
      */
     public static void printCurrentMatchStatus(Team battingTeam ,Team bowlingTeam ,int over, int totalAvailableBalls)
     {
@@ -63,8 +75,10 @@ public class MatchHelper {
 
     /*
     play over by using playBall() method 6 times.
+    and change strike after each over.
+    prints ball by ball updates too
      */
-    public static void playOverHelper(Team battingTeam, Team bowlingTeam, int scoreToChase, BallService ballService, int over)
+    public static void playOverHelper(Team battingTeam, Team bowlingTeam, int scoreToChase, BallUtil ballService, int over)
     {
         for(int ball=1;ball<=6;ball++)
         {
@@ -82,24 +96,28 @@ public class MatchHelper {
         battingTeam.changeStrike();
     }
 
-
-    public static void playOver(Team battingTeam, Team bowlingTeam, BallService ballService, int scoreToChase, int totalAvailableBalls, int currentBowler,int over)
+    /*
+    if the match has not ended
+    prints current match status
+    uses playerOverHelper to play over
+     */
+    public static void playOver(Team battingTeam, Team bowlingTeam, BallUtil ballService, int scoreToChase, int totalAvailableBalls, int currentBowler, int over)
     {
         if(hasInningEnded(scoreToChase,battingTeam))
             return;
         bowlingTeam.setCurrentBowler(currentBowler);
         printCurrentMatchStatus(battingTeam,bowlingTeam,over,totalAvailableBalls);
-        playOverHelper(battingTeam,bowlingTeam,scoreToChase,(BallService) ballService,over);
+        playOverHelper(battingTeam,bowlingTeam,scoreToChase,(BallUtil) ballService,over);
     }
 
 
     /*
-    simulate inning of a match. scoreToChase is INT_MAX if
+    simulate innings of a match. scoreToChase is INT_MAX if
     the first Inning is going on.
      */
     public static void simulateInning(Team battingTeam, Team bowlingTeam, int totalAvailableBalls, int scoreToChase)
     {
-        Ball ballService = new BallService(battingTeam, bowlingTeam);
+        Ball ballService = new BallUtil(battingTeam, bowlingTeam);
         int overs = totalAvailableBalls/6;
         battingTeam.getReadyToPlay();
         int currentBowler=5;
@@ -107,7 +125,7 @@ public class MatchHelper {
         ballService.registerObserver(bowlingTeam);
         for(int over=0;over<overs;over++)
         {
-            playOver(battingTeam,bowlingTeam,(BallService) ballService,scoreToChase,totalAvailableBalls,currentBowler,over);
+            playOver(battingTeam,bowlingTeam,(BallUtil) ballService,scoreToChase,totalAvailableBalls,currentBowler,over);
             if(currentBowler==10)currentBowler=4;
             currentBowler++;
         }
@@ -117,7 +135,8 @@ public class MatchHelper {
 
 
     /*
-    declares the result of the match
+    declares the result of the match by
+    comparing both teams score
      */
     public static void declareWinner(Match match, Team battingTeam, Team bowlingTeam)
     {

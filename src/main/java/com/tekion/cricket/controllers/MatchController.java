@@ -5,7 +5,7 @@ import com.tekion.cricket.enums.MatchType;
 import com.tekion.cricket.repository.MatchRepository;
 import com.tekion.cricket.repository.PlayerRepository;
 import com.tekion.cricket.repository.SeriesRepository;
-import com.tekion.cricket.utils.MatchService;
+import com.tekion.cricket.utils.MatchUtil;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ public class MatchController {
         int overs = data.getNumberOfOvers();
         String firstTeamName = data.getFirstTeamName();
         String secondTeamName = data.getSecondTeamName();
-        MatchService matchService = new MatchService();
+        MatchUtil matchService = new MatchUtil();
         Map<String,Object>res = new LinkedHashMap<String, Object>();
         if(matchType==MatchType.SINGLE)
         res.put("match_id",matchService.initialiseGame("single",overs,1,firstTeamName,secondTeamName));

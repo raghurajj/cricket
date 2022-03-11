@@ -13,6 +13,10 @@ import com.tekion.cricket.repository.MatchRepository;
 import java.sql.SQLException;
 import java.util.Random;
 
+
+/*
+Provides helper methods to Team class.
+ */
 public class TeamHelper {
 
 
@@ -125,7 +129,7 @@ public class TeamHelper {
 
 
     /*
-    returns the player who caught or run-out- a batsman
+    returns the player who caught or run-out a batsman
     (if applicable) else returns null
      */
     public static Player getWicketHelper(Team opposition, WicketType wicketType)
@@ -147,7 +151,7 @@ public class TeamHelper {
 
     /*
     handle teams players on wicket and updates
-     necessary info
+    nextPlayer and strikers
      */
     public static void handleWicket(Team team,Team opposition)
     {

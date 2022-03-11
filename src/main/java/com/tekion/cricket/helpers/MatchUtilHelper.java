@@ -5,11 +5,16 @@ import com.tekion.cricket.models.Match;
 import com.tekion.cricket.models.Series;
 import com.tekion.cricket.models.Team;
 import com.tekion.cricket.constants.StringUtils;
-import com.tekion.cricket.utils.MatchService;
+import com.tekion.cricket.utils.MatchUtil;
 
 import java.util.Scanner;
 
-public class MatchServiceHelper {
+/*
+Provides helper methods to MatchUtil class.
+ */
+public class MatchUtilHelper {
+
+
     /*
     initialise and returns a new Team
      */
@@ -48,30 +53,12 @@ public class MatchServiceHelper {
     }
 
 
-    /*
-    to fetch match data from database
-     */
-    public static void databaseOps(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Match id to fetch scorecard");
-        int matchId = sc.nextInt();
-
-//        try {
-//            MatchRepository.fetchScorecard(matchId);
-//        } catch(SQLException sqle){
-//            System.out.println(sqle);
-//        } catch(Exception e){
-//            System.out.println("DB Error");
-//        }
-    }
-
-
 
     /*
     to decide whether to play a match or series
     and get match data like number of overs
      */
-    public static int getMatchData(MatchService matchService,String choice,int overs, int totalGames)
+    public static int getMatchData(MatchUtil matchService, String choice, int overs, int totalGames)
     {
         MatchType matchType = (choice == "single" ? MatchType.SINGLE : MatchType.SERIES);
         switch (matchType) {

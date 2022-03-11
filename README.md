@@ -18,7 +18,7 @@
 
 ![](src/main/java/swagger_docs.png)
 
-### Load Testing Simulation Results
+### Load Testing Simulation Results (for 1000 requests)
 * below are the results of load testing simulations on the
   given apis.
 * Load testing is still in progress. will keep on updating results.
@@ -28,12 +28,25 @@
 ![](src//main/resources/simulations/playMatchSimulation.png)
 
 
+### Before Caching
+* both these api calls were taking >1200ms time
+
 #### for url ('/matches/single/{match_id}')
-![](src//main/resources/simulations/getMatchSimulation.png)
+![](src//main/resources/simulations/getMatchSimulationBeforeCaching.png)
 
 
 #### for url ('/matches/{match_id}/players/{player_id}'')
-![](src//main/resources/simulations/getPlayerSimulation.png)
+![](src//main/resources/simulations/getPlayerSimulationBeforeCaching.png)
+
+
+### After Caching
+* both these api calls were taking <800ms time
+#### for url ('/matches/single/{match_id}')
+![](src//main/resources/simulations/getMatchSimulationAfterCaching.png)
+
+
+#### for url ('/matches/{match_id}/players/{player_id}'')
+![](src//main/resources/simulations/getPlayerSimulationAfterCaching.png)
 
 
 # Game Flow
