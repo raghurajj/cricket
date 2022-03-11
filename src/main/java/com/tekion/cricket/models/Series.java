@@ -30,21 +30,6 @@ public class Series {
         return numberOfGames;
     }
 
-    public void setNumberOfGames(int numberOfGames) {
-        this.numberOfGames = numberOfGames;
-    }
-
-    public List<Match> getMatches() {
-        return matches;
-    }
-
-    public void setMatches(List<Match> matches) {
-        this.matches = matches;
-    }
-
-    public String getWinner() {
-        return winner;
-    }
 
     public void setWinner(String winner) {
         this.winner = winner;
@@ -54,24 +39,12 @@ public class Series {
         return firstTeam;
     }
 
-    public void setFirstTeam(Team firstTeam) {
-        this.firstTeam = firstTeam;
-    }
-
     public Team getSecondTeam() {
         return secondTeam;
     }
 
-    public void setSecondTeam(Team secondTeam) {
-        this.secondTeam = secondTeam;
-    }
-
     public int getTotalAvailableBalls() {
         return totalAvailableBalls;
-    }
-
-    public void setTotalAvailableBalls(int totalAvailableBalls) {
-        this.totalAvailableBalls = totalAvailableBalls;
     }
 
     public Series(){}

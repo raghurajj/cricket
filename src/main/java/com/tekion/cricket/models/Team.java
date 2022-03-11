@@ -72,11 +72,6 @@ public class Team implements Observer {
         this.setNextPlayer(2);
     }
 
-    public void setPlayers(List<Player>players)
-    {
-        this.players = players;
-    }
-
     public void setTeamScore(int teamScore) {
         this.teamScore = teamScore;
     }
@@ -89,9 +84,6 @@ public class Team implements Observer {
         return teamName;
     }
 
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
 
     public int getTeamScore() {
         return teamScore;
@@ -150,10 +142,6 @@ public class Team implements Observer {
 
     public int getTotalAvailableBalls() {
         return totalAvailableBalls;
-    }
-
-    public void setTotalAvailableBalls(int totalAvailableBalls) {
-        this.totalAvailableBalls = totalAvailableBalls;
     }
 
     public void manageBowlersBalls()

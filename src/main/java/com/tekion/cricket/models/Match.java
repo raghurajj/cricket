@@ -68,24 +68,13 @@ public class Match {
     }
 
 
-    public void setBattingTeam(Team battingTeam) {
-        this.battingTeam = battingTeam;
-    }
-
     public Team getBowlingTeam() {
         return bowlingTeam;
     }
 
-    public void setBowlingTeam(Team bowlingTeam) {
-        this.bowlingTeam = bowlingTeam;
-    }
 
     public int getTotalAvailableBalls() {
         return totalAvailableBalls;
-    }
-
-    public void setTotalAvailableBalls(int totalAvailableBalls) {
-        this.totalAvailableBalls = totalAvailableBalls;
     }
 
     public void reset()
