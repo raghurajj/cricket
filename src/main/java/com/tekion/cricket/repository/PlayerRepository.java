@@ -1,11 +1,11 @@
 package com.tekion.cricket.repository;
 
 import com.tekion.cricket.dbconnector.MySqlConnector;
-import com.tekion.cricket.dataTypes.PlayerData;
-import com.tekion.cricket.dataTypes.PlayerDb;
-import com.tekion.cricket.dataTypes.PlayerInfo;
-import com.tekion.cricket.dataTypes.WicketData;
-import com.tekion.cricket.models.Player;
+import com.tekion.cricket.models.PlayerData;
+import com.tekion.cricket.models.PlayerDb;
+import com.tekion.cricket.models.PlayerInfo;
+import com.tekion.cricket.models.WicketData;
+import com.tekion.cricket.beans.Player;
 
 import java.sql.*;
 import java.util.ArrayList;

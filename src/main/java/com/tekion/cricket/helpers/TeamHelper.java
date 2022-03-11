@@ -2,12 +2,12 @@ package com.tekion.cricket.helpers;
 
 import com.tekion.cricket.constants.StringUtils;
 import com.tekion.cricket.enums.WicketType;
-import com.tekion.cricket.models.Match;
-import com.tekion.cricket.models.Player;
-import com.tekion.cricket.models.Team;
+import com.tekion.cricket.beans.Match;
+import com.tekion.cricket.beans.Player;
+import com.tekion.cricket.beans.Team;
 import com.tekion.cricket.enums.PlayerState;
 import com.tekion.cricket.enums.PlayerType;
-import com.tekion.cricket.models.Wicket;
+import com.tekion.cricket.beans.Wicket;
 import com.tekion.cricket.repository.MatchRepository;
 
 import java.sql.SQLException;

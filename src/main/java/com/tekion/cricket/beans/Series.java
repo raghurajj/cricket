@@ -1,6 +1,5 @@
-package com.tekion.cricket.models;
+package com.tekion.cricket.beans;
 import com.tekion.cricket.helpers.SeriesHelper;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;

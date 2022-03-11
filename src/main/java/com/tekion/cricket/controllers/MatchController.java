@@ -1,6 +1,6 @@
 package com.tekion.cricket.controllers;
 
-import com.tekion.cricket.dataTypes.*;
+import com.tekion.cricket.models.*;
 import com.tekion.cricket.enums.MatchType;
 import com.tekion.cricket.repository.MatchRepository;
 import com.tekion.cricket.repository.PlayerRepository;

@@ -1,4 +1,4 @@
-package com.tekion.cricket.models;
+package com.tekion.cricket.beans;
 
 import com.tekion.cricket.interfaces.Observer;
 import com.tekion.cricket.enums.PlayerState;

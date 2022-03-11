@@ -1,6 +1,6 @@
 package com.tekion.cricket.helpers;
 
-import com.tekion.cricket.models.Player;
+import com.tekion.cricket.beans.Player;
 import com.tekion.cricket.enums.PlayerType;
 
 import java.util.Random;

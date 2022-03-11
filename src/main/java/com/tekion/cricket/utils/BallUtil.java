@@ -1,9 +1,9 @@
 package com.tekion.cricket.utils;
 
 import com.tekion.cricket.interfaces.Observer;
-import com.tekion.cricket.models.Player;
+import com.tekion.cricket.beans.Player;
 import com.tekion.cricket.interfaces.Ball;
-import com.tekion.cricket.models.Team;
+import com.tekion.cricket.beans.Team;
 import com.tekion.cricket.helpers.BallUtilHelper;
 
 import java.util.ArrayList;

@@ -2,10 +2,8 @@ package com.tekion.cricket.dbconnector;
 
 import com.tekion.cricket.PrivateData;
 import com.tekion.cricket.constants.StringUtils;
-import com.tekion.cricket.models.*;
 
 import java.sql.*;
-import java.util.List;
 
 public class MySqlConnector {
     private static Connection connection = null;

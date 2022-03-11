@@ -1,8 +1,8 @@
 package com.tekion.cricket.repository;
 
 import com.tekion.cricket.dbconnector.MySqlConnector;
-import com.tekion.cricket.dataTypes.SeriesDb;
-import com.tekion.cricket.models.Series;
+import com.tekion.cricket.models.SeriesDb;
+import com.tekion.cricket.beans.Series;
 
 import java.sql.*;
 

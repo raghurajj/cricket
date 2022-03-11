@@ -1,4 +1,4 @@
-package com.tekion.cricket.dataTypes;
+package com.tekion.cricket.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -1,6 +1,6 @@
 package com.tekion.cricket.controllers;
 
-import com.tekion.cricket.dataTypes.PlayerInfo;
+import com.tekion.cricket.models.PlayerInfo;
 import com.tekion.cricket.repository.PlayerRepository;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;

@@ -1,4 +1,4 @@
-package com.tekion.cricket.models;
+package com.tekion.cricket.beans;
 import com.tekion.cricket.enums.PlayerState;
 import com.tekion.cricket.enums.PlayerType;
 import org.springframework.stereotype.Component;

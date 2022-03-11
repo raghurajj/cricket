@@ -2,8 +2,8 @@ package com.tekion.cricket.utils;
 
 import com.tekion.cricket.constants.StringUtils;
 import com.tekion.cricket.helpers.MatchHelper;
-import com.tekion.cricket.models.Match;
-import com.tekion.cricket.models.Team;
+import com.tekion.cricket.beans.Match;
+import com.tekion.cricket.beans.Team;
 import com.tekion.cricket.helpers.MatchUtilHelper;
 import com.tekion.cricket.repository.TeamRepository;
 

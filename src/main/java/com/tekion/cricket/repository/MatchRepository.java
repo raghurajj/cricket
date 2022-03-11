@@ -1,12 +1,11 @@
 package com.tekion.cricket.repository;
 
 import com.tekion.cricket.dbconnector.MySqlConnector;
-import com.tekion.cricket.dataTypes.MatchData;
-import com.tekion.cricket.dataTypes.MatchDb;
-import com.tekion.cricket.dataTypes.PlayerData;
-import com.tekion.cricket.models.Match;
-import com.tekion.cricket.models.Wicket;
-import org.springframework.cache.annotation.CacheConfig;
+import com.tekion.cricket.models.MatchData;
+import com.tekion.cricket.models.MatchDb;
+import com.tekion.cricket.models.PlayerData;
+import com.tekion.cricket.beans.Match;
+import com.tekion.cricket.beans.Wicket;
 
 import java.sql.*;
 import java.util.ArrayList;

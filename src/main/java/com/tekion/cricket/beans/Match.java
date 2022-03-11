@@ -1,4 +1,4 @@
-package com.tekion.cricket.models;
+package com.tekion.cricket.beans;
 import com.tekion.cricket.helpers.MatchHelper;
 import org.springframework.stereotype.Component;
 
