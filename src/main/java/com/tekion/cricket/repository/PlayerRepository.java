@@ -3,7 +3,7 @@ package com.tekion.cricket.repository;
 import com.tekion.cricket.dbconnector.MySqlConnector;
 import com.tekion.cricket.models.PlayerData;
 import com.tekion.cricket.models.PlayerDb;
-import com.tekion.cricket.models.PlayerInfo;
+import com.tekion.cricket.models.PlayerBasicInfo;
 import com.tekion.cricket.models.WicketData;
 import com.tekion.cricket.beans.Player;
 
@@ -46,8 +46,8 @@ public class PlayerRepository {
     /*
     get Players basic info by playerId
      */
-    public static PlayerInfo getPlayerInfoById(int id) throws SQLException, ClassNotFoundException {
-        PlayerInfo playerInfo = new PlayerInfo();
+    public static PlayerBasicInfo getPlayerInfoById(int id) throws SQLException, ClassNotFoundException {
+        PlayerBasicInfo playerInfo = new PlayerBasicInfo();
         Connection connection = MySqlConnector.getConnection();
         Statement statement = connection.createStatement();
         String query = "SELECT * FROM players where id="+id;

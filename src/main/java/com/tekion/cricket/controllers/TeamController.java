@@ -16,9 +16,9 @@ import java.sql.SQLException;
 @CacheConfig(cacheNames = {"cricket"})
 public class TeamController {
 
-    @GetMapping("{id}")
+    @GetMapping("/{team_id}")
     @Cacheable()
-    public TeamDb getTeamInfo(@PathVariable int id) throws SQLException, ClassNotFoundException {
-        return TeamRepository.getTeamById(id);
+    public TeamDb getTeamInfo(@PathVariable int team_id) throws SQLException, ClassNotFoundException {
+        return TeamRepository.getTeamById(team_id);
     }
 }

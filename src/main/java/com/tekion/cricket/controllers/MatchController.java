@@ -21,7 +21,7 @@ import java.util.Map;
 @CacheConfig(cacheNames = {"cricket"})
 public class MatchController {
 
-    @PostMapping("{match_type}")
+    @PostMapping("/{match_type}")
     public ResponseEntity<Map<String,Object>> startMatch(@PathVariable("match_type") MatchType matchType, @RequestBody MatchRequest data, @RequestParam(name="number_of_matches",required = false, defaultValue = "1") String totalGames)
     {
         int overs = data.getNumberOfOvers();
@@ -36,20 +36,20 @@ public class MatchController {
     }
 
 
-    @GetMapping("single/{match_id}")
+    @GetMapping("/single/{match_id}")
     @Cacheable()
     public MatchDb getMatch(@PathVariable(name="match_id") int matchId) throws SQLException, ClassNotFoundException {
         return MatchRepository.getMatchById(matchId);
     }
 
 
-    @GetMapping("series/{series_id}")
+    @GetMapping("/series/{series_id}")
     @Cacheable()
     public SeriesDb getSeries(@PathVariable(name="series_id") int seriesId) throws SQLException, ClassNotFoundException {
         return SeriesRepository.getSeriesById(seriesId);
     }
 
-    @GetMapping("{match_id}/players/{player_id}")
+    @GetMapping("/{match_id}/players/{player_id}")
     @Cacheable()
     public PlayerDb getPlayerData(@PathVariable(name="match_id")  int matchId, @PathVariable(name="player_id") int playerId) throws SQLException, ClassNotFoundException {
         return PlayerRepository.getPlayerStats(matchId,playerId);

@@ -2,7 +2,7 @@ package com.tekion.cricket.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PlayerInfo {
+public class PlayerBasicInfo {
     int id;
     String name;
     String type;
