@@ -18,7 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(path="/matches")
-@CacheConfig(cacheNames = {"cricket"})
+@CacheConfig(cacheNames = {"matches"})
 public class MatchController {
 
     @PostMapping("/{match_type}")

@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class CaffeineCacheConfig {
     @Value("${spring.cache.cache-names}")
-    private String cacheName;
+    private String[] cacheNames;
     @Value("${spring.cache.caffeine.spec.initialCapacity}")
     private int initialCapacity;
     @Value("${spring.cache.caffeine.spec.maximumSize}")
@@ -24,7 +24,7 @@ public class CaffeineCacheConfig {
     @Bean
     public CacheManager cacheManager()
     {
-        CaffeineCacheManager cacheManager = new CaffeineCacheManager(cacheName);
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager(cacheNames);
         cacheManager.setCaffeine(caffeineCacheBuilder());
         return cacheManager;
     }

@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 @RestController
 @RequestMapping(path="/teams")
-@CacheConfig(cacheNames = {"cricket"})
+@CacheConfig(cacheNames = {"teams"})
 public class TeamController {
 
     @GetMapping("/{team_id}")
