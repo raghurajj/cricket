@@ -55,25 +55,4 @@ public class MatchUtilHelper {
         return series;
     }
 
-
-
-    /*
-    to decide whether to play a match or series
-    and get match data like number of overs
-     */
-    public static int getMatchData(MatchUtil matchService, String choice, int overs, int totalGames)
-    {
-        MatchType matchType = (choice == "single" ? MatchType.SINGLE : MatchType.SERIES);
-        switch (matchType) {
-            case SINGLE:
-                return matchService.playSingleMatch(overs);
-            case SERIES:
-                return matchService.playSeries(overs,totalGames);
-            default:
-                System.out.println(StringUtils.MAIN_SWITCH_DEFAULT_MESSAGE);
-
-        }
-
-        return -1;
-    }
 }

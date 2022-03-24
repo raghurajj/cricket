@@ -6,6 +6,9 @@ import com.tekion.cricket.beans.Match;
 import com.tekion.cricket.beans.Team;
 import com.tekion.cricket.helpers.MatchUtilHelper;
 import com.tekion.cricket.repository.TeamRepository;
+import org.jeasy.rules.api.*;
+import org.jeasy.rules.core.DefaultRulesEngine;
+import org.jeasy.rules.core.RuleBuilder;
 
 import java.sql.SQLException;
 
@@ -47,23 +50,43 @@ public class MatchUtil {
 
     public int initialiseGame(String matchType, int overs, int totalGames,String firstTeamName, String secondTeamName)
     {
+        Facts facts = new Facts();
+        facts.put("matchType", matchType);
         this.setTeams(firstTeamName,secondTeamName);
         this.totalAvailableBalls = overs*6;
-        return MatchUtilHelper.getMatchData(this,matchType,overs,totalGames);
+        Rule singleMatchRule = new RuleBuilder()
+                .name("single match rule")
+                .description("checks if matchType==single and then calls playSingleMatch function")
+                .when( tmp -> facts.get("matchType").equals("single"))
+                .then(tmp -> this.playSingleMatch(facts))
+                .build();
+
+        Rule seriesRule = new RuleBuilder()
+                .name("series match rule")
+                .description("checks if matchType==series and then calls playSeries function")
+                .when(tmp -> facts.get("matchType").equals("series"))
+                .then(tmp-> this.playSeries(totalGames,facts))
+                .build();
+
+        Rules rules = new Rules();
+        rules.register(singleMatchRule);
+        rules.register(seriesRule);
+
+        RulesEngine rulesEngine = new DefaultRulesEngine();
+        rulesEngine.fire(rules, facts);
+
+        return facts.get("gameId");
     }
 
-    public int playSingleMatch(int overs)
+    public void playSingleMatch(Facts facts)
     {
         Match match = MatchUtilHelper.playSingleMatch(firstTeam, secondTeam,totalAvailableBalls);
         MatchHelper.insertMatchIntoDb(match);
-        return match.getId();
+        facts.put("gameId",match.getId());
     }
 
-    public int playSeries(int overs, int totalGames)
+    public void playSeries(int totalGames, Facts facts)
     {
-        return (MatchUtilHelper.playSeries(firstTeam,secondTeam,totalGames,overs*6)).getId();
+        facts.put("gameId",(MatchUtilHelper.playSeries(firstTeam,secondTeam,totalGames,totalAvailableBalls)).getId());
     }
-
-
-
 }
