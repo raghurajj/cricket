@@ -156,11 +156,12 @@ public class TeamHelper {
     public static void handleWicket(Team team,Team opposition)
     {
         team.getPlayerByIndex(team.getStrikerPlayer()).setPlayerState(PlayerState.OUT);
-        Wicket wicket  = new Wicket();
         WicketType wicketType = getWicketType();
-        wicket.setWicketType(wicketType);
-        wicket.setHelper(getWicketHelper(opposition,wicketType));
-        wicket.setBowler(opposition.getPlayerByIndex(opposition.getCurrentBowler()));
+        Wicket wicket  = new Wicket.Builder(opposition.getPlayerByIndex(opposition.getCurrentBowler()))
+                .type(wicketType)
+                .helper(getWicketHelper(opposition,wicketType))
+                .build();
+
         team.getPlayerByIndex(team.getStrikerPlayer()).setWicket(wicket);
         if(team.getNextPlayer()<11){
             team.setStrikerPlayer(team.getNextPlayer());

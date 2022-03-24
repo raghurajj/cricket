@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 /*
 holds all the necessary info about a player
  */
-@Component
 public class Player {
     int id;
     private String name;

@@ -1,4 +1,5 @@
 package com.tekion.cricket.beans;
+import com.tekion.cricket.enums.WicketType;
 import com.tekion.cricket.helpers.SeriesHelper;
 
 import java.util.ArrayList;
@@ -16,6 +17,33 @@ public class Series {
     private Team secondTeam;
     private int totalAvailableBalls;
     String winner;
+
+    public static class Builder {
+
+        private Team firstTeam;
+        private Team secondTeam;
+        private int numberOfGames;
+        private int totalAvailableBalls;
+
+        public Builder(Team firstTeam, Team secondTeam) {
+            this.firstTeam = firstTeam;
+            this.secondTeam = secondTeam;
+        }
+
+        public Builder numberOfGames(int totalGames) {
+            numberOfGames = totalGames;
+            return this;
+        }
+
+        public Builder totalBalls(int totalBalls) {
+            totalAvailableBalls = totalBalls;
+            return this;
+        }
+
+        public Series build() {
+            return new Series(this);
+        }
+    }
 
     public int getId() {
         return id;
@@ -48,12 +76,12 @@ public class Series {
 
     public Series(){}
 
-    public Series(Team firstTeam, Team secondTeam, int numberOfGames, int totalAvailableBalls)
+    public Series(Builder builder)
     {
-        this.firstTeam=firstTeam;
-        this.secondTeam = secondTeam;
-        this.totalAvailableBalls = totalAvailableBalls;
-        this.numberOfGames = numberOfGames;
+        this.firstTeam=builder.firstTeam;
+        this.secondTeam = builder.secondTeam;
+        this.totalAvailableBalls = builder.totalAvailableBalls;
+        this.numberOfGames = builder.numberOfGames;
         matches = new ArrayList<Match>(numberOfGames);
         SeriesHelper.insertSeriesIntoDb(this);
     }

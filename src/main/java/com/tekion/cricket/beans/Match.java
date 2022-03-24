@@ -8,7 +8,6 @@ stores data of a match
 i.e. batting team,bowling team [switched after an inning]
 winner etc.
  */
-@Component
 public class Match {
     int id;
     private Team battingTeam;

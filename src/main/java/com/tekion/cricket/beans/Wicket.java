@@ -7,35 +7,51 @@ import org.springframework.stereotype.Component;
 /*
 holds all the info regarding a wicket
  */
-@Component
 public class Wicket {
-    private Player bowler;
-    private WicketType wicketType;
-    private Player helper;
+    private final Player bowler;
+    private final WicketType wicketType;
+    private final Player helper;
 
-    public Wicket(){}
+    public static class Builder {
+
+        private final Player bowler;
+        private WicketType wicketType;
+        private Player helper;
+
+        public Builder(Player bowler) {
+            this.bowler = bowler;
+        }
+
+        public Builder helper(Player wicketHelper) {
+            helper = wicketHelper;
+            return this;
+        }
+
+        public Builder type(WicketType type) {
+            wicketType = type;
+            return this;
+        }
+
+        public Wicket build() {
+            return new Wicket(this);
+        }
+    }
+
+    private Wicket(Builder builder){
+        bowler = builder.bowler;
+        wicketType = builder.wicketType;
+        helper = builder.helper;
+    }
 
     public Player getBowler() {
         return bowler;
-    }
-
-    public void setBowler(Player bowler) {
-        this.bowler = bowler;
     }
 
     public WicketType getWicketType() {
         return wicketType;
     }
 
-    public void setWicketType(WicketType wicketType) {
-        this.wicketType = wicketType;
-    }
-
     public Player getHelper() {
         return helper;
-    }
-
-    public void setHelper(Player helper) {
-        this.helper = helper;
     }
 }

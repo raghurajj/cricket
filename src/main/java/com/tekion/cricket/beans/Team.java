@@ -11,7 +11,6 @@ import java.util.List;
 /*
 holds all the info regarding a team
  */
-@Component
 public class Team implements Observer {
     int id;
     private String teamName;

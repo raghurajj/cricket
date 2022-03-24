@@ -47,7 +47,10 @@ public class MatchUtilHelper {
     public static Series playSeries(Team firstTeam, Team secondTeam,int totalGames, int totalAvailableBalls)
     {
 
-        Series series = new Series(firstTeam,secondTeam,totalGames,totalAvailableBalls);
+        Series series = new Series.Builder(firstTeam,secondTeam)
+                .numberOfGames(totalGames)
+                .totalBalls(totalAvailableBalls)
+                .build();
         series.playSeries();
         return series;
     }
