@@ -8,7 +8,7 @@ import com.tekion.cricket.models.SeriesDb;
 import com.tekion.cricket.repository.MatchRepository;
 import com.tekion.cricket.repository.PlayerRepository;
 import com.tekion.cricket.repository.SeriesRepository;
-import com.tekion.cricket.rules.GameRuleEngine;
+import com.tekion.cricket.rules.GameTypeRule;
 import com.tekion.cricket.services.interfaces.IMatchService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +26,7 @@ public class MatchService implements IMatchService {
         int overs = matchRequestObject.getNumberOfOvers();
         String firstTeamName = matchRequestObject.getFirstTeamName();
         String secondTeamName = matchRequestObject.getSecondTeamName();
-        GameRuleEngine gameRuleEngine = new GameRuleEngine();
+        GameTypeRule gameRuleEngine = new GameTypeRule();
 
         switch (matchType){
             case SINGLE:

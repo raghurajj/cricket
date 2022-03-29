@@ -9,6 +9,7 @@ import com.tekion.cricket.enums.PlayerState;
 import com.tekion.cricket.enums.PlayerType;
 import com.tekion.cricket.beans.Wicket;
 import com.tekion.cricket.repository.MatchRepository;
+import com.tekion.cricket.rules.WicketTypeRule;
 
 import java.sql.SQLException;
 import java.util.Random;
@@ -97,38 +98,6 @@ public class TeamHelper {
 
 
     /*
-    return a type of wicket according to following
-    probability distribution
-    caught:34,bold:20,lbw:30,runOut:8,hitWicket:2,Stumped:6
-     */
-    public static WicketType getWicketType()
-    {
-        int random = getRandom(1,100);
-        if(random>=1 && random<35)
-        {
-            return WicketType.CAUGHT;
-        }
-        else if(random>=35 && random<55)
-        {
-            return WicketType.BOLD;
-        }
-        else if(random>=55 && random<85)
-        {
-            return WicketType.LBW;
-        }
-        else if(random>=85 && random<93)
-        {
-            return  WicketType.RUN_OUT;
-        }
-        else if(random>=93 && random<95)
-            return  WicketType.HIT_WICKET;
-        else{
-            return WicketType.STUMPED;
-        }
-    }
-
-
-    /*
     returns the player who caught or run-out a batsman
     (if applicable) else returns null
      */
@@ -156,7 +125,7 @@ public class TeamHelper {
     public static void handleWicket(Team team,Team opposition)
     {
         team.getPlayerByIndex(team.getStrikerPlayer()).setPlayerState(PlayerState.OUT);
-        WicketType wicketType = getWicketType();
+        WicketType wicketType = WicketTypeRule.getWicketType();
         Wicket wicket  = new Wicket.Builder(opposition.getPlayerByIndex(opposition.getCurrentBowler()))
                 .type(wicketType)
                 .helper(getWicketHelper(opposition,wicketType))
