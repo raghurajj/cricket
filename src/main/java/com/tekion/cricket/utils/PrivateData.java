@@ -1,4 +1,4 @@
-package com.tekion.cricket;
+package com.tekion.cricket.utils;
 
 /*
 stores all the private data

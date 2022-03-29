@@ -5,8 +5,12 @@ import com.tekion.cricket.beans.Match;
 import com.tekion.cricket.beans.Series;
 import com.tekion.cricket.beans.Team;
 import com.tekion.cricket.constants.StringUtils;
+import com.tekion.cricket.repository.TeamRepository;
 import com.tekion.cricket.utils.MatchUtil;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -25,6 +29,27 @@ public class MatchUtilHelper {
         System.out.println("Enter Name of the "+ teamNumber+" Team");
         teamName = sc.nextLine();
         return new Team(teamName, totalAvailableBalls, teamPlayers);
+    }
+
+    public static List setTeams(String firstTeamName, String secondTeamName, int totalAvailableBalls)
+    {
+        Team firstTeam = new Team(firstTeamName, totalAvailableBalls,StringUtils.FIRST_TEAM_PLAYERS);
+        Team secondTeam = new Team(secondTeamName,totalAvailableBalls, StringUtils.SECOND_TEAM_PLAYERS);
+
+        try {
+            TeamRepository.insertTeam(firstTeam);
+            TeamRepository.insertTeam(secondTeam);
+            System.out.println("Teams inserted into db!!");
+        } catch(SQLException sqle){
+            System.out.println(sqle);
+        } catch(Exception e){
+            System.out.println("DB Error");
+        }
+
+        List<Team> teams= new ArrayList<>();
+        teams.add(firstTeam);
+        teams.add(secondTeam);
+        return teams;
     }
 
 

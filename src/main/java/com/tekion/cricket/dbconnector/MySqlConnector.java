@@ -1,6 +1,6 @@
 package com.tekion.cricket.dbconnector;
 
-import com.tekion.cricket.PrivateData;
+import com.tekion.cricket.utils.PrivateData;
 import com.tekion.cricket.constants.StringUtils;
 
 import java.sql.*;

@@ -3,7 +3,6 @@ import com.tekion.cricket.dbconnector.MySqlConnector;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -16,9 +15,9 @@ import java.sql.SQLException;
 @SpringBootApplication
 @EnableSwagger2
 @EnableCaching
-public class Main {
+public class CricketGameApplication {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        SpringApplication.run(Main.class,args);
+        SpringApplication.run(CricketGameApplication.class,args);
 
         MySqlConnector.initializeConnection();
     }

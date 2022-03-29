@@ -10,13 +10,13 @@ holds all info about a series i.e.
 teams,oversCount,matchCount,winner etc.
  */
 public class Series {
-    int id;
+    private int id;
     private int numberOfGames;
     private List<Match> matches;
     private Team firstTeam;
     private Team secondTeam;
     private int totalAvailableBalls;
-    String winner;
+    private String winner;
 
     public static class Builder {
 
