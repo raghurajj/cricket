@@ -1,22 +1,22 @@
 ## Sequence Diagram:
-![](src/main/java/cricket_sequence_diagram.png)
+![](src/main/java/com/tekion/cricket/staticfiles/cricket_sequence_diagram.png)
 
 
 ## Class Diagram
 
-![](src/main/java/classDiagram.png)
+![](src/main/java/com/tekion/cricket/staticfiles/classDiagram.png)
 
 
 ## Database Design Diagram
 
-![](src/main/java/database_design_diagram.png)
+![](src/main/java/com/tekion/cricket/staticfiles/database_design_diagram.png)
 
 
 ### swagger api:
 * Available at: ('baseUrl/swagger-ui.html')
 * Full api doc (pdf) is available in base directory.
 
-![](src/main/java/swagger_docs.png)
+![](src/main/java/com/tekion/cricket/staticfiles/swagger_docs.png)
 
 ### Load Testing Simulation Results (for 1000 requests)
 * below are the results of load testing simulations on the
@@ -25,28 +25,28 @@
 
 
 #### for url ('/matches/{match_type}')
-![](src//main/resources/simulations/playMatchSimulation.png)
+![](src/main/java/com/tekion/cricket/staticfiles/simulations/playMatchSimulation.png)
 
 
 ### Before Caching
 * both these api calls were taking >1200ms time
 
 #### for url ('/matches/single/{match_id}')
-![](src//main/resources/simulations/getMatchSimulationBeforeCaching.png)
+![](src/main/java/com/tekion/cricket/staticfiles/simulations/getMatchSimulationBeforeCaching.png)
 
 
 #### for url ('/matches/{match_id}/players/{player_id}'')
-![](src//main/resources/simulations/getPlayerSimulationBeforeCaching.png)
+![](src/main/java/com/tekion/cricket/staticfiles/simulations/getPlayerSimulationBeforeCaching.png)
 
 
 ### After Caching
 * both these api calls were taking <800ms time
 #### for url ('/matches/single/{match_id}')
-![](src//main/resources/simulations/getMatchSimulationAfterCaching.png)
+![](src/main/java/com/tekion/cricket/staticfiles/simulations/getMatchSimulationAfterCaching.png)
 
 
 #### for url ('/matches/{match_id}/players/{player_id}'')
-![](src//main/resources/simulations/getPlayerSimulationAfterCaching.png)
+![](src/main/java/com/tekion/cricket/staticfiles/simulations/getPlayerSimulationAfterCaching.png)
 
 
 # Game Flow

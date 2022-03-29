@@ -2,6 +2,8 @@ package com.tekion.cricket.controllers;
 
 import com.tekion.cricket.models.PlayerBasicInfo;
 import com.tekion.cricket.repository.PlayerRepository;
+import com.tekion.cricket.services.PlayerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +17,13 @@ import java.sql.SQLException;
 @RequestMapping(path="/players")
 @CacheConfig(cacheNames = {"players"})
 public class PlayerController {
+
+    @Autowired
+    private PlayerService playerService;
+
     @GetMapping("/{player_id}")
     @Cacheable()
     public PlayerBasicInfo getPlayerInfo(@PathVariable int player_id) throws SQLException, ClassNotFoundException {
-        return PlayerRepository.getPlayerInfoById(player_id);
+        return playerService.getPlayerInfo(player_id);
     }
 }

@@ -1,12 +1,10 @@
 package com.tekion.cricket.helpers;
 
-import com.tekion.cricket.enums.MatchType;
 import com.tekion.cricket.beans.Match;
 import com.tekion.cricket.beans.Series;
 import com.tekion.cricket.beans.Team;
 import com.tekion.cricket.constants.StringUtils;
 import com.tekion.cricket.repository.TeamRepository;
-import com.tekion.cricket.utils.MatchUtil;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
