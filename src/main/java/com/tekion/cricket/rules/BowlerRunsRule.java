@@ -11,7 +11,7 @@ import static com.tekion.cricket.helpers.TeamHelper.getRandom;
 
 public class BowlerRunsRule {
 
-    public static Rule zeroRule()
+    public static Rule zeroRunRule()
     {
         return new RuleBuilder()
                 .name("0 run rule")
@@ -107,7 +107,7 @@ public class BowlerRunsRule {
         facts.put("random",random);
         Rules rules = new Rules();
 
-        rules.register(zeroRule());
+        rules.register(zeroRunRule());
         rules.register(oneRunRule());
         rules.register(twoRunRule());
         rules.register(threeRule());
