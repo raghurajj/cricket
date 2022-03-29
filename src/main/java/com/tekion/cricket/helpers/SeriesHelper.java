@@ -3,6 +3,7 @@ package com.tekion.cricket.helpers;
 import com.tekion.cricket.beans.Match;
 import com.tekion.cricket.beans.Series;
 import com.tekion.cricket.beans.Team;
+import com.tekion.cricket.constants.StringUtils;
 import com.tekion.cricket.repository.SeriesRepository;
 
 import java.sql.SQLException;
@@ -28,7 +29,7 @@ public class SeriesHelper {
             match.setSeriesId(series.getId());
             if (match.getWinner().equals(firstTeam.getTeamName())) matchesWonByFirstTeam++;
             else if (match.getWinner().equals(secondTeam.getTeamName())) matchesWonBySecondTeam++;
-            else if (match.getWinner().equals("TIE")) countTies++;
+            else if (match.getWinner().equals(StringUtils.TIE)) countTies++;
             else countDraws++;
             matches.add(match);
             MatchHelper.insertMatchIntoDb(match);
@@ -38,7 +39,7 @@ public class SeriesHelper {
         }
         if(matchesWonByFirstTeam>matchesWonBySecondTeam)series.setWinner(firstTeam.getTeamName());
         else if(matchesWonByFirstTeam<matchesWonBySecondTeam)series.setWinner(secondTeam.getTeamName());
-        else series.setWinner("TIE");
+        else series.setWinner(StringUtils.TIE);
         System.out.println("\n\n ||   Series Result: "+firstTeam.getTeamName()+" "+matchesWonByFirstTeam+" - "+matchesWonBySecondTeam+" "+secondTeam.getTeamName()+"  || \n\n\n");
     }
 

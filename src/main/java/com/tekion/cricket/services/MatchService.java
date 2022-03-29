@@ -31,11 +31,11 @@ public class MatchService implements IMatchService {
         switch (matchType){
             case SINGLE:
                 res.put("match_id",gameRuleEngine.initialiseGame
-                        ("single",overs,1,firstTeamName,secondTeamName));
+                        (MatchType.SINGLE,overs,1,firstTeamName,secondTeamName));
                 break;
             case SERIES:
                 res.put("series_id",gameRuleEngine.initialiseGame
-                        ("series",overs,totalGames,firstTeamName,secondTeamName));
+                        (MatchType.SERIES,overs,totalGames,firstTeamName,secondTeamName));
                 break;
         }
 

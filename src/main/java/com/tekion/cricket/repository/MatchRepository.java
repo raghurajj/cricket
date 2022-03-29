@@ -147,14 +147,12 @@ public class MatchRepository {
         ResultSet rs = statement.executeQuery(query);
         if(rs.next())
         {
-
             matchData.setTeamId(teamId);
             matchData.setScore(rs.getInt("team_score"));
             matchData.setWickets(rs.getInt("number_of_wickets_fell"));
             matchData.setOvers(rs.getFloat("overs"));
         }
         return matchData;
-
     }
 
     /*

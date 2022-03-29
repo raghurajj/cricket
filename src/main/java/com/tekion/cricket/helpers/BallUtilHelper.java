@@ -14,7 +14,7 @@ public class BallUtilHelper {
 
     /*
     returns ball result for a particular ball
-    according to the batsman type
+    according to the player type
      */
     public static int getBallResult(Player batsmen)
     {
