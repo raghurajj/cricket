@@ -41,7 +41,7 @@ public class BowlerRunsRule {
                 .build();
     }
 
-    public static Rule threeRule()
+    public static Rule threeRunRule()
     {
         return new RuleBuilder()
                 .name("3 runs rule")
@@ -52,7 +52,7 @@ public class BowlerRunsRule {
     }
 
 
-    public static Rule fourRule()
+    public static Rule fourRunRule()
     {
         return new RuleBuilder()
                 .name("4 runs rule")
@@ -63,7 +63,7 @@ public class BowlerRunsRule {
     }
 
 
-    public static Rule fiveRule()
+    public static Rule fiveRunRule()
     {
         return new RuleBuilder()
                 .name("5 runs rule")
@@ -110,9 +110,9 @@ public class BowlerRunsRule {
         rules.register(zeroRunRule());
         rules.register(oneRunRule());
         rules.register(twoRunRule());
-        rules.register(threeRule());
-        rules.register(fourRule());
-        rules.register(fiveRule());
+        rules.register(threeRunRule());
+        rules.register(fourRunRule());
+        rules.register(fiveRunRule());
         rules.register(sixRunRule());
         rules.register(wicketRule());
 

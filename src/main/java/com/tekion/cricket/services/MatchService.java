@@ -26,15 +26,14 @@ public class MatchService implements IMatchService {
         int overs = matchRequestObject.getNumberOfOvers();
         String firstTeamName = matchRequestObject.getFirstTeamName();
         String secondTeamName = matchRequestObject.getSecondTeamName();
-        GameTypeRule gameRuleEngine = new GameTypeRule();
 
         switch (matchType){
             case SINGLE:
-                res.put("match_id",gameRuleEngine.initialiseGame
+                res.put("match_id",GameTypeRule.initialiseGame
                         (MatchType.SINGLE,overs,1,firstTeamName,secondTeamName));
                 break;
             case SERIES:
-                res.put("series_id",gameRuleEngine.initialiseGame
+                res.put("series_id",GameTypeRule.initialiseGame
                         (MatchType.SERIES,overs,totalGames,firstTeamName,secondTeamName));
                 break;
         }
