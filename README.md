@@ -1,3 +1,15 @@
+## J-easy Rule Engine Powered Cricket Game Application
+
+* ### pros of using j-easy rule engine
+    * Rule systems are capable of solving very, very hard problems, providing an explanation of how the solution was arrived at and why each "decision" along the way was made.
+    * Have better speed and scalability than if-else etc.
+    * Rule systems effectively provide an "explanation facility" by being able to log the decisions made by the rule engine along with why the decisions were made.
+    * Instead of the logic being spread across many domain objects or controllers, it can all be organized in one or more very distinct rules files.
+
+* ### cons of using j-easy rule engine
+    * Requires more coding than if-else etc.
+  
+
 ## Sequence Diagram:
 ![](src/main/java/com/tekion/cricket/staticfiles/cricket_sequence_diagram.png)
 

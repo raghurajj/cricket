@@ -3,6 +3,7 @@ package com.tekion.cricket.helpers;
 import com.tekion.cricket.beans.Player;
 import com.tekion.cricket.enums.PlayerType;
 import com.tekion.cricket.rules.BatsmanRunsRule;
+import com.tekion.cricket.rules.BowlerRunsRule;
 
 import java.util.Random;
 
@@ -18,12 +19,14 @@ public class BallUtilHelper {
      */
     public static int getBallResult(Player batsmen)
     {
-        if((batsmen.getPlayerType() == PlayerType.BATSMAN) || (batsmen.getPlayerType() == PlayerType.ALLROUNDER))
-        {
-                return BatsmanRunsRule.getBallResult();
-        }
-        else{
-                return BatsmanRunsRule.getBallResult();
+        switch (batsmen.getPlayerType()){
+            case BATSMAN:
+            case ALLROUNDER:
+                return  BatsmanRunsRule.getBallResult();
+            case BOWLER:
+                return BowlerRunsRule.getBallResult();
+            default:
+                return 0;
         }
     }
 }
