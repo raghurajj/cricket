@@ -1,5 +1,6 @@
 package com.tekion.cricket.rules;
 
+import com.tekion.cricket.constants.StringUtils;
 import com.tekion.cricket.enums.WicketType;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
@@ -15,8 +16,8 @@ public class WicketTypeRule {
     public static Rule catchRule()
     {
         return new RuleBuilder()
-                .name("catch out rule")
-                .description("checks if random number is greater than equal to 1 and less than 35")
+                .name(StringUtils.CATCHRULE)
+                .description(StringUtils.CATCHDESC)
                 .when( facts -> (int)facts.get("random")>=1 && (int)facts.get("random")<35)
                 .then(facts -> facts.put("wicketType",WicketType.CAUGHT))
                 .build();
@@ -25,8 +26,8 @@ public class WicketTypeRule {
     public static Rule boldRule()
     {
         return new RuleBuilder()
-                .name("bold rule")
-                .description("checks if random number is greater than equal to 35 and less than 55")
+                .name(StringUtils.BOLDRULE)
+                .description(StringUtils.BOLDDESC)
                 .when( facts -> (int)facts.get("random")>=35 && (int)facts.get("random")<55)
                 .then(facts -> facts.put("wicketType",WicketType.BOLD))
                 .build();
@@ -35,8 +36,8 @@ public class WicketTypeRule {
     public static Rule lbwRule()
     {
         return new RuleBuilder()
-                .name("lbw rule")
-                .description("checks if random number is greater than equal to 55 and less than 85")
+                .name(StringUtils.LBWRULE)
+                .description(StringUtils.LBWDESC)
                 .when( facts -> (int)facts.get("random")>=55 && (int)facts.get("random")<85)
                 .then(facts -> facts.put("wicketType",WicketType.LBW))
                 .build();
@@ -46,8 +47,8 @@ public class WicketTypeRule {
     public static Rule runOutRule()
     {
         return new RuleBuilder()
-                .name("run out rule")
-                .description("checks if random number is greater than equal to 85 and less than 93")
+                .name(StringUtils.RUNOUTRULE)
+                .description(StringUtils.RUNOUTDESC)
                 .when( facts -> (int)facts.get("random")>=85 && (int)facts.get("random")<93)
                 .then(facts -> facts.put("wicketType",WicketType.RUN_OUT))
                 .build();
@@ -57,8 +58,8 @@ public class WicketTypeRule {
     public static Rule hitWicketRule()
     {
         return new RuleBuilder()
-                .name("hit wicket rule")
-                .description("checks if random number is greater than equal to 93 and less than 95")
+                .name(StringUtils.HITWICKETRULE)
+                .description(StringUtils.HITWICKETDESC)
                 .when( facts -> (int)facts.get("random")>=93 && (int)facts.get("random")<95)
                 .then(facts -> facts.put("wicketType",WicketType.HIT_WICKET))
                 .build();
@@ -67,8 +68,8 @@ public class WicketTypeRule {
     public static Rule stumpingRule()
     {
         return new RuleBuilder()
-                .name("stumping rule")
-                .description("checks if random number is greater than equal to 95")
+                .name(StringUtils.STUMPINGRULE)
+                .description(StringUtils.STUMPINGDESC)
                 .when( facts -> (int)facts.get("random")>=95)
                 .then(facts -> facts.put("wicketType",WicketType.STUMPED))
                 .build();

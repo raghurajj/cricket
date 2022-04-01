@@ -38,8 +38,75 @@ public class StringUtils {
     public static String BALLS_PLAYED="Balls";
     public static String BATTING_STATS = "\n Batting Stats : ----\n";
     public static String BOWLING_STATS = "\n Bowling Stats : ----\n";
-//    public static String BATTING_FIGURE_FORMAT=;
-//    public static String BOWLING_FIGURE_FORMAT=;
+
+
+    /*
+    BatsmanRunsRule
+     */
+    public static String BT0RULE = "0 run rule";
+    public static String BT1RULE = "1 run rule";
+    public static String BT2RULE = "2 run rule";
+    public static String BT3RULE = "3 run rule";
+    public static String BT4RULE = "4 run rule";
+    public static String BT5RULE = "5 run rule";
+    public static String BT6RULE = "6 run rule";
+    public static String BTWRULE = "Wicket rule";
+    public static String BT0DESC ="checks if random number is greater than equal to 1 and less than equal to 20";
+    public static String BT1DESC = "checks if random number is greater than 20 and less than equal to 45";
+    public static String BT2DESC = "checks if random number is greater than 45 and less than equal to 69";
+    public static String BT3DESC = "checks if random number is greater than 69 and less than equal to 79";
+    public static String BT4DESC="checks if random number is greater 79 and less than equal to 89";
+    public static String BT5DESC="checks if random number is equal to 90";
+    public static String BT6DESC =  "checks if random number is greater than 90 and less than equal to 95";
+    public static String BTWDESC = "checks if random number is greater than 95";
+
+
+    /*
+    BowlerRunsRule
+     */
+    public static String BW0RULE = "0 run rule";
+    public static String BW1RULE = "1 run rule";
+    public static String BW2RULE = "2 run rule";
+    public static String BW3RULE = "3 run rule";
+    public static String BW4RULE = "4 run rule";
+    public static String BW5RULE = "5 run rule";
+    public static String BW6RULE = "6 run rule";
+    public static String BWWRULE = "Wicket rule";
+    public static String BW0DESC ="checks if random number is greater than equal to 1 and less than equal to 35";
+    public static String BW1DESC = "checks if random number is greater than 35 and less than equal to 60";
+    public static String BW2DESC = "checks if random number is greater than 60 and less than equal to 77";
+    public static String BW3DESC = "checks if random number is greater than 77 and less than equal to 82";
+    public static String BW4DESC= "checks if random number is greater 82 and less than equal to 87";
+    public static String BW5DESC= "checks if random number is equal to 88";
+    public static String BW6DESC =  "checks if random number is greater than 88 and less than equal to 90";
+    public static String BWWDESC = "checks if random number is greater than 90";
+
+
+
+    /*
+    GameTypeRule
+     */
+    public static String SINGLERULE = "single match rule";
+    public static String SINGLEDESC = "checks if matchType==single and then calls playSingleMatch function";
+    public static String SERIESRULE = "series match rule";
+    public static String SERIESDESC = "checks if matchType==series and then calls playSeries function";
+
+
+    /*
+    WicketTypeRule
+     */
+    public static String CATCHRULE ="catch out rule";
+    public static String CATCHDESC = "checks if random number is greater than equal to 1 and less than 35";
+    public static String BOLDRULE = "bold rule";
+    public static String BOLDDESC = "checks if random number is greater than equal to 35 and less than 55";
+    public static String LBWRULE = "lbw rule";
+    public static String LBWDESC = "checks if random number is greater than equal to 55 and less than 85";
+    public static String RUNOUTRULE ="run out rule";
+    public static String RUNOUTDESC = "checks if random number is greater than equal to 85 and less than 93";
+    public static String HITWICKETRULE = "hit wicket rule";
+    public static String HITWICKETDESC = "checks if random number is greater than equal to 93 and less than 95";
+    public static String STUMPINGRULE="stumping rule";
+    public static String STUMPINGDESC="checks if random number is greater than equal to 95";
 
 
 

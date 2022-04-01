@@ -1,5 +1,6 @@
 package com.tekion.cricket.rules;
 
+import com.tekion.cricket.constants.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
@@ -14,8 +15,8 @@ public class BowlerRunsRule {
     public static Rule zeroRunRule()
     {
         return new RuleBuilder()
-                .name("0 run rule")
-                .description("checks if random number is greater than equal to 1 and less than equal to 35")
+                .name(StringUtils.BW0RULE)
+                .description(StringUtils.BW0DESC)
                 .when( facts -> (int)facts.get("random")>=1 && (int)facts.get("random")<=35)
                 .then(facts -> facts.put("result",0))
                 .build();
@@ -24,8 +25,8 @@ public class BowlerRunsRule {
     public static Rule oneRunRule()
     {
         return new RuleBuilder()
-                .name("1 run rule")
-                .description("checks if random number is greater than 35 and less than equal to 60")
+                .name(StringUtils.BW1RULE)
+                .description(StringUtils.BW1DESC)
                 .when( facts -> (int)facts.get("random")>35 && (int)facts.get("random")<=60)
                 .then(facts -> facts.put("result", 1))
                 .build();
@@ -34,8 +35,8 @@ public class BowlerRunsRule {
     public static Rule twoRunRule()
     {
         return new RuleBuilder()
-                .name("2 runs rule")
-                .description("checks if random number is greater than 60 and less than equal to 77")
+                .name(StringUtils.BW2RULE)
+                .description(StringUtils.BW2DESC)
                 .when( facts -> (int)facts.get("random")>60 && (int)facts.get("random")<=77)
                 .then(facts -> facts.put("result",2))
                 .build();
@@ -44,8 +45,8 @@ public class BowlerRunsRule {
     public static Rule threeRunRule()
     {
         return new RuleBuilder()
-                .name("3 runs rule")
-                .description("checks if random number is greater than 77 and less than equal to 82")
+                .name(StringUtils.BW3RULE)
+                .description(StringUtils.BW3DESC)
                 .when( facts -> (int)facts.get("random")>77 && (int)facts.get("random")<=82)
                 .then(facts -> facts.put("result",3))
                 .build();
@@ -55,8 +56,8 @@ public class BowlerRunsRule {
     public static Rule fourRunRule()
     {
         return new RuleBuilder()
-                .name("4 runs rule")
-                .description("checks if random number is greater 82 and less than equal to 87")
+                .name(StringUtils.BW4RULE)
+                .description(StringUtils.BW4DESC)
                 .when( facts -> (int)facts.get("random")>82 && (int)facts.get("random")<=87)
                 .then(facts -> facts.put("result",4))
                 .build();
@@ -66,8 +67,8 @@ public class BowlerRunsRule {
     public static Rule fiveRunRule()
     {
         return new RuleBuilder()
-                .name("5 runs rule")
-                .description("checks if random number is equal to 88")
+                .name(StringUtils.BW5RULE)
+                .description(StringUtils.BW5DESC)
                 .when( facts -> (int)facts.get("random")==88)
                 .then(facts -> facts.put("result",5))
                 .build();
@@ -76,8 +77,8 @@ public class BowlerRunsRule {
     public static Rule sixRunRule()
     {
         return new RuleBuilder()
-                .name("6 runs rule")
-                .description("checks if random number is greater than 88 and less than equal to 90")
+                .name(StringUtils.BW6RULE)
+                .description(StringUtils.BW6DESC)
                 .when( facts -> (int)facts.get("random")>88 && (int)facts.get("random")<=90)
                 .then(facts -> facts.put("result",6))
                 .build();
@@ -86,8 +87,8 @@ public class BowlerRunsRule {
     public static Rule wicketRule()
     {
         return new RuleBuilder()
-                .name("Wicket rule")
-                .description("checks if random number is greater than 90")
+                .name(StringUtils.BWWRULE)
+                .description(StringUtils.BWWDESC)
                 .when( facts -> (int)facts.get("random")>90)
                 .then(facts -> facts.put("result",7))
                 .build();

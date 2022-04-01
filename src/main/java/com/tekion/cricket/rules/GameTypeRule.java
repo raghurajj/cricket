@@ -2,6 +2,7 @@ package com.tekion.cricket.rules;
 
 import com.tekion.cricket.beans.Match;
 import com.tekion.cricket.beans.Team;
+import com.tekion.cricket.constants.StringUtils;
 import com.tekion.cricket.enums.MatchType;
 import com.tekion.cricket.helpers.MatchHelper;
 import com.tekion.cricket.helpers.MatchUtilHelper;
@@ -20,8 +21,8 @@ public class GameTypeRule {
     public static Rule singleMatchRule()
     {
         return new RuleBuilder()
-                .name("single match rule")
-                .description("checks if matchType==single and then calls playSingleMatch function")
+                .name(StringUtils.SINGLERULE)
+                .description(StringUtils.SINGLEDESC)
                 .when( facts -> facts.get("matchType").equals(MatchType.SINGLE))
                 .then(GameTypeRule::playSingleMatch)
                 .build();
@@ -30,8 +31,8 @@ public class GameTypeRule {
     public static Rule seriesRule()
     {
         return new RuleBuilder()
-                .name("series match rule")
-                .description("checks if matchType==series and then calls playSeries function")
+                .name(StringUtils.SERIESRULE)
+                .description(StringUtils.SERIESDESC)
                 .when(facts -> facts.get("matchType").equals(MatchType.SERIES))
                 .then(GameTypeRule::playSeries)
                 .build();
