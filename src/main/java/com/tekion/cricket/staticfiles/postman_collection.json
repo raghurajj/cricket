@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "9ee5a7e1-173b-449b-9bcb-9f1e45fd17c2",
+		"name": "Cricket Game",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "start a match",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"number_of_overs\":11,\n    \"first_team_name\":\"India\",\n    \"second_team_name\":\"Australia\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/cricket/v1/matches/SINGLE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cricket",
+						"v1",
+						"matches",
+						"SINGLE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "start a series",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"number_of_overs\":11,\n    \"first_team_name\":\"India\",\n    \"second_team_name\":\"Australia\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/cricket/v1/matches/SERIES?number_of_matches=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cricket",
+						"v1",
+						"matches",
+						"SERIES"
+					],
+					"query": [
+						{
+							"key": "number_of_matches",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get Player stats in a match",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cricket/v1/matches/1/players/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cricket",
+						"v1",
+						"matches",
+						"1",
+						"players",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get match info By id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cricket/v1/matches/single/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cricket",
+						"v1",
+						"matches",
+						"single",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get Series by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/cricket/v1/matches/series/21",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cricket",
+						"v1",
+						"matches",
+						"series",
+						"21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get team info by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cricket/v1/teams/113",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cricket",
+						"v1",
+						"teams",
+						"113"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get player info by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cricket/v1/players/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cricket",
+						"v1",
+						"players",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
